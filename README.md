@@ -32,7 +32,7 @@ eksctl create cluster --name=${cluster_name} \
 
 ## Step 2: Prepare an EFA-enable security group
 
-**Create an EFA-enabled security group via **[**https://console.aws.amazon.com/ec2/**](https://console.aws.amazon.com/ec2/).
+Create an EFA-enabled security group via [https://console.aws.amazon.com/ec2/**](https://console.aws.amazon.com/ec2/).
 
 Select the VPC into which the EKS cluster located in.
 
@@ -71,8 +71,8 @@ curl -o aws-auth-cm.yaml https://amazon-eks.s3.us-west-2.amazonaws.com/cloudform
 
 Open the file with your favorite text editor. Replace the `<ARN of instance role (not instance profile)>` snippet with the **NodeInstanceRole** value that you recorded in the previous procedure, and save the file.
 
-The **NodeInstanceRole **would be found in* CloudFormation > Stacks > <Stacks just created>: Outputs tab*, as the screenshots below:
-[Image: image.png]
+The **NodeInstanceRole** would be found in `CloudFormation > Stacks > <Stacks just created>: Outputs tab`, as the screenshots below:
+![Alt text](readme-resource/cfn_stack_screenshot.png)
 
 ```
 apiVersion: v1
