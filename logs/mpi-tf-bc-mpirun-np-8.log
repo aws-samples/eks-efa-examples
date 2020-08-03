@@ -1,0 +1,1364 @@
+# gaogilb @ a483e7024cd8 in /Volumes/unix/workplace/eks-efa-work/src/EKSEFAWorker on git:mainline x [0:43:59]
+$ k get pods -A
+NAMESPACE      NAME                                   READY   STATUS    RESTARTS   AGE
+kube-system    aws-node-ltscf                         1/1     Running   0          12d
+kube-system    aws-node-w9j89                         1/1     Running   0          12d
+kube-system    coredns-86d5cbb4bd-5zhcq               1/1     Running   0          12d
+kube-system    coredns-86d5cbb4bd-skpqd               1/1     Running   0          12d
+kube-system    kube-proxy-6v526                       1/1     Running   0          12d
+kube-system    kube-proxy-ngsvh                       1/1     Running   0          12d
+kube-system    nvidia-device-plugin-daemonset-lzns2   1/1     Running   0          12d
+kube-system    nvidia-device-plugin-daemonset-tn8tc   1/1     Running   0          12d
+kubectl-6296   update-demo-nautilus-6qrgz             1/1     Running   0          12d
+kubectl-6296   update-demo-nautilus-dk4v6             1/1     Running   0          12d
+mpi-operator   mpi-operator-5b7469bbf8-6xhvw          1/1     Running   0          5h4m
+
+# gaogilb @ a483e7024cd8 in /Volumes/unix/workplace/eks-efa-work/src/EKSEFAWorker on git:mainline x [0:46:03]
+$ k logs -f tensorflow-benchmarks-efa-launcher-prdkf
+Error from server (NotFound): pods "tensorflow-benchmarks-efa-launcher-prdkf" not found
+
+# gaogilb @ a483e7024cd8 in /Volumes/unix/workplace/eks-efa-work/src/EKSEFAWorker on git:mainline x [0:46:15] C:1
+$ k delete -f mpi-tf-bc.yaml
+Error from server (NotFound): error when deleting "mpi-tf-bc.yaml": mpijobs.kubeflow.org "tensorflow-benchmarks-efa" not found
+
+# gaogilb @ a483e7024cd8 in /Volumes/unix/workplace/eks-efa-work/src/EKSEFAWorker on git:mainline x [0:46:17] C:1
+$ k delete -f mpi-tf-bc.yaml
+Error from server (NotFound): error when deleting "mpi-tf-bc.yaml": mpijobs.kubeflow.org "tensorflow-benchmarks-efa" not found
+
+# gaogilb @ a483e7024cd8 in /Volumes/unix/workplace/eks-efa-work/src/EKSEFAWorker on git:mainline x [0:46:22] C:1
+$ k create -f mpi-tf-bc.yaml
+mpijob.kubeflow.org/tensorflow-benchmarks-efa created
+
+# gaogilb @ a483e7024cd8 in /Volumes/unix/workplace/eks-efa-work/src/EKSEFAWorker on git:mainline x [0:46:25]
+$ k logs -f tensorflow-benchmarks-efa-launcher-s8btl
++ POD_NAME=tensorflow-benchmarks-efa-worker-0
++ shift
++ /opt/kube/kubectl exec tensorflow-benchmarks-efa-worker-0 -- /bin/sh -c        PATH=/usr/local/bin:$PATH ; export PATH ; LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH ; export LD_LIBRARY_PATH ; DYLD_LIBRARY_PATH=/usr/local/lib:$DYLD_LIBRARY_PATH ; export DYLD_LIBRARY_PATH ;   /usr/local/bin/orted -mca ess "env" -mca ess_base_jobid "1462566912" -mca ess_base_vpid 1 -mca ess_base_num_procs "3" -mca orte_node_regex "tensorflow-benchmarks-efa-launcher-s[1:8]btl,tensorflow-benchmarks-efa-worker-[1:0-1]@0(3)" -mca orte_hnp_uri "1462566912.0;tcp://192.168.26.172:42231" --mca plm_rsh_no_tree_spawn "1" --mca pml "ob1" --mca btl_vader_single_copy_mechanism "none" --mca oob_tcp_if_include "eth0" --mca btl_tcp_if_include "eth0" --mca btl "^openib" -mca plm "rsh" -mca orte_default_hostfile "/etc/mpi/hostfile" -mca plm_rsh_agent "/etc/mpi/kubexec.sh" -mca hwloc_base_binding_policy "none" -mca pmix "^s1,s2,cray,isolated"
++ POD_NAME=tensorflow-benchmarks-efa-worker-1
++ shift
++ /opt/kube/kubectl exec tensorflow-benchmarks-efa-worker-1 -- /bin/sh -c        PATH=/usr/local/bin:$PATH ; export PATH ; LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH ; export LD_LIBRARY_PATH ; DYLD_LIBRARY_PATH=/usr/local/lib:$DYLD_LIBRARY_PATH ; export DYLD_LIBRARY_PATH ;   /usr/local/bin/orted -mca ess "env" -mca ess_base_jobid "1462566912" -mca ess_base_vpid 2 -mca ess_base_num_procs "3" -mca orte_node_regex "tensorflow-benchmarks-efa-launcher-s[1:8]btl,tensorflow-benchmarks-efa-worker-[1:0-1]@0(3)" -mca orte_hnp_uri "1462566912.0;tcp://192.168.26.172:42231" --mca plm_rsh_no_tree_spawn "1" --mca pml "ob1" --mca btl_vader_single_copy_mechanism "none" --mca oob_tcp_if_include "eth0" --mca btl_tcp_if_include "eth0" --mca btl "^openib" -mca plm "rsh" -mca orte_default_hostfile "/etc/mpi/hostfile" -mca plm_rsh_agent "/etc/mpi/kubexec.sh" -mca hwloc_base_binding_policy "none" -mca pmix "^s1,s2,cray,isolated"
+WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/tensorflow_core/python/compat/v2_compat.py:88: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+Instructions for updating:
+non-resource variables are not supported in the long term
+WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/tensorflow_core/python/compat/v2_compat.py:88: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+Instructions for updating:
+non-resource variables are not supported in the long term
+WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/tensorflow_core/python/compat/v2_compat.py:88: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+Instructions for updating:
+non-resource variables are not supported in the long term
+WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/tensorflow_core/python/compat/v2_compat.py:88: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+Instructions for updating:
+non-resource variables are not supported in the long term
+WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/tensorflow_core/python/compat/v2_compat.py:88: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+Instructions for updating:
+non-resource variables are not supported in the long term
+WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/tensorflow_core/python/compat/v2_compat.py:88: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+Instructions for updating:
+non-resource variables are not supported in the long term
+WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/tensorflow_core/python/compat/v2_compat.py:88: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+Instructions for updating:
+non-resource variables are not supported in the long term
+WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/tensorflow_core/python/compat/v2_compat.py:88: disable_resource_variables (from tensorflow.python.ops.variable_scope) is deprecated and will be removed in a future version.
+Instructions for updating:
+non-resource variables are not supported in the long term
+2020-06-30 07:46:33.320780: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX512F
+2020-06-30 07:46:33.321028: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX512F
+2020-06-30 07:46:33.321320: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX512F
+2020-06-30 07:46:33.321306: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX512F
+2020-06-30 07:46:33.321371: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX512F
+2020-06-30 07:46:33.321418: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX512F
+2020-06-30 07:46:33.321530: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX512F
+2020-06-30 07:46:33.321691: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX512F
+2020-06-30 07:46:33.330896: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2499995000 Hz
+2020-06-30 07:46:33.330882: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2499995000 Hz
+2020-06-30 07:46:33.330875: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2499995000 Hz
+2020-06-30 07:46:33.330884: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2499995000 Hz
+2020-06-30 07:46:33.330895: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2499995000 Hz
+2020-06-30 07:46:33.330875: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2499995000 Hz
+2020-06-30 07:46:33.331038: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x541c650 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2020-06-30 07:46:33.331064: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+2020-06-30 07:46:33.331057: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x3ce89c0 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2020-06-30 07:46:33.331082: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+2020-06-30 07:46:33.331057: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x4892d10 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2020-06-30 07:46:33.331081: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+2020-06-30 07:46:33.331114: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x4937750 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2020-06-30 07:46:33.331144: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+2020-06-30 07:46:33.331107: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x4c85320 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2020-06-30 07:46:33.331130: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+2020-06-30 07:46:33.331107: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x40ba560 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2020-06-30 07:46:33.331130: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+2020-06-30 07:46:33.331232: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2499995000 Hz
+2020-06-30 07:46:33.331307: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2499995000 Hz
+2020-06-30 07:46:33.331452: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x42ca6a0 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2020-06-30 07:46:33.331489: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+2020-06-30 07:46:33.331497: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x426c760 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2020-06-30 07:46:33.331518: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+2020-06-30 07:46:33.333835: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcuda.so.1
+2020-06-30 07:46:33.333814: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcuda.so.1
+2020-06-30 07:46:33.333815: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcuda.so.1
+2020-06-30 07:46:33.333813: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcuda.so.1
+2020-06-30 07:46:33.333816: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcuda.so.1
+2020-06-30 07:46:33.334004: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcuda.so.1
+2020-06-30 07:46:33.334052: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcuda.so.1
+2020-06-30 07:46:33.334055: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcuda.so.1
+2020-06-30 07:46:35.503585: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.506218: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x4275110 initialized for platform CUDA (this does not guarantee that XLA will be used). Devices:
+2020-06-30 07:46:35.506249: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Tesla V100-SXM2-32GB, Compute Capability 7.0
+2020-06-30 07:46:35.507127: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.509138: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.509906: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1555] Found device 0 with properties:
+pciBusID: 0000:00:19.0 name: Tesla V100-SXM2-32GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 31.72GiB deviceMemoryBandwidth: 836.37GiB/s
+2020-06-30 07:46:35.509984: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.1
+2020-06-30 07:46:35.511975: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10
+2020-06-30 07:46:35.513895: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10
+2020-06-30 07:46:35.513942: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x3c99550 initialized for platform CUDA (this does not guarantee that XLA will be used). Devices:
+2020-06-30 07:46:35.513975: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Tesla V100-SXM2-32GB, Compute Capability 7.0
+2020-06-30 07:46:35.514200: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10
+2020-06-30 07:46:35.514917: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.516053: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10
+2020-06-30 07:46:35.516336: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.517108: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10
+2020-06-30 07:46:35.518677: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.521012: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2020-06-30 07:46:35.521132: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.522609: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1555] Found device 0 with properties:
+pciBusID: 0000:00:17.0 name: Tesla V100-SXM2-32GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 31.72GiB deviceMemoryBandwidth: 836.37GiB/s
+2020-06-30 07:46:35.522723: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.1
+2020-06-30 07:46:35.524659: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10
+2020-06-30 07:46:35.526316: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10
+2020-06-30 07:46:35.526636: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10
+2020-06-30 07:46:35.527960: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.528100: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x4027310 initialized for platform CUDA (this does not guarantee that XLA will be used). Devices:
+2020-06-30 07:46:35.528126: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Tesla V100-SXM2-32GB, Compute Capability 7.0
+2020-06-30 07:46:35.528606: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10
+2020-06-30 07:46:35.529395: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.529632: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10
+2020-06-30 07:46:35.529655: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.530880: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.531304: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.533003: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x484c1b0 initialized for platform CUDA (this does not guarantee that XLA will be used). Devices:
+2020-06-30 07:46:35.533033: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Tesla V100-SXM2-32GB, Compute Capability 7.0
+2020-06-30 07:46:35.533555: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2020-06-30 07:46:35.533679: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.535056: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.536964: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.543338: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x4063b90 initialized for platform CUDA (this does not guarantee that XLA will be used). Devices:
+2020-06-30 07:46:35.543370: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Tesla V100-SXM2-32GB, Compute Capability 7.0
+2020-06-30 07:46:35.544786: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x45a0580 initialized for platform CUDA (this does not guarantee that XLA will be used). Devices:
+2020-06-30 07:46:35.544812: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Tesla V100-SXM2-32GB, Compute Capability 7.0
+2020-06-30 07:46:35.545125: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x54660a0 initialized for platform CUDA (this does not guarantee that XLA will be used). Devices:
+2020-06-30 07:46:35.545152: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Tesla V100-SXM2-32GB, Compute Capability 7.0
+2020-06-30 07:46:35.545878: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1555] Found device 0 with properties:
+pciBusID: 0000:00:1c.0 name: Tesla V100-SXM2-32GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 31.72GiB deviceMemoryBandwidth: 836.37GiB/s
+2020-06-30 07:46:35.545955: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.1
+2020-06-30 07:46:35.547300: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x492d400 initialized for platform CUDA (this does not guarantee that XLA will be used). Devices:
+2020-06-30 07:46:35.547328: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Tesla V100-SXM2-32GB, Compute Capability 7.0
+2020-06-30 07:46:35.547703: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10
+2020-06-30 07:46:35.547873: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.548666: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.548850: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.549313: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10
+2020-06-30 07:46:35.549537: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.549618: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10
+2020-06-30 07:46:35.549747: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.550504: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1697] Adding visible gpu devices: 3
+2020-06-30 07:46:35.550562: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.1
+2020-06-30 07:46:35.551193: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1555] Found device 0 with properties:
+pciBusID: 0000:00:1b.0 name: Tesla V100-SXM2-32GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 31.72GiB deviceMemoryBandwidth: 836.37GiB/s
+2020-06-30 07:46:35.551256: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.1
+2020-06-30 07:46:35.551401: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10
+2020-06-30 07:46:35.552475: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10
+2020-06-30 07:46:35.553026: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10
+2020-06-30 07:46:35.554612: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10
+2020-06-30 07:46:35.554902: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10
+2020-06-30 07:46:35.556278: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2020-06-30 07:46:35.556381: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.556658: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10
+2020-06-30 07:46:35.557645: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10
+2020-06-30 07:46:35.559988: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1555] Found device 0 with properties:
+pciBusID: 0000:00:16.0 name: Tesla V100-SXM2-32GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 31.72GiB deviceMemoryBandwidth: 836.37GiB/s
+2020-06-30 07:46:35.560073: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.1
+2020-06-30 07:46:35.560681: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1555] Found device 0 with properties:
+pciBusID: 0000:00:18.0 name: Tesla V100-SXM2-32GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 31.72GiB deviceMemoryBandwidth: 836.37GiB/s
+2020-06-30 07:46:35.560758: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.1
+2020-06-30 07:46:35.560850: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1555] Found device 0 with properties:
+pciBusID: 0000:00:1a.0 name: Tesla V100-SXM2-32GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 31.72GiB deviceMemoryBandwidth: 836.37GiB/s
+2020-06-30 07:46:35.560919: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.1
+2020-06-30 07:46:35.561306: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1555] Found device 0 with properties:
+pciBusID: 0000:00:1d.0 name: Tesla V100-SXM2-32GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 31.72GiB deviceMemoryBandwidth: 836.37GiB/s
+2020-06-30 07:46:35.561390: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.1
+2020-06-30 07:46:35.561390: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1697] Adding visible gpu devices: 1
+2020-06-30 07:46:35.561483: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.1
+2020-06-30 07:46:35.561401: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2020-06-30 07:46:35.561518: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.561785: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10
+2020-06-30 07:46:35.562433: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10
+2020-06-30 07:46:35.562517: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10
+2020-06-30 07:46:35.563188: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10
+2020-06-30 07:46:35.563418: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10
+2020-06-30 07:46:35.563769: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10
+2020-06-30 07:46:35.563812: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10
+2020-06-30 07:46:35.563851: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10
+2020-06-30 07:46:35.564121: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10
+2020-06-30 07:46:35.564161: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10
+2020-06-30 07:46:35.564729: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10
+2020-06-30 07:46:35.564995: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.565035: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10
+2020-06-30 07:46:35.565554: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10
+2020-06-30 07:46:35.565838: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10
+2020-06-30 07:46:35.565836: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10
+2020-06-30 07:46:35.566538: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10
+2020-06-30 07:46:35.566795: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10
+2020-06-30 07:46:35.566818: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10
+2020-06-30 07:46:35.566882: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10
+2020-06-30 07:46:35.567842: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10
+2020-06-30 07:46:35.568615: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.570305: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2020-06-30 07:46:35.570417: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.570434: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2020-06-30 07:46:35.570480: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2020-06-30 07:46:35.570532: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.570592: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.571642: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2020-06-30 07:46:35.571764: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.573502: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1697] Adding visible gpu devices: 6
+2020-06-30 07:46:35.573543: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.1
+2020-06-30 07:46:35.584111: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1697] Adding visible gpu devices: 5
+2020-06-30 07:46:35.584170: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.1
+2020-06-30 07:46:35.586302: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.586735: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.586817: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.588962: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.604197: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1697] Adding visible gpu devices: 0
+2020-06-30 07:46:35.604256: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.1
+2020-06-30 07:46:35.604549: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1697] Adding visible gpu devices: 4
+2020-06-30 07:46:35.604612: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.1
+2020-06-30 07:46:35.604727: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1697] Adding visible gpu devices: 2
+2020-06-30 07:46:35.604783: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.1
+2020-06-30 07:46:35.605511: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1697] Adding visible gpu devices: 7
+2020-06-30 07:46:35.605576: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.1
+2020-06-30 07:46:35.841027: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1096] Device interconnect StreamExecutor with strength 1 edge matrix:
+2020-06-30 07:46:35.841090: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1102]      3
+2020-06-30 07:46:35.841099: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] 3:   N
+2020-06-30 07:46:35.841461: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.843227: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.844918: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1241] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 30525 MB memory) -> physical GPU (device: 3, name: Tesla V100-SXM2-32GB, pci bus id: 0000:00:19.0, compute capability: 7.0)
+2020-06-30 07:46:35.846574: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1096] Device interconnect StreamExecutor with strength 1 edge matrix:
+2020-06-30 07:46:35.846609: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1102]      1
+2020-06-30 07:46:35.846616: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] 1:   N
+2020-06-30 07:46:35.846967: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.848691: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.850637: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1241] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 30525 MB memory) -> physical GPU (device: 1, name: Tesla V100-SXM2-32GB, pci bus id: 0000:00:17.0, compute capability: 7.0)
+TensorFlow:  2.1
+Model:       resnet50
+Dataset:     imagenet (synthetic)
+Mode:        training
+SingleSess:  False
+Batch size:  512 global
+             64 per device
+Num batches: 100
+Num epochs:  0.04
+Devices:     ['horovod/gpu:0', 'horovod/gpu:1', 'horovod/gpu:2', 'horovod/gpu:3', 'horovod/gpu:4', 'horovod/gpu:5', 'horovod/gpu:6', 'horovod/gpu:7']
+NUMA bind:   False
+Data format: NCHW
+Optimizer:   sgd
+Variables:   horovod
+==========
+Generating training model
+TensorFlow:  2.1
+Model:       resnet50
+Dataset:     imagenet (synthetic)
+Mode:        training
+SingleSess:  False
+Batch size:  512 global
+             64 per device
+Num batches: 100
+Num epochs:  0.04
+Devices:     ['horovod/gpu:0', 'horovod/gpu:1', 'horovod/gpu:2', 'horovod/gpu:3', 'horovod/gpu:4', 'horovod/gpu:5', 'horovod/gpu:6', 'horovod/gpu:7']
+NUMA bind:   False
+Data format: NCHW
+Optimizer:   sgd
+Variables:   horovod
+==========
+Generating training model
+WARNING:tensorflow:From /workspace/benchmarks/scripts/tf_cnn_benchmarks/convnet_builder.py:134: conv2d (from tensorflow.python.layers.convolutional) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.keras.layers.Conv2D` instead.
+W0630 07:46:35.864739 139626098124608 deprecation.py:323] From /workspace/benchmarks/scripts/tf_cnn_benchmarks/convnet_builder.py:134: conv2d (from tensorflow.python.layers.convolutional) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.keras.layers.Conv2D` instead.
+WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/tensorflow_core/python/layers/convolutional.py:424: Layer.apply (from tensorflow.python.keras.engine.base_layer) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use `layer.__call__` method instead.
+W0630 07:46:35.866204 139626098124608 deprecation.py:323] From /usr/local/lib/python3.6/dist-packages/tensorflow_core/python/layers/convolutional.py:424: Layer.apply (from tensorflow.python.keras.engine.base_layer) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use `layer.__call__` method instead.
+2020-06-30 07:46:35.867712: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1096] Device interconnect StreamExecutor with strength 1 edge matrix:
+2020-06-30 07:46:35.867765: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1102]      6
+2020-06-30 07:46:35.867774: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] 6:   N
+2020-06-30 07:46:35.868105: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.869844: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+WARNING:tensorflow:From /workspace/benchmarks/scripts/tf_cnn_benchmarks/convnet_builder.py:134: conv2d (from tensorflow.python.layers.convolutional) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.keras.layers.Conv2D` instead.
+W0630 07:46:35.870497 140610220824384 deprecation.py:323] From /workspace/benchmarks/scripts/tf_cnn_benchmarks/convnet_builder.py:134: conv2d (from tensorflow.python.layers.convolutional) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.keras.layers.Conv2D` instead.
+2020-06-30 07:46:35.871548: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1241] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 30525 MB memory) -> physical GPU (device: 6, name: Tesla V100-SXM2-32GB, pci bus id: 0000:00:1c.0, compute capability: 7.0)
+WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/tensorflow_core/python/layers/convolutional.py:424: Layer.apply (from tensorflow.python.keras.engine.base_layer) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use `layer.__call__` method instead.
+W0630 07:46:35.872159 140610220824384 deprecation.py:323] From /usr/local/lib/python3.6/dist-packages/tensorflow_core/python/layers/convolutional.py:424: Layer.apply (from tensorflow.python.keras.engine.base_layer) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use `layer.__call__` method instead.
+2020-06-30 07:46:35.873902: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1096] Device interconnect StreamExecutor with strength 1 edge matrix:
+2020-06-30 07:46:35.873942: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1102]      5
+2020-06-30 07:46:35.873949: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] 5:   N
+2020-06-30 07:46:35.874244: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.876000: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+TensorFlow:  2.1
+Model:       resnet50
+Dataset:     imagenet (synthetic)
+Mode:        training
+SingleSess:  False
+Batch size:  512 global
+             64 per device
+Num batches: 100
+Num epochs:  0.04
+Devices:     ['horovod/gpu:0', 'horovod/gpu:1', 'horovod/gpu:2', 'horovod/gpu:3', 'horovod/gpu:4', 'horovod/gpu:5', 'horovod/gpu:6', 'horovod/gpu:7']
+NUMA bind:   False
+Data format: NCHW
+Optimizer:   sgd
+Variables:   horovod
+==========
+Generating training model
+2020-06-30 07:46:35.877670: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1241] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 30525 MB memory) -> physical GPU (device: 5, name: Tesla V100-SXM2-32GB, pci bus id: 0000:00:1b.0, compute capability: 7.0)
+2020-06-30 07:46:35.881092: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1096] Device interconnect StreamExecutor with strength 1 edge matrix:
+2020-06-30 07:46:35.881128: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1102]      0
+2020-06-30 07:46:35.881135: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] 0:   N
+2020-06-30 07:46:35.881165: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1096] Device interconnect StreamExecutor with strength 1 edge matrix:
+2020-06-30 07:46:35.881204: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1102]      7
+2020-06-30 07:46:35.881212: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] 7:   N
+2020-06-30 07:46:35.881466: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.881593: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.882065: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1096] Device interconnect StreamExecutor with strength 1 edge matrix:
+2020-06-30 07:46:35.882103: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1102]      2
+2020-06-30 07:46:35.882111: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] 2:   N
+2020-06-30 07:46:35.882605: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.883388: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1096] Device interconnect StreamExecutor with strength 1 edge matrix:
+2020-06-30 07:46:35.883419: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1102]      4
+2020-06-30 07:46:35.883426: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] 4:   N
+TensorFlow:  2.1
+Model:       resnet50
+Dataset:     imagenet (synthetic)
+Mode:        training
+SingleSess:  False
+Batch size:  512 global
+             64 per device
+Num batches: 100
+Num epochs:  0.04
+Devices:     ['horovod/gpu:0', 'horovod/gpu:1', 'horovod/gpu:2', 'horovod/gpu:3', 'horovod/gpu:4', 'horovod/gpu:5', 'horovod/gpu:6', 'horovod/gpu:7']
+NUMA bind:   False
+Data format: NCHW
+Optimizer:   sgd
+Variables:   horovod
+==========
+Generating training model
+2020-06-30 07:46:35.884624: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.885877: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.886317: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:35.889499: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+WARNING:tensorflow:From /workspace/benchmarks/scripts/tf_cnn_benchmarks/convnet_builder.py:266: max_pooling2d (from tensorflow.python.layers.pooling) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use keras.layers.MaxPooling2D instead.
+WARNING:tensorflow:From /workspace/benchmarks/scripts/tf_cnn_benchmarks/convnet_builder.py:134: conv2d (from tensorflow.python.layers.convolutional) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.keras.layers.Conv2D` instead.
+W0630 07:46:35.890618 139626098124608 deprecation.py:323] From /workspace/benchmarks/scripts/tf_cnn_benchmarks/convnet_builder.py:266: max_pooling2d (from tensorflow.python.layers.pooling) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use keras.layers.MaxPooling2D instead.
+W0630 07:46:35.890635 140143171553088 deprecation.py:323] From /workspace/benchmarks/scripts/tf_cnn_benchmarks/convnet_builder.py:134: conv2d (from tensorflow.python.layers.convolutional) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.keras.layers.Conv2D` instead.
+2020-06-30 07:46:35.891474: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/tensorflow_core/python/layers/convolutional.py:424: Layer.apply (from tensorflow.python.keras.engine.base_layer) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use `layer.__call__` method instead.
+W0630 07:46:35.892248 140143171553088 deprecation.py:323] From /usr/local/lib/python3.6/dist-packages/tensorflow_core/python/layers/convolutional.py:424: Layer.apply (from tensorflow.python.keras.engine.base_layer) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use `layer.__call__` method instead.
+2020-06-30 07:46:35.892978: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1241] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 30525 MB memory) -> physical GPU (device: 0, name: Tesla V100-SXM2-32GB, pci bus id: 0000:00:16.0, compute capability: 7.0)
+2020-06-30 07:46:35.893255: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1241] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 30525 MB memory) -> physical GPU (device: 7, name: Tesla V100-SXM2-32GB, pci bus id: 0000:00:1d.0, compute capability: 7.0)
+2020-06-30 07:46:35.895531: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1241] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 30525 MB memory) -> physical GPU (device: 2, name: Tesla V100-SXM2-32GB, pci bus id: 0000:00:18.0, compute capability: 7.0)
+2020-06-30 07:46:35.895787: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1241] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 30525 MB memory) -> physical GPU (device: 4, name: Tesla V100-SXM2-32GB, pci bus id: 0000:00:1a.0, compute capability: 7.0)
+WARNING:tensorflow:From /workspace/benchmarks/scripts/tf_cnn_benchmarks/convnet_builder.py:266: max_pooling2d (from tensorflow.python.layers.pooling) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use keras.layers.MaxPooling2D instead.
+W0630 07:46:35.896726 140610220824384 deprecation.py:323] From /workspace/benchmarks/scripts/tf_cnn_benchmarks/convnet_builder.py:266: max_pooling2d (from tensorflow.python.layers.pooling) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use keras.layers.MaxPooling2D instead.
+WARNING:tensorflow:From /workspace/benchmarks/scripts/tf_cnn_benchmarks/convnet_builder.py:134: conv2d (from tensorflow.python.layers.convolutional) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.keras.layers.Conv2D` instead.
+W0630 07:46:35.896861 140466343798592 deprecation.py:323] From /workspace/benchmarks/scripts/tf_cnn_benchmarks/convnet_builder.py:134: conv2d (from tensorflow.python.layers.convolutional) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.keras.layers.Conv2D` instead.
+WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/tensorflow_core/python/layers/convolutional.py:424: Layer.apply (from tensorflow.python.keras.engine.base_layer) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use `layer.__call__` method instead.
+W0630 07:46:35.898398 140466343798592 deprecation.py:323] From /usr/local/lib/python3.6/dist-packages/tensorflow_core/python/layers/convolutional.py:424: Layer.apply (from tensorflow.python.keras.engine.base_layer) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use `layer.__call__` method instead.
+TensorFlow:  2.1
+Model:       resnet50
+Dataset:     imagenet (synthetic)
+Mode:        training
+SingleSess:  False
+Batch size:  512 global
+             64 per device
+Num batches: 100
+Num epochs:  0.04
+Devices:     ['horovod/gpu:0', 'horovod/gpu:1', 'horovod/gpu:2', 'horovod/gpu:3', 'horovod/gpu:4', 'horovod/gpu:5', 'horovod/gpu:6', 'horovod/gpu:7']
+NUMA bind:   False
+Data format: NCHW
+Optimizer:   sgd
+Variables:   horovod
+==========
+Generating training model
+TensorFlow:  2.1
+Model:       resnet50
+Dataset:     imagenet (synthetic)
+Mode:        training
+SingleSess:  False
+Batch size:  512 global
+             64 per device
+Num batches: 100
+Num epochs:  0.04
+Devices:     ['horovod/gpu:0', 'horovod/gpu:1', 'horovod/gpu:2', 'horovod/gpu:3', 'horovod/gpu:4', 'horovod/gpu:5', 'horovod/gpu:6', 'horovod/gpu:7']
+NUMA bind:   False
+Data format: NCHW
+Optimizer:   sgd
+Variables:   horovod
+==========
+Generating training model
+TensorFlow:  2.1
+Model:       resnet50
+Dataset:     imagenet (synthetic)
+Mode:        training
+SingleSess:  False
+Batch size:  512 global
+             64 per device
+Num batches: 100
+Num epochs:  0.04
+Devices:     ['horovod/gpu:0', 'horovod/gpu:1', 'horovod/gpu:2', 'horovod/gpu:3', 'horovod/gpu:4', 'horovod/gpu:5', 'horovod/gpu:6', 'horovod/gpu:7']
+NUMA bind:   False
+Data format: NCHW
+Optimizer:   sgd
+Variables:   horovod
+==========
+Generating training model
+TensorFlow:  2.1
+Model:       resnet50
+Dataset:     imagenet (synthetic)
+Mode:        training
+SingleSess:  False
+Batch size:  512 global
+             64 per device
+Num batches: 100
+Num epochs:  0.04
+Devices:     ['horovod/gpu:0', 'horovod/gpu:1', 'horovod/gpu:2', 'horovod/gpu:3', 'horovod/gpu:4', 'horovod/gpu:5', 'horovod/gpu:6', 'horovod/gpu:7']
+NUMA bind:   False
+Data format: NCHW
+Optimizer:   sgd
+Variables:   horovod
+==========
+Generating training model
+WARNING:tensorflow:From /workspace/benchmarks/scripts/tf_cnn_benchmarks/convnet_builder.py:134: conv2d (from tensorflow.python.layers.convolutional) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.keras.layers.Conv2D` instead.
+W0630 07:46:35.912871 139688332601152 deprecation.py:323] From /workspace/benchmarks/scripts/tf_cnn_benchmarks/convnet_builder.py:134: conv2d (from tensorflow.python.layers.convolutional) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.keras.layers.Conv2D` instead.
+WARNING:tensorflow:From /workspace/benchmarks/scripts/tf_cnn_benchmarks/convnet_builder.py:134: conv2d (from tensorflow.python.layers.convolutional) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.keras.layers.Conv2D` instead.
+W0630 07:46:35.913911 139775798007616 deprecation.py:323] From /workspace/benchmarks/scripts/tf_cnn_benchmarks/convnet_builder.py:134: conv2d (from tensorflow.python.layers.convolutional) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.keras.layers.Conv2D` instead.
+WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/tensorflow_core/python/layers/convolutional.py:424: Layer.apply (from tensorflow.python.keras.engine.base_layer) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use `layer.__call__` method instead.
+W0630 07:46:35.914348 139688332601152 deprecation.py:323] From /usr/local/lib/python3.6/dist-packages/tensorflow_core/python/layers/convolutional.py:424: Layer.apply (from tensorflow.python.keras.engine.base_layer) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use `layer.__call__` method instead.
+WARNING:tensorflow:From /workspace/benchmarks/scripts/tf_cnn_benchmarks/convnet_builder.py:134: conv2d (from tensorflow.python.layers.convolutional) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.keras.layers.Conv2D` instead.
+W0630 07:46:35.914829 139831491540800 deprecation.py:323] From /workspace/benchmarks/scripts/tf_cnn_benchmarks/convnet_builder.py:134: conv2d (from tensorflow.python.layers.convolutional) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.keras.layers.Conv2D` instead.
+WARNING:tensorflow:From /workspace/benchmarks/scripts/tf_cnn_benchmarks/convnet_builder.py:134: conv2d (from tensorflow.python.layers.convolutional) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.keras.layers.Conv2D` instead.
+WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/tensorflow_core/python/layers/convolutional.py:424: Layer.apply (from tensorflow.python.keras.engine.base_layer) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use `layer.__call__` method instead.
+W0630 07:46:35.915418 139775798007616 deprecation.py:323] From /usr/local/lib/python3.6/dist-packages/tensorflow_core/python/layers/convolutional.py:424: Layer.apply (from tensorflow.python.keras.engine.base_layer) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use `layer.__call__` method instead.
+W0630 07:46:35.915336 140086273185600 deprecation.py:323] From /workspace/benchmarks/scripts/tf_cnn_benchmarks/convnet_builder.py:134: conv2d (from tensorflow.python.layers.convolutional) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.keras.layers.Conv2D` instead.
+WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/tensorflow_core/python/layers/convolutional.py:424: Layer.apply (from tensorflow.python.keras.engine.base_layer) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use `layer.__call__` method instead.
+W0630 07:46:35.916163 139831491540800 deprecation.py:323] From /usr/local/lib/python3.6/dist-packages/tensorflow_core/python/layers/convolutional.py:424: Layer.apply (from tensorflow.python.keras.engine.base_layer) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use `layer.__call__` method instead.
+WARNING:tensorflow:From /workspace/benchmarks/scripts/tf_cnn_benchmarks/convnet_builder.py:266: max_pooling2d (from tensorflow.python.layers.pooling) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use keras.layers.MaxPooling2D instead.
+WARNING:tensorflow:From /usr/local/lib/python3.6/dist-packages/tensorflow_core/python/layers/convolutional.py:424: Layer.apply (from tensorflow.python.keras.engine.base_layer) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use `layer.__call__` method instead.
+W0630 07:46:35.916851 140086273185600 deprecation.py:323] From /usr/local/lib/python3.6/dist-packages/tensorflow_core/python/layers/convolutional.py:424: Layer.apply (from tensorflow.python.keras.engine.base_layer) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use `layer.__call__` method instead.
+W0630 07:46:35.916841 140143171553088 deprecation.py:323] From /workspace/benchmarks/scripts/tf_cnn_benchmarks/convnet_builder.py:266: max_pooling2d (from tensorflow.python.layers.pooling) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use keras.layers.MaxPooling2D instead.
+WARNING:tensorflow:From /workspace/benchmarks/scripts/tf_cnn_benchmarks/convnet_builder.py:266: max_pooling2d (from tensorflow.python.layers.pooling) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use keras.layers.MaxPooling2D instead.
+W0630 07:46:35.922286 140466343798592 deprecation.py:323] From /workspace/benchmarks/scripts/tf_cnn_benchmarks/convnet_builder.py:266: max_pooling2d (from tensorflow.python.layers.pooling) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use keras.layers.MaxPooling2D instead.
+WARNING:tensorflow:From /workspace/benchmarks/scripts/tf_cnn_benchmarks/convnet_builder.py:266: max_pooling2d (from tensorflow.python.layers.pooling) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use keras.layers.MaxPooling2D instead.
+W0630 07:46:35.938261 139688332601152 deprecation.py:323] From /workspace/benchmarks/scripts/tf_cnn_benchmarks/convnet_builder.py:266: max_pooling2d (from tensorflow.python.layers.pooling) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use keras.layers.MaxPooling2D instead.
+WARNING:tensorflow:From /workspace/benchmarks/scripts/tf_cnn_benchmarks/convnet_builder.py:266: max_pooling2d (from tensorflow.python.layers.pooling) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use keras.layers.MaxPooling2D instead.
+W0630 07:46:35.939834 139831491540800 deprecation.py:323] From /workspace/benchmarks/scripts/tf_cnn_benchmarks/convnet_builder.py:266: max_pooling2d (from tensorflow.python.layers.pooling) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use keras.layers.MaxPooling2D instead.WARNING:tensorflow:From /workspace/benchmarks/scripts/tf_cnn_benchmarks/convnet_builder.py:266: max_pooling2d (from tensorflow.python.layers.pooling) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use keras.layers.MaxPooling2D instead.
+W0630 07:46:35.939791 139775798007616 deprecation.py:323] From /workspace/benchmarks/scripts/tf_cnn_benchmarks/convnet_builder.py:266: max_pooling2d (from tensorflow.python.layers.pooling) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use keras.layers.MaxPooling2D instead.
+
+WARNING:tensorflow:From /workspace/benchmarks/scripts/tf_cnn_benchmarks/convnet_builder.py:266: max_pooling2d (from tensorflow.python.layers.pooling) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use keras.layers.MaxPooling2D instead.
+W0630 07:46:35.940898 140086273185600 deprecation.py:323] From /workspace/benchmarks/scripts/tf_cnn_benchmarks/convnet_builder.py:266: max_pooling2d (from tensorflow.python.layers.pooling) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use keras.layers.MaxPooling2D instead.
+Initializing graph
+Initializing graph
+Initializing graph
+Initializing graph
+Initializing graph
+Initializing graph
+Initializing graph
+Initializing graph
+WARNING:tensorflow:From /workspace/benchmarks/scripts/tf_cnn_benchmarks/benchmark_cnn.py:2268: Supervisor.__init__ (from tensorflow.python.training.supervisor) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please switch to tf.train.MonitoredTrainingSession
+W0630 07:46:37.962550 140610220824384 deprecation.py:323] From /workspace/benchmarks/scripts/tf_cnn_benchmarks/benchmark_cnn.py:2268: Supervisor.__init__ (from tensorflow.python.training.supervisor) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please switch to tf.train.MonitoredTrainingSession
+WARNING:tensorflow:From /workspace/benchmarks/scripts/tf_cnn_benchmarks/benchmark_cnn.py:2268: Supervisor.__init__ (from tensorflow.python.training.supervisor) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please switch to tf.train.MonitoredTrainingSession
+W0630 07:46:37.974137 140466343798592 deprecation.py:323] From /workspace/benchmarks/scripts/tf_cnn_benchmarks/benchmark_cnn.py:2268: Supervisor.__init__ (from tensorflow.python.training.supervisor) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please switch to tf.train.MonitoredTrainingSession
+WARNING:tensorflow:From /workspace/benchmarks/scripts/tf_cnn_benchmarks/benchmark_cnn.py:2268: Supervisor.__init__ (from tensorflow.python.training.supervisor) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please switch to tf.train.MonitoredTrainingSession
+W0630 07:46:37.985156 139626098124608 deprecation.py:323] From /workspace/benchmarks/scripts/tf_cnn_benchmarks/benchmark_cnn.py:2268: Supervisor.__init__ (from tensorflow.python.training.supervisor) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please switch to tf.train.MonitoredTrainingSession
+WARNING:tensorflow:From /workspace/benchmarks/scripts/tf_cnn_benchmarks/benchmark_cnn.py:2268: Supervisor.__init__ (from tensorflow.python.training.supervisor) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please switch to tf.train.MonitoredTrainingSession
+W0630 07:46:37.987121 140143171553088 deprecation.py:323] From /workspace/benchmarks/scripts/tf_cnn_benchmarks/benchmark_cnn.py:2268: Supervisor.__init__ (from tensorflow.python.training.supervisor) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please switch to tf.train.MonitoredTrainingSession
+WARNING:tensorflow:From /workspace/benchmarks/scripts/tf_cnn_benchmarks/benchmark_cnn.py:2268: Supervisor.__init__ (from tensorflow.python.training.supervisor) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please switch to tf.train.MonitoredTrainingSession
+W0630 07:46:37.994172 139831491540800 deprecation.py:323] From /workspace/benchmarks/scripts/tf_cnn_benchmarks/benchmark_cnn.py:2268: Supervisor.__init__ (from tensorflow.python.training.supervisor) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please switch to tf.train.MonitoredTrainingSession
+WARNING:tensorflow:From /workspace/benchmarks/scripts/tf_cnn_benchmarks/benchmark_cnn.py:2268: Supervisor.__init__ (from tensorflow.python.training.supervisor) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please switch to tf.train.MonitoredTrainingSession
+W0630 07:46:38.023112 140086273185600 deprecation.py:323] From /workspace/benchmarks/scripts/tf_cnn_benchmarks/benchmark_cnn.py:2268: Supervisor.__init__ (from tensorflow.python.training.supervisor) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please switch to tf.train.MonitoredTrainingSession
+WARNING:tensorflow:From /workspace/benchmarks/scripts/tf_cnn_benchmarks/benchmark_cnn.py:2268: Supervisor.__init__ (from tensorflow.python.training.supervisor) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please switch to tf.train.MonitoredTrainingSession
+W0630 07:46:38.031354 139775798007616 deprecation.py:323] From /workspace/benchmarks/scripts/tf_cnn_benchmarks/benchmark_cnn.py:2268: Supervisor.__init__ (from tensorflow.python.training.supervisor) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please switch to tf.train.MonitoredTrainingSession
+WARNING:tensorflow:From /workspace/benchmarks/scripts/tf_cnn_benchmarks/benchmark_cnn.py:2268: Supervisor.__init__ (from tensorflow.python.training.supervisor) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please switch to tf.train.MonitoredTrainingSession
+W0630 07:46:38.135419 139688332601152 deprecation.py:323] From /workspace/benchmarks/scripts/tf_cnn_benchmarks/benchmark_cnn.py:2268: Supervisor.__init__ (from tensorflow.python.training.supervisor) is deprecated and will be removed in a future version.
+Instructions for updating:
+Please switch to tf.train.MonitoredTrainingSession
+2020-06-30 07:46:38.247110: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.248880: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1555] Found device 0 with properties:
+pciBusID: 0000:00:17.0 name: Tesla V100-SXM2-32GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 31.72GiB deviceMemoryBandwidth: 836.37GiB/s
+2020-06-30 07:46:38.248934: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.1
+2020-06-30 07:46:38.248966: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10
+2020-06-30 07:46:38.248978: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10
+2020-06-30 07:46:38.248988: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10
+2020-06-30 07:46:38.248999: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10
+2020-06-30 07:46:38.249009: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10
+2020-06-30 07:46:38.249021: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2020-06-30 07:46:38.249074: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.250741: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.252439: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1697] Adding visible gpu devices: 1
+2020-06-30 07:46:38.252476: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1096] Device interconnect StreamExecutor with strength 1 edge matrix:
+2020-06-30 07:46:38.252484: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1102]      1
+2020-06-30 07:46:38.252490: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] 1:   N
+2020-06-30 07:46:38.252648: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.254310: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.255967: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1241] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 30525 MB memory) -> physical GPU (device: 1, name: Tesla V100-SXM2-32GB, pci bus id: 0000:00:17.0, compute capability: 7.0)
+2020-06-30 07:46:38.259760: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.261510: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1555] Found device 0 with properties:
+pciBusID: 0000:00:1b.0 name: Tesla V100-SXM2-32GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 31.72GiB deviceMemoryBandwidth: 836.37GiB/s
+2020-06-30 07:46:38.261561: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.1
+2020-06-30 07:46:38.261587: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10
+2020-06-30 07:46:38.261598: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10
+2020-06-30 07:46:38.261609: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10
+2020-06-30 07:46:38.261619: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10
+2020-06-30 07:46:38.261629: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10
+2020-06-30 07:46:38.261639: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2020-06-30 07:46:38.261705: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.263413: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.265051: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1697] Adding visible gpu devices: 5
+2020-06-30 07:46:38.265082: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1096] Device interconnect StreamExecutor with strength 1 edge matrix:
+2020-06-30 07:46:38.265089: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1102]      5
+2020-06-30 07:46:38.265096: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] 5:   N
+2020-06-30 07:46:38.265238: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.266900: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.268566: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1241] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 30525 MB memory) -> physical GPU (device: 5, name: Tesla V100-SXM2-32GB, pci bus id: 0000:00:1b.0, compute capability: 7.0)
+2020-06-30 07:46:38.273054: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.274822: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1555] Found device 0 with properties:
+pciBusID: 0000:00:1c.0 name: Tesla V100-SXM2-32GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 31.72GiB deviceMemoryBandwidth: 836.37GiB/s
+2020-06-30 07:46:38.274876: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.1
+2020-06-30 07:46:38.274905: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10
+2020-06-30 07:46:38.274916: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10
+2020-06-30 07:46:38.274927: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10
+2020-06-30 07:46:38.274938: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10
+2020-06-30 07:46:38.274947: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10
+2020-06-30 07:46:38.274958: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2020-06-30 07:46:38.275018: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.276703: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.278331: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1697] Adding visible gpu devices: 6
+2020-06-30 07:46:38.278362: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1096] Device interconnect StreamExecutor with strength 1 edge matrix:
+2020-06-30 07:46:38.278370: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1102]      6
+2020-06-30 07:46:38.278377: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] 6:   N
+2020-06-30 07:46:38.278512: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.280186: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.281865: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1241] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 30525 MB memory) -> physical GPU (device: 6, name: Tesla V100-SXM2-32GB, pci bus id: 0000:00:1c.0, compute capability: 7.0)
+2020-06-30 07:46:38.282893: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.284660: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1555] Found device 0 with properties:
+pciBusID: 0000:00:1a.0 name: Tesla V100-SXM2-32GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 31.72GiB deviceMemoryBandwidth: 836.37GiB/s
+2020-06-30 07:46:38.284706: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.1
+2020-06-30 07:46:38.284736: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10
+2020-06-30 07:46:38.284748: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10
+2020-06-30 07:46:38.284758: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10
+2020-06-30 07:46:38.284768: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10
+2020-06-30 07:46:38.284777: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10
+2020-06-30 07:46:38.284787: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2020-06-30 07:46:38.284843: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.286510: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.288153: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1697] Adding visible gpu devices: 4
+2020-06-30 07:46:38.288184: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1096] Device interconnect StreamExecutor with strength 1 edge matrix:
+2020-06-30 07:46:38.288190: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1102]      4
+2020-06-30 07:46:38.288196: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] 4:   N
+2020-06-30 07:46:38.288334: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.290000: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.291685: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1241] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 30525 MB memory) -> physical GPU (device: 4, name: Tesla V100-SXM2-32GB, pci bus id: 0000:00:1a.0, compute capability: 7.0)
+2020-06-30 07:46:38.305044: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.306822: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1555] Found device 0 with properties:
+pciBusID: 0000:00:19.0 name: Tesla V100-SXM2-32GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 31.72GiB deviceMemoryBandwidth: 836.37GiB/s
+2020-06-30 07:46:38.306878: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.1
+2020-06-30 07:46:38.306911: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10
+2020-06-30 07:46:38.306923: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10
+2020-06-30 07:46:38.306934: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10
+2020-06-30 07:46:38.306945: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10
+2020-06-30 07:46:38.306956: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10
+2020-06-30 07:46:38.306968: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2020-06-30 07:46:38.307024: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.308716: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.310349: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1697] Adding visible gpu devices: 3
+2020-06-30 07:46:38.310385: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1096] Device interconnect StreamExecutor with strength 1 edge matrix:
+2020-06-30 07:46:38.310393: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1102]      3
+2020-06-30 07:46:38.310399: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] 3:   N
+2020-06-30 07:46:38.310538: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.312285: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.313955: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1241] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 30525 MB memory) -> physical GPU (device: 3, name: Tesla V100-SXM2-32GB, pci bus id: 0000:00:19.0, compute capability: 7.0)
+2020-06-30 07:46:38.314988: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.316753: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1555] Found device 0 with properties:
+pciBusID: 0000:00:18.0 name: Tesla V100-SXM2-32GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 31.72GiB deviceMemoryBandwidth: 836.37GiB/s
+2020-06-30 07:46:38.316822: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.1
+2020-06-30 07:46:38.316862: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10
+2020-06-30 07:46:38.316876: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10
+2020-06-30 07:46:38.316889: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10
+2020-06-30 07:46:38.316902: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10
+2020-06-30 07:46:38.316914: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10
+2020-06-30 07:46:38.316927: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2020-06-30 07:46:38.316995: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.318665: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.320306: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1697] Adding visible gpu devices: 2
+2020-06-30 07:46:38.320340: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1096] Device interconnect StreamExecutor with strength 1 edge matrix:
+2020-06-30 07:46:38.320347: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1102]      2
+2020-06-30 07:46:38.320353: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] 2:   N
+2020-06-30 07:46:38.320498: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.320791: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.323782: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.324427: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1555] Found device 0 with properties:
+pciBusID: 0000:00:1d.0 name: Tesla V100-SXM2-32GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 31.72GiB deviceMemoryBandwidth: 836.37GiB/s
+2020-06-30 07:46:38.324503: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.1
+2020-06-30 07:46:38.324539: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10
+2020-06-30 07:46:38.324553: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10
+2020-06-30 07:46:38.324566: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10
+2020-06-30 07:46:38.324578: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10
+2020-06-30 07:46:38.324591: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10
+2020-06-30 07:46:38.324605: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2020-06-30 07:46:38.324685: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.326370: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1241] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 30525 MB memory) -> physical GPU (device: 2, name: Tesla V100-SXM2-32GB, pci bus id: 0000:00:18.0, compute capability: 7.0)
+2020-06-30 07:46:38.327636: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.329287: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1697] Adding visible gpu devices: 7
+2020-06-30 07:46:38.329323: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1096] Device interconnect StreamExecutor with strength 1 edge matrix:
+2020-06-30 07:46:38.329331: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1102]      7
+2020-06-30 07:46:38.329338: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] 7:   N
+2020-06-30 07:46:38.329489: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.331142: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.332873: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1241] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 30525 MB memory) -> physical GPU (device: 7, name: Tesla V100-SXM2-32GB, pci bus id: 0000:00:1d.0, compute capability: 7.0)
+2020-06-30 07:46:38.438706: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.445676: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1555] Found device 0 with properties:
+pciBusID: 0000:00:16.0 name: Tesla V100-SXM2-32GB computeCapability: 7.0
+coreClock: 1.53GHz coreCount: 80 deviceMemorySize: 31.72GiB deviceMemoryBandwidth: 836.37GiB/s
+2020-06-30 07:46:38.445749: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudart.so.10.1
+2020-06-30 07:46:38.445781: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10
+2020-06-30 07:46:38.445792: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcufft.so.10
+2020-06-30 07:46:38.445802: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcurand.so.10
+2020-06-30 07:46:38.445812: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusolver.so.10
+2020-06-30 07:46:38.445822: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcusparse.so.10
+2020-06-30 07:46:38.445832: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2020-06-30 07:46:38.445914: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.453086: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.462868: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1697] Adding visible gpu devices: 0
+2020-06-30 07:46:38.462906: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1096] Device interconnect StreamExecutor with strength 1 edge matrix:
+2020-06-30 07:46:38.462913: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1102]      0
+2020-06-30 07:46:38.462919: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1115] 0:   N
+2020-06-30 07:46:38.463297: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.473397: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:981] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2020-06-30 07:46:38.482393: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1241] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 30525 MB memory) -> physical GPU (device: 0, name: Tesla V100-SXM2-32GB, pci bus id: 0000:00:16.0, compute capability: 7.0)
+INFO:tensorflow:Running local_init_op.
+I0630 07:46:40.086916 140610220824384 session_manager.py:504] Running local_init_op.
+INFO:tensorflow:Running local_init_op.
+I0630 07:46:40.154705 140143171553088 session_manager.py:504] Running local_init_op.
+INFO:tensorflow:Done running local_init_op.
+I0630 07:46:40.155350 140610220824384 session_manager.py:507] Done running local_init_op.
+INFO:tensorflow:Running local_init_op.
+I0630 07:46:40.157222 140466343798592 session_manager.py:504] Running local_init_op.
+INFO:tensorflow:Running local_init_op.
+I0630 07:46:40.217778 139831491540800 session_manager.py:504] Running local_init_op.
+INFO:tensorflow:Done running local_init_op.
+I0630 07:46:40.219643 140143171553088 session_manager.py:507] Done running local_init_op.
+INFO:tensorflow:Done running local_init_op.
+I0630 07:46:40.224036 140466343798592 session_manager.py:507] Done running local_init_op.
+INFO:tensorflow:Running local_init_op.
+I0630 07:46:40.273762 139775798007616 session_manager.py:504] Running local_init_op.
+INFO:tensorflow:Done running local_init_op.
+I0630 07:46:40.282853 139831491540800 session_manager.py:507] Done running local_init_op.
+INFO:tensorflow:Running local_init_op.
+I0630 07:46:40.285004 140086273185600 session_manager.py:504] Running local_init_op.
+INFO:tensorflow:Running local_init_op.
+I0630 07:46:40.286236 139626098124608 session_manager.py:504] Running local_init_op.
+INFO:tensorflow:Done running local_init_op.
+I0630 07:46:40.331514 139775798007616 session_manager.py:507] Done running local_init_op.
+INFO:tensorflow:Done running local_init_op.
+I0630 07:46:40.350394 140086273185600 session_manager.py:507] Done running local_init_op.
+INFO:tensorflow:Done running local_init_op.
+I0630 07:46:40.350909 139626098124608 session_manager.py:507] Done running local_init_op.
+INFO:tensorflow:Running local_init_op.
+I0630 07:46:40.365083 139688332601152 session_manager.py:504] Running local_init_op.
+INFO:tensorflow:Done running local_init_op.
+I0630 07:46:40.432911 139688332601152 session_manager.py:507] Done running local_init_op.
+Running warm up
+Running warm up
+Running warm up
+Running warm up
+Running warm up
+Running warm up
+Running warm up
+Running warm up
+2020-06-30 07:46:42.801788: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10
+2020-06-30 07:46:42.832306: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10
+2020-06-30 07:46:42.844861: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10
+2020-06-30 07:46:42.857515: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10
+2020-06-30 07:46:42.877508: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10
+2020-06-30 07:46:42.878547: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10
+2020-06-30 07:46:42.932361: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10
+2020-06-30 07:46:42.975070: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcublas.so.10
+2020-06-30 07:46:43.133516: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2020-06-30 07:46:43.164275: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2020-06-30 07:46:43.181669: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2020-06-30 07:46:43.192289: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2020-06-30 07:46:43.239649: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2020-06-30 07:46:43.252805: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2020-06-30 07:46:43.271896: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+2020-06-30 07:46:43.344010: I tensorflow/stream_executor/platform/default/dso_loader.cc:44] Successfully opened dynamic library libcudnn.so.7
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO Bootstrap : Using [0]eth0:192.168.2.225<0>
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO NET/OFI Setting RDMAV_FORK_SAFE environment variable to 1.
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO NET/OFI Forcing AWS OFI ndev 4
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO NET/OFI Selected Provider is efa
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO NET/Plugin: Failed to find ncclCollNetPlugin_v3 symbol.
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO Using network AWS Libfabric
+NCCL version 2.6.4+cuda10.1
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO Bootstrap : Using [0]eth0:192.168.2.225<0>
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO Bootstrap : Using [0]eth0:192.168.2.225<0>
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO Bootstrap : Using [0]eth0:192.168.2.225<0>
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO Bootstrap : Using [0]eth0:192.168.2.225<0>
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO Bootstrap : Using [0]eth0:192.168.2.225<0>
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO Bootstrap : Using [0]eth0:192.168.2.225<0>
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO NET/OFI Setting RDMAV_FORK_SAFE environment variable to 1.
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO NET/OFI Setting RDMAV_FORK_SAFE environment variable to 1.
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO NET/OFI Setting RDMAV_FORK_SAFE environment variable to 1.
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO NET/OFI Setting RDMAV_FORK_SAFE environment variable to 1.
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO NET/OFI Setting RDMAV_FORK_SAFE environment variable to 1.
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO NET/OFI Setting RDMAV_FORK_SAFE environment variable to 1.
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO NET/OFI Forcing AWS OFI ndev 4
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO NET/OFI Selected Provider is efa
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO NET/Plugin: Failed to find ncclCollNetPlugin_v3 symbol.
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO Using network AWS Libfabric
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO NET/OFI Forcing AWS OFI ndev 4
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO NET/OFI Selected Provider is efa
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO NET/Plugin: Failed to find ncclCollNetPlugin_v3 symbol.
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO Using network AWS Libfabric
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO NET/OFI Forcing AWS OFI ndev 4
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO NET/OFI Selected Provider is efa
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO NET/OFI Forcing AWS OFI ndev 4
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO NET/OFI Selected Provider is efa
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO NET/OFI Forcing AWS OFI ndev 4
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO NET/OFI Selected Provider is efa
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO NET/OFI Forcing AWS OFI ndev 4
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO NET/OFI Selected Provider is efa
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO NET/Plugin: Failed to find ncclCollNetPlugin_v3 symbol.
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO Using network AWS Libfabric
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO NET/Plugin: Failed to find ncclCollNetPlugin_v3 symbol.
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO Using network AWS Libfabric
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO NET/Plugin: Failed to find ncclCollNetPlugin_v3 symbol.
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO Using network AWS Libfabric
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO NET/Plugin: Failed to find ncclCollNetPlugin_v3 symbol.
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO Using network AWS Libfabric
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO Bootstrap : Using [0]eth0:192.168.2.225<0>
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO NET/OFI Setting RDMAV_FORK_SAFE environment variable to 1.
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO NET/OFI Forcing AWS OFI ndev 4
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO NET/OFI Selected Provider is efa
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO NET/Plugin: Failed to find ncclCollNetPlugin_v3 symbol.
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO Using network AWS Libfabric
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO NET/OFI [0] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00/
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO NET/OFI [6] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO NET/OFI [1] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00/
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO NET/OFI [7] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO NET/OFI [2] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO NET/OFI [2] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00/
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO NET/OFI [3] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO NET/OFI [4] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO NET/OFI [5] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO NET/OFI [5] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO NET/OFI [4] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO NET/OFI [0] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO NET/OFI [6] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO NET/OFI [1] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO NET/OFI [7] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO NET/OFI [2] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO NET/OFI [3] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00/
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO NET/OFI [5] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00/
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO NET/OFI [3] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO NET/OFI [4] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00/
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO NET/OFI [0] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO NET/OFI [6] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO NET/OFI [6] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00/
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO NET/OFI [1] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO NET/OFI [1] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO NET/OFI [7] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO NET/OFI [7] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00/
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO NET/OFI [2] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO NET/OFI [5] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO NET/OFI [3] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO NET/OFI [4] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO NET/OFI [0] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO NET/OFI [5] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO NET/OFI [5] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO NET/OFI [5] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00/
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO NET/OFI [5] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO NET/OFI [6] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO NET/OFI [6] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO NET/OFI [6] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO NET/OFI [6] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00/
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO NET/OFI [4] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO NET/OFI [4] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO NET/OFI [4] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00/
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO NET/OFI [4] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO NET/OFI [1] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00/
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO NET/OFI [1] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO NET/OFI [1] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO NET/OFI [1] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO NET/OFI [2] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO NET/OFI [2] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00/
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO NET/OFI [2] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO NET/OFI [2] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO NET/OFI [7] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO NET/OFI [7] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO NET/OFI [7] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO NET/OFI [7] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00/
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO NET/OFI [3] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO NET/OFI [3] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00/
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO NET/OFI [3] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO NET/OFI [3] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO NET/OFI [0] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00/
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO NET/OFI [0] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO NET/OFI [0] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO NET/OFI [0] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO threadThresholds 8/8/64 | 64/8/64 | 8/8/64
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO Trees [0] 2/-1/-1->3->0|0->3->2/-1/-1 [1] 2/-1/-1->3->0|0->3->2/-1/-1 [2] -1/-1/-1->3->2|2->3->-1/-1/-1 [3] -1/-1/-1->3->2|2->3->-1/-1/-1 [4] 7/-1/-1->3->1|1->3->7/-1/-1 [5] 1/-1/-1->3->7|7->3->1/-1/-1 [6] 2/-1/-1->3->0|0->3->2/-1/-1 [7] 2/-1/-1->3->0|0->3->2/-1/-1 [8] -1/-1/-1->3->2|2->3->-1/-1/-1 [9] -1/-1/-1->3->2|2->3->-1/-1/-1 [10] 7/-1/-1->3->1|1->3->7/-1/-1 [11] 1/-1/-1->3->7|7->3->1/-1/-1
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO threadThresholds 8/8/64 | 64/8/64 | 8/8/64
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO Trees [0] 7/-1/-1->6->5|5->6->7/-1/-1 [1] 7/-1/-1->6->5|5->6->7/-1/-1 [2] 5/-1/-1->6->7|7->6->5/-1/-1 [3] 5/-1/-1->6->7|7->6->5/-1/-1 [4] 2/-1/-1->6->4|4->6->2/-1/-1 [5] 4/-1/-1->6->2|2->6->4/-1/-1 [6] 7/-1/-1->6->5|5->6->7/-1/-1 [7] 7/-1/-1->6->5|5->6->7/-1/-1 [8] 5/-1/-1->6->7|7->6->5/-1/-1 [9] 5/-1/-1->6->7|7->6->5/-1/-1 [10] 2/-1/-1->6->4|4->6->2/-1/-1 [11] 4/-1/-1->6->2|2->6->4/-1/-1
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO threadThresholds 8/8/64 | 64/8/64 | 8/8/64
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO Trees [0] 6/-1/-1->5->1|1->5->6/-1/-1 [1] 6/-1/-1->5->1|1->5->6/-1/-1 [2] 1/-1/-1->5->6|6->5->1/-1/-1 [3] 1/-1/-1->5->6|6->5->1/-1/-1 [4] 4/-1/-1->5->7|7->5->4/-1/-1 [5] 7/-1/-1->5->4|4->5->7/-1/-1 [6] 6/-1/-1->5->1|1->5->6/-1/-1 [7] 6/-1/-1->5->1|1->5->6/-1/-1 [8] 1/-1/-1->5->6|6->5->1/-1/-1 [9] 1/-1/-1->5->6|6->5->1/-1/-1 [10] 4/-1/-1->5->7|7->5->4/-1/-1 [11] 7/-1/-1->5->4|4->5->7/-1/-1
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO threadThresholds 8/8/64 | 64/8/64 | 8/8/64
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO Trees [0] -1/-1/-1->4->7|7->4->-1/-1/-1 [1] -1/-1/-1->4->7|7->4->-1/-1/-1 [2] 7/-1/-1->4->0|0->4->7/-1/-1 [3] 7/-1/-1->4->0|0->4->7/-1/-1 [4] 6/-1/-1->4->5|5->4->6/-1/-1 [5] 5/-1/-1->4->6|6->4->5/-1/-1 [6] -1/-1/-1->4->7|7->4->-1/-1/-1 [7] -1/-1/-1->4->7|7->4->-1/-1/-1 [8] 7/-1/-1->4->0|0->4->7/-1/-1 [9] 7/-1/-1->4->0|0->4->7/-1/-1 [10] 6/-1/-1->4->5|5->4->6/-1/-1 [11] 5/-1/-1->4->6|6->4->5/-1/-1
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO threadThresholds 8/8/64 | 64/8/64 | 8/8/64
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO Trees [0] 4/-1/-1->7->6|6->7->4/-1/-1 [1] 4/-1/-1->7->6|6->7->4/-1/-1 [2] 6/-1/-1->7->4|4->7->6/-1/-1 [3] 6/-1/-1->7->4|4->7->6/-1/-1 [4] 5/-1/-1->7->3|3->7->5/-1/-1 [5] 3/-1/-1->7->5|5->7->3/-1/-1 [6] 4/-1/-1->7->6|6->7->4/-1/-1 [7] 4/-1/-1->7->6|6->7->4/-1/-1 [8] 6/-1/-1->7->4|4->7->6/-1/-1 [9] 6/-1/-1->7->4|4->7->6/-1/-1 [10] 5/-1/-1->7->3|3->7->5/-1/-1 [11] 3/-1/-1->7->5|5->7->3/-1/-1
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO Channel 00/12 :    0   3   2   1   5   6   7   4
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO Channel 01/12 :    0   3   2   1   5   6   7   4
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO Channel 02/12 :    0   4   7   6   5   1   2   3
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO threadThresholds 8/8/64 | 64/8/64 | 8/8/64
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO Trees [0] 5/-1/-1->1->2|2->1->5/-1/-1 [1] 5/-1/-1->1->2|2->1->5/-1/-1 [2] 2/-1/-1->1->5|5->1->2/-1/-1 [3] 2/-1/-1->1->5|5->1->2/-1/-1 [4] 3/-1/-1->1->0|0->1->3/-1/-1 [5] -1/-1/-1->1->3|3->1->-1/-1/-1 [6] 5/-1/-1->1->2|2->1->5/-1/-1 [7] 5/-1/-1->1->2|2->1->5/-1/-1 [8] 2/-1/-1->1->5|5->1->2/-1/-1 [9] 2/-1/-1->1->5|5->1->2/-1/-1 [10] 3/-1/-1->1->0|0->1->3/-1/-1 [11] -1/-1/-1->1->3|3->1->-1/-1/-1
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO threadThresholds 8/8/64 | 64/8/64 | 8/8/64
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO Trees [0] 1/-1/-1->2->3|3->2->1/-1/-1 [1] 1/-1/-1->2->3|3->2->1/-1/-1 [2] 3/-1/-1->2->1|1->2->3/-1/-1 [3] 3/-1/-1->2->1|1->2->3/-1/-1 [4] -1/-1/-1->2->6|6->2->-1/-1/-1 [5] 6/-1/-1->2->0|0->2->6/-1/-1 [6] 1/-1/-1->2->3|3->2->1/-1/-1 [7] 1/-1/-1->2->3|3->2->1/-1/-1 [8] 3/-1/-1->2->1|1->2->3/-1/-1 [9] 3/-1/-1->2->1|1->2->3/-1/-1 [10] -1/-1/-1->2->6|6->2->-1/-1/-1 [11] 6/-1/-1->2->0|0->2->6/-1/-1
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO Channel 03/12 :    0   4   7   6   5   1   2   3
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO Channel 04/12 :    0   1   3   7   5   4   6   2
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO Channel 05/12 :    0   2   6   4   5   7   3   1
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO Channel 06/12 :    0   3   2   1   5   6   7   4
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO Channel 07/12 :    0   3   2   1   5   6   7   4
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO Channel 08/12 :    0   4   7   6   5   1   2   3
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO Channel 09/12 :    0   4   7   6   5   1   2   3
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO Channel 10/12 :    0   1   3   7   5   4   6   2
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO Channel 11/12 :    0   2   6   4   5   7   3   1
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO threadThresholds 8/8/64 | 64/8/64 | 8/8/64
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO Trees [0] 3/-1/-1->0->-1|-1->0->3/-1/-1 [1] 3/-1/-1->0->-1|-1->0->3/-1/-1 [2] 4/-1/-1->0->-1|-1->0->4/-1/-1 [3] 4/-1/-1->0->-1|-1->0->4/-1/-1 [4] 1/-1/-1->0->-1|-1->0->1/-1/-1 [5] 2/-1/-1->0->-1|-1->0->2/-1/-1 [6] 3/-1/-1->0->-1|-1->0->3/-1/-1 [7] 3/-1/-1->0->-1|-1->0->3/-1/-1 [8] 4/-1/-1->0->-1|-1->0->4/-1/-1 [9] 4/-1/-1->0->-1|-1->0->4/-1/-1 [10] 1/-1/-1->0->-1|-1->0->1/-1/-1 [11] 2/-1/-1->0->-1|-1->0->2/-1/-1
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO Ring 00 : 3[190] -> 2[180] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO Ring 00 : 4[1a0] -> 0[160] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO Ring 00 : 5[1b0] -> 6[1c0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO Ring 00 : 6[1c0] -> 7[1d0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO Ring 00 : 7[1d0] -> 4[1a0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO Ring 00 : 1[170] -> 5[1b0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO Ring 00 : 2[180] -> 1[170] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO Ring 00 : 0[160] -> 3[190] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO Ring 00 : 4[1a0] -> 7[1d0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO Ring 00 : 3[190] -> 0[160] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO Ring 00 : 5[1b0] -> 1[170] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO Ring 00 : 6[1c0] -> 5[1b0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO Ring 00 : 7[1d0] -> 6[1c0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO Ring 00 : 1[170] -> 2[180] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO Ring 00 : 2[180] -> 3[190] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO Ring 01 : 4[1a0] -> 0[160] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO Ring 01 : 0[160] -> 3[190] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO Ring 01 : 3[190] -> 2[180] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO Ring 01 : 5[1b0] -> 6[1c0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO Ring 01 : 6[1c0] -> 7[1d0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO Ring 01 : 7[1d0] -> 4[1a0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO Ring 01 : 1[170] -> 5[1b0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO Ring 01 : 2[180] -> 1[170] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO Ring 01 : 4[1a0] -> 7[1d0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO Ring 01 : 3[190] -> 0[160] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO Ring 01 : 5[1b0] -> 1[170] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO Ring 01 : 6[1c0] -> 5[1b0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO Ring 01 : 7[1d0] -> 6[1c0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO Ring 01 : 1[170] -> 2[180] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO Ring 01 : 2[180] -> 3[190] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO Ring 02 : 4[1a0] -> 7[1d0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO Ring 02 : 0[160] -> 4[1a0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO Ring 02 : 3[190] -> 0[160] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO Ring 02 : 5[1b0] -> 1[170] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO Ring 02 : 6[1c0] -> 5[1b0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO Ring 02 : 7[1d0] -> 6[1c0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO Ring 02 : 1[170] -> 2[180] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO Ring 02 : 2[180] -> 3[190] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO Ring 02 : 3[190] -> 2[180] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO Ring 02 : 4[1a0] -> 0[160] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO Ring 02 : 6[1c0] -> 7[1d0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO Ring 02 : 5[1b0] -> 6[1c0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO Ring 02 : 7[1d0] -> 4[1a0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO Ring 02 : 1[170] -> 5[1b0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO Ring 02 : 2[180] -> 1[170] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO Ring 03 : 0[160] -> 4[1a0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO Ring 03 : 3[190] -> 0[160] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO Ring 03 : 4[1a0] -> 7[1d0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO Ring 03 : 6[1c0] -> 5[1b0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO Ring 03 : 5[1b0] -> 1[170] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO Ring 03 : 7[1d0] -> 6[1c0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO Ring 03 : 1[170] -> 2[180] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO Ring 03 : 2[180] -> 3[190] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO Ring 03 : 3[190] -> 2[180] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO Ring 03 : 4[1a0] -> 0[160] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO Ring 03 : 5[1b0] -> 6[1c0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO Ring 03 : 6[1c0] -> 7[1d0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO Ring 03 : 7[1d0] -> 4[1a0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO Ring 03 : 1[170] -> 5[1b0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO Ring 03 : 2[180] -> 1[170] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO Ring 04 : 3[190] -> 7[1d0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO Ring 04 : 0[160] -> 1[170] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO Ring 04 : 4[1a0] -> 6[1c0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO Ring 04 : 5[1b0] -> 4[1a0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO Ring 04 : 6[1c0] -> 2[180] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO Ring 04 : 7[1d0] -> 5[1b0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO Ring 04 : 1[170] -> 3[190] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO Ring 04 : 2[180] -> 0[160] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO Ring 04 : 3[190] -> 1[170] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO Ring 04 : 2[180] -> 6[1c0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO Ring 04 : 4[1a0] -> 5[1b0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO Ring 04 : 5[1b0] -> 7[1d0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO Ring 04 : 6[1c0] -> 4[1a0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO Ring 04 : 7[1d0] -> 3[190] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO Ring 04 : 1[170] -> 0[160] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO Ring 05 : 2[180] -> 6[1c0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO Ring 05 : 3[190] -> 1[170] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO Ring 05 : 4[1a0] -> 5[1b0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO Ring 05 : 0[160] -> 2[180] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO Ring 05 : 5[1b0] -> 7[1d0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO Ring 05 : 6[1c0] -> 4[1a0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO Ring 05 : 7[1d0] -> 3[190] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO Ring 05 : 1[170] -> 0[160] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO Ring 05 : 2[180] -> 0[160] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO Ring 05 : 1[170] -> 3[190] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO Ring 05 : 4[1a0] -> 6[1c0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO Ring 05 : 3[190] -> 7[1d0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO Ring 05 : 5[1b0] -> 4[1a0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO Ring 05 : 6[1c0] -> 2[180] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO Ring 05 : 7[1d0] -> 5[1b0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO Ring 06 : 0[160] -> 3[190] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO Ring 06 : 1[170] -> 5[1b0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO Ring 06 : 2[180] -> 1[170] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO Ring 06 : 4[1a0] -> 0[160] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO Ring 06 : 3[190] -> 2[180] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO Ring 06 : 5[1b0] -> 6[1c0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO Ring 06 : 6[1c0] -> 7[1d0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO Ring 06 : 7[1d0] -> 4[1a0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO Ring 06 : 4[1a0] -> 7[1d0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO Ring 06 : 1[170] -> 2[180] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO Ring 06 : 2[180] -> 3[190] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO Ring 06 : 3[190] -> 0[160] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO Ring 06 : 5[1b0] -> 1[170] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO Ring 06 : 6[1c0] -> 5[1b0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO Ring 06 : 7[1d0] -> 6[1c0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO Ring 07 : 4[1a0] -> 0[160] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO Ring 07 : 0[160] -> 3[190] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO Ring 07 : 1[170] -> 5[1b0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO Ring 07 : 2[180] -> 1[170] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO Ring 07 : 3[190] -> 2[180] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO Ring 07 : 5[1b0] -> 6[1c0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO Ring 07 : 6[1c0] -> 7[1d0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO Ring 07 : 7[1d0] -> 4[1a0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO Ring 07 : 4[1a0] -> 7[1d0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO Ring 07 : 1[170] -> 2[180] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO Ring 07 : 2[180] -> 3[190] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO Ring 07 : 3[190] -> 0[160] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO Ring 07 : 5[1b0] -> 1[170] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO Ring 07 : 6[1c0] -> 5[1b0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO Ring 07 : 7[1d0] -> 6[1c0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO Ring 08 : 4[1a0] -> 7[1d0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO Ring 08 : 0[160] -> 4[1a0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO Ring 08 : 1[170] -> 2[180] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO Ring 08 : 2[180] -> 3[190] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO Ring 08 : 3[190] -> 0[160] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO Ring 08 : 5[1b0] -> 1[170] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO Ring 08 : 6[1c0] -> 5[1b0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO Ring 08 : 7[1d0] -> 6[1c0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO Ring 08 : 3[190] -> 2[180] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO Ring 08 : 1[170] -> 5[1b0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO Ring 08 : 4[1a0] -> 0[160] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO Ring 08 : 2[180] -> 1[170] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO Ring 08 : 5[1b0] -> 6[1c0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO Ring 08 : 6[1c0] -> 7[1d0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO Ring 08 : 7[1d0] -> 4[1a0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO Ring 09 : 3[190] -> 0[160] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO Ring 09 : 0[160] -> 4[1a0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO Ring 09 : 1[170] -> 2[180] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO Ring 09 : 2[180] -> 3[190] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO Ring 09 : 4[1a0] -> 7[1d0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO Ring 09 : 5[1b0] -> 1[170] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO Ring 09 : 6[1c0] -> 5[1b0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO Ring 09 : 7[1d0] -> 6[1c0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO Ring 09 : 3[190] -> 2[180] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO Ring 09 : 1[170] -> 5[1b0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO Ring 09 : 2[180] -> 1[170] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO Ring 09 : 4[1a0] -> 0[160] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO Ring 09 : 5[1b0] -> 6[1c0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO Ring 09 : 6[1c0] -> 7[1d0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO Ring 09 : 7[1d0] -> 4[1a0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO Ring 10 : 3[190] -> 7[1d0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO Ring 10 : 0[160] -> 1[170] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO Ring 10 : 1[170] -> 3[190] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO Ring 10 : 2[180] -> 0[160] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO Ring 10 : 4[1a0] -> 6[1c0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO Ring 10 : 5[1b0] -> 4[1a0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO Ring 10 : 6[1c0] -> 2[180] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO Ring 10 : 7[1d0] -> 5[1b0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO Ring 10 : 2[180] -> 6[1c0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO Ring 10 : 1[170] -> 0[160] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO Ring 10 : 3[190] -> 1[170] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO Ring 10 : 4[1a0] -> 5[1b0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO Ring 10 : 5[1b0] -> 7[1d0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO Ring 10 : 6[1c0] -> 4[1a0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO Ring 10 : 7[1d0] -> 3[190] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO Ring 11 : 0[160] -> 2[180] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO Ring 11 : 2[180] -> 6[1c0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO Ring 11 : 1[170] -> 0[160] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO Ring 11 : 4[1a0] -> 5[1b0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO Ring 11 : 3[190] -> 1[170] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO Ring 11 : 5[1b0] -> 7[1d0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO Ring 11 : 6[1c0] -> 4[1a0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO Ring 11 : 7[1d0] -> 3[190] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO Ring 11 : 1[170] -> 3[190] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO Ring 11 : 2[180] -> 0[160] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO Ring 11 : 4[1a0] -> 6[1c0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:15:574 [1] NCCL INFO comm 0x7fe17c391da0 rank 1 nranks 8 cudaDev 1 busId 170 - Init COMPLETE
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO Ring 11 : 3[190] -> 7[1d0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO Ring 11 : 5[1b0] -> 4[1a0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO comm 0x7f0ad4385080 rank 0 nranks 8 cudaDev 0 busId 160 - Init COMPLETE
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO Ring 11 : 6[1c0] -> 2[180] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO Ring 11 : 7[1d0] -> 5[1b0] via P2P/IPC
+tensorflow-benchmarks-efa-worker-0:16:575 [2] NCCL INFO comm 0x7f677c392ad0 rank 2 nranks 8 cudaDev 2 busId 180 - Init COMPLETE
+tensorflow-benchmarks-efa-worker-0:18:576 [4] NCCL INFO comm 0x7f2cdc35d550 rank 4 nranks 8 cudaDev 4 busId 1a0 - Init COMPLETE
+tensorflow-benchmarks-efa-worker-0:17:589 [3] NCCL INFO comm 0x7efd2035dfb0 rank 3 nranks 8 cudaDev 3 busId 190 - Init COMPLETE
+tensorflow-benchmarks-efa-worker-0:19:593 [5] NCCL INFO comm 0x7fc0c4362de0 rank 5 nranks 8 cudaDev 5 busId 1b0 - Init COMPLETE
+tensorflow-benchmarks-efa-worker-0:20:592 [6] NCCL INFO comm 0x7f758035dea0 rank 6 nranks 8 cudaDev 6 busId 1c0 - Init COMPLETE
+tensorflow-benchmarks-efa-worker-0:21:578 [7] NCCL INFO comm 0x7f1ffc365550 rank 7 nranks 8 cudaDev 7 busId 1d0 - Init COMPLETE
+tensorflow-benchmarks-efa-worker-0:14:577 [0] NCCL INFO Launch mode Parallel
+Done warm up
+Step	Img/sec	total_loss
+Done warm up
+Step	Img/sec	total_loss
+Done warm up
+Step	Img/sec	total_loss
+Done warm up
+Done warm up
+Step	Img/sec	total_loss
+Done warm up
+Step	Img/sec	total_loss
+Step	Img/sec	total_loss
+Done warm up
+Step	Img/sec	total_loss
+Done warm up
+Step	Img/sec	total_loss
+1	images/sec: 368.8 +/- 0.0 (jitter = 0.0)	8.007
+1	images/sec: 368.9 +/- 0.0 (jitter = 0.0)	7.826
+1	images/sec: 368.7 +/- 0.0 (jitter = 0.0)	7.900
+1	images/sec: 368.6 +/- 0.0 (jitter = 0.0)	7.827
+1	images/sec: 369.2 +/- 0.0 (jitter = 0.0)	7.836
+1	images/sec: 368.2 +/- 0.0 (jitter = 0.0)	8.052
+1	images/sec: 368.7 +/- 0.0 (jitter = 0.0)	8.180
+1	images/sec: 367.7 +/- 0.0 (jitter = 0.0)	7.824
+10	images/sec: 368.6 +/- 0.4 (jitter = 1.0)	8.000
+10	images/sec: 368.6 +/- 0.4 (jitter = 0.8)	7.714
+10	images/sec: 368.6 +/- 0.4 (jitter = 0.6)	7.881
+10	images/sec: 368.6 +/- 0.4 (jitter = 1.5)	7.744
+10	images/sec: 368.6 +/- 0.4 (jitter = 0.8)	7.749
+10	images/sec: 368.6 +/- 0.3 (jitter = 1.3)	7.836
+10	images/sec: 368.5 +/- 0.4 (jitter = 1.1)	7.793
+10	images/sec: 368.6 +/- 0.4 (jitter = 1.7)	7.770
+20	images/sec: 368.7 +/- 0.3 (jitter = 0.9)	7.834
+20	images/sec: 368.8 +/- 0.2 (jitter = 0.9)	7.781
+20	images/sec: 368.7 +/- 0.2 (jitter = 1.2)	7.772
+20	images/sec: 368.7 +/- 0.3 (jitter = 1.0)	7.703
+20	images/sec: 368.7 +/- 0.3 (jitter = 0.9)	7.770
+20	images/sec: 368.7 +/- 0.2 (jitter = 0.9)	7.792
+20	images/sec: 368.8 +/- 0.2 (jitter = 1.2)	7.731
+20	images/sec: 368.7 +/- 0.3 (jitter = 1.2)	7.722
+30	images/sec: 368.5 +/- 0.2 (jitter = 1.1)	7.511
+30	images/sec: 368.5 +/- 0.2 (jitter = 0.9)	7.848
+30	images/sec: 368.5 +/- 0.2 (jitter = 1.0)	7.864
+30	images/sec: 368.5 +/- 0.2 (jitter = 0.8)	7.730
+30	images/sec: 368.5 +/- 0.2 (jitter = 1.2)	7.615
+30	images/sec: 368.5 +/- 0.2 (jitter = 0.9)	7.705
+30	images/sec: 368.5 +/- 0.2 (jitter = 1.2)	7.682
+30	images/sec: 368.5 +/- 0.2 (jitter = 0.8)	7.659
+40	images/sec: 368.4 +/- 0.2 (jitter = 0.9)	7.475
+40	images/sec: 368.4 +/- 0.2 (jitter = 0.9)	7.713
+40	images/sec: 368.4 +/- 0.2 (jitter = 1.3)	7.637
+40	images/sec: 368.4 +/- 0.2 (jitter = 1.2)	7.682
+40	images/sec: 368.4 +/- 0.2 (jitter = 1.0)	7.629
+40	images/sec: 368.4 +/- 0.2 (jitter = 1.0)	7.769
+40	images/sec: 368.4 +/- 0.2 (jitter = 1.2)	7.586
+40	images/sec: 368.4 +/- 0.2 (jitter = 1.1)	7.544
+50	images/sec: 368.4 +/- 0.2 (jitter = 1.1)	7.614
+50	images/sec: 368.4 +/- 0.2 (jitter = 0.9)	7.784
+50	images/sec: 368.4 +/- 0.2 (jitter = 1.3)	7.620
+50	images/sec: 368.4 +/- 0.2 (jitter = 1.2)	7.597
+50	images/sec: 368.4 +/- 0.2 (jitter = 1.0)	7.542
+50	images/sec: 368.4 +/- 0.2 (jitter = 0.9)	7.584
+50	images/sec: 368.4 +/- 0.2 (jitter = 1.1)	7.732
+50	images/sec: 368.4 +/- 0.2 (jitter = 1.0)	7.662
+60	images/sec: 368.4 +/- 0.2 (jitter = 1.2)	7.622
+60	images/sec: 368.3 +/- 0.2 (jitter = 1.1)	7.553
+60	images/sec: 368.3 +/- 0.1 (jitter = 1.1)	7.589
+60	images/sec: 368.3 +/- 0.1 (jitter = 1.0)	7.534
+60	images/sec: 368.3 +/- 0.2 (jitter = 1.1)	7.584
+60	images/sec: 368.3 +/- 0.1 (jitter = 1.1)	7.654
+60	images/sec: 368.3 +/- 0.2 (jitter = 1.0)	7.616
+60	images/sec: 368.3 +/- 0.2 (jitter = 1.1)	7.475
+70	images/sec: 368.3 +/- 0.1 (jitter = 1.1)	7.514
+70	images/sec: 368.3 +/- 0.1 (jitter = 1.0)	7.578
+70	images/sec: 368.3 +/- 0.1 (jitter = 1.0)	7.536
+70	images/sec: 368.3 +/- 0.1 (jitter = 1.1)	7.627
+70	images/sec: 368.3 +/- 0.1 (jitter = 1.0)	7.621
+70	images/sec: 368.3 +/- 0.1 (jitter = 1.1)	7.416
+70	images/sec: 368.3 +/- 0.1 (jitter = 1.1)	7.532
+70	images/sec: 368.3 +/- 0.1 (jitter = 1.2)	7.583
+80	images/sec: 368.3 +/- 0.1 (jitter = 1.1)	7.564
+80	images/sec: 368.3 +/- 0.1 (jitter = 1.0)	7.521
+80	images/sec: 368.3 +/- 0.1 (jitter = 1.0)	7.509
+80	images/sec: 368.3 +/- 0.1 (jitter = 1.1)	7.523
+80	images/sec: 368.3 +/- 0.1 (jitter = 1.1)	7.483
+80	images/sec: 368.3 +/- 0.1 (jitter = 1.2)	7.590
+80	images/sec: 368.3 +/- 0.1 (jitter = 1.2)	7.513
+80	images/sec: 368.3 +/- 0.1 (jitter = 1.1)	7.472
+90	images/sec: 368.3 +/- 0.1 (jitter = 1.0)	7.484
+90	images/sec: 368.3 +/- 0.1 (jitter = 1.2)	7.453
+90	images/sec: 368.3 +/- 0.1 (jitter = 1.0)	7.525
+90	images/sec: 368.3 +/- 0.1 (jitter = 1.1)	7.484
+90	images/sec: 368.3 +/- 0.1 (jitter = 1.0)	7.551
+90	images/sec: 368.3 +/- 0.1 (jitter = 1.0)	7.493
+90	images/sec: 368.3 +/- 0.1 (jitter = 1.0)	7.499
+90	images/sec: 368.3 +/- 0.1 (jitter = 1.0)	7.516
+100	images/sec: 368.4 +/- 0.1 (jitter = 1.2)	7.504
+----------------------------------------------------------------
+total images/sec: 2946.03
+----------------------------------------------------------------
+100	images/sec: 368.4 +/- 0.1 (jitter = 1.0)	7.450
+----------------------------------------------------------------
+total images/sec: 2946.00
+----------------------------------------------------------------
+100	images/sec: 368.4 +/- 0.1 (jitter = 1.0)	7.458
+----------------------------------------------------------------
+total images/sec: 2945.98
+----------------------------------------------------------------
+100	images/sec: 368.4 +/- 0.1 (jitter = 1.2)	7.491
+----------------------------------------------------------------
+total images/sec: 2945.95
+----------------------------------------------------------------
+100	images/sec: 368.4 +/- 0.1 (jitter = 1.0)	7.442
+100	images/sec: 368.4 +/- 0.1 (jitter = 1.0)	7.527
+----------------------------------------------------------------
+total images/sec: 2945.98
+----------------------------------------------------------------
+----------------------------------------------------------------
+total images/sec: 2946.00
+----------------------------------------------------------------
+100	images/sec: 368.4 +/- 0.1 (jitter = 1.0)	7.467
+----------------------------------------------------------------
+total images/sec: 2945.89
+----------------------------------------------------------------
+100	images/sec: 368.4 +/- 0.1 (jitter = 1.0)	7.454
+----------------------------------------------------------------
+total images/sec: 2945.90
+----------------------------------------------------------------
+
+# gaogilb @ a483e7024cd8 in /Volumes/unix/workplace/eks-efa-work/src/EKSEFAWorker on git:mainline x [0:47:09]
+$ cat mpi-tf-bc.yaml
+apiVersion: kubeflow.org/v1alpha2
+kind: MPIJob
+metadata:
+  name: tensorflow-benchmarks-efa
+spec:
+  slotsPerWorker: 8
+  cleanPodPolicy: Running
+  mpiReplicaSpecs:
+    Launcher:
+      replicas: 1
+      template:
+         spec:
+           containers:
+           - image: 898739678081.dkr.ecr.us-west-2.amazonaws.com/efa-eks-benchmark:0.2gamma
+             name: tensorflow-benchmarks-efa
+             env:
+             - name: LD_LIBRARY_PATH
+               value: /efa/lib:/usr/local/lib:/nccl/build/lib:/aws-ofi-nccl/install/lib:$LD_LIBRARY_PATH
+             command: ["/bin/sh"]
+             args: ["-c", "mpirun \
+                      --allow-run-as-root \
+                      -x OMPI_ALLOW_RUN_AS_ROOT=1 \
+                      -x OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1 \
+                      -np 8 \
+                      -x NCCL_DEBUG=INFO \
+                      -x NCCL_ALGO=ring \
+                      -x FI_EFA_TX_MIN_CREDITS=32 \
+                      -x FI_EFA_ENABLE_SHM_TRANSFER=0 \
+                      --mca plm_rsh_no_tree_spawn 1 \
+                      --bind-to none --mca pml ob1 \
+                      --mca btl_vader_single_copy_mechanism none \
+                      --mca oob_tcp_if_include eth0 \
+                      --mca btl_tcp_if_include eth0 \
+                      --mca btl \
+                      ^openib \
+                      python \
+                      benchmarks/scripts/tf_cnn_benchmarks/tf_cnn_benchmarks.py \
+                      --model=resnet50 \
+                      --batch_size=64 \
+                      --variable_update=horovod"]
+
+
+    Worker:
+      replicas: 2
+      template:
+        spec:
+          containers:
+          - image: 898739678081.dkr.ecr.us-west-2.amazonaws.com/efa-eks-benchmark:0.2gamma
+            name: tensorflow-benchmarks-efa
+            securityContext:
+              privileged: true
+            volumeMounts:
+            - mountPath: /dev/infiniband/uverbs0
+              name: infiniband-efa
+            resources:
+              limits:
+                nvidia.com/gpu: 4
+          volumes:
+          - name: infiniband-efa
+            hostPath:
+              path: /dev/infiniband/uverbs0
+
+# gaogilb @ a483e7024cd8 in /Volumes/unix/workplace/eks-efa-work/src/EKSEFAWorker on git:mainline x [0:47:32]
+$

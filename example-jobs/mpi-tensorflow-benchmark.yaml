@@ -1,0 +1,55 @@
+apiVersion: kubeflow.org/v1alpha2
+kind: MPIJob
+metadata:
+  name: tensorflow-benchmarks-efa
+spec:
+  slotsPerWorker: 8
+  cleanPodPolicy: Running
+  mpiReplicaSpecs:
+    Launcher:
+      replicas: 1
+      template:
+         spec:
+           containers:
+           - image: 898739678081.dkr.ecr.us-west-2.amazonaws.com/efa-eks-benchmark:0.2gamma
+             name: tensorflow-benchmarks-efa
+             command: ["/bin/sh"]
+             args: ["-c", "mpirun \
+                      --allow-run-as-root \
+                      -np 16 \
+                      -x FI_PROVIDER=efa \
+                      -x NCCL_DEBUG=INFO \
+                      -x NCCL_ALGO=ring \
+                      -x FI_EFA_TX_MIN_CREDITS=64 \
+                      -x FI_EFA_ENABLE_SHM_TRANSFER=0 \
+                      --mca plm_rsh_no_tree_spawn 1 \
+                      --bind-to none -map-by slot --mca pml ob1 \
+                      --mca btl_vader_single_copy_mechanism none \
+                      --mca btl_tcp_if_exclude lo,docker0 \
+                      python \
+                      benchmarks/scripts/tf_cnn_benchmarks/tf_cnn_benchmarks.py \
+                      --model=resnet50 \
+                      --batch_size=256 \
+                      --variable_update=horovod"]
+    Worker:
+      replicas: 2
+      template:
+        spec:
+          containers:
+          - image: 898739678081.dkr.ecr.us-west-2.amazonaws.com/efa-eks-benchmark:0.2gamma
+            name: tensorflow-benchmarks-efa
+            securityContext:
+              privileged: true
+            volumeMounts:
+            - mountPath: /dev/infiniband/uverbs0
+              name: infiniband-efa
+            resources:
+              limits:
+                nvidia.com/gpu: 8
+                hugepages-2Mi: 5120Mi
+              requests:
+                memory: 8000Mi
+          volumes:
+          - name: infiniband-efa
+            hostPath:
+              path: /dev/infiniband/uverbs0

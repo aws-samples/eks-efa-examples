@@ -1,0 +1,103 @@
+$ k logs -f nccl-test-debug-launcher-cptfj
++ POD_NAME=nccl-test-debug-worker-0
++ shift
++ /opt/kube/kubectl exec nccl-test-debug-worker-0 -- /bin/sh -c        PATH=/opt/amazon/openmpi/bin:$PATH ; export PATH ; LD_LIBRARY_PATH=/opt/amazon/openmpi/lib:$LD_LIBRARY_PATH ; export LD_LIBRARY_PATH ; DYLD_LIBRARY_PATH=/opt/amazon/openmpi/lib:$DYLD_LIBRARY_PATH ; export DYLD_LIBRARY_PATH ;   /opt/amazon/openmpi/bin/orted -mca ess "env" -mca ess_base_jobid "1008140288" -mca ess_base_vpid 1 -mca ess_base_num_procs "3" -mca orte_node_regex "nccl-test-debug-launcher-cptfj,nccl-test-debug-worker-[1:0-1]@0(3)" -mca orte_hnp_uri "1008140288.0;tcp://192.168.9.191:60385" --mca plm_rsh_no_tree_spawn "1" --mca pml "ob1" --mca mtl "ofi" --mca mtl_ofi_provider_include "efa" --mca oob_tcp_if_include "eth0" --mca btl_tcp_if_include "eth0" -mca plm "rsh" -mca orte_default_hostfile "/etc/mpi/hostfile" -mca plm_rsh_agent "/etc/mpi/kubexec.sh" -mca rmaps_ppr_n_pernode "1" -mca hwloc_base_binding_policy "none" -mca rmaps_base_oversubscribe "1" -mca pmix "^s1,s2,cray,isolated"
++ POD_NAME=nccl-test-debug-worker-1
++ shift
++ /opt/kube/kubectl exec nccl-test-debug-worker-1 -- /bin/sh -c        PATH=/opt/amazon/openmpi/bin:$PATH ; export PATH ; LD_LIBRARY_PATH=/opt/amazon/openmpi/lib:$LD_LIBRARY_PATH ; export LD_LIBRARY_PATH ; DYLD_LIBRARY_PATH=/opt/amazon/openmpi/lib:$DYLD_LIBRARY_PATH ; export DYLD_LIBRARY_PATH ;   /opt/amazon/openmpi/bin/orted -mca ess "env" -mca ess_base_jobid "1008140288" -mca ess_base_vpid 2 -mca ess_base_num_procs "3" -mca orte_node_regex "nccl-test-debug-launcher-cptfj,nccl-test-debug-worker-[1:0-1]@0(3)" -mca orte_hnp_uri "1008140288.0;tcp://192.168.9.191:60385" --mca plm_rsh_no_tree_spawn "1" --mca pml "ob1" --mca mtl "ofi" --mca mtl_ofi_provider_include "efa" --mca oob_tcp_if_include "eth0" --mca btl_tcp_if_include "eth0" -mca plm "rsh" -mca orte_default_hostfile "/etc/mpi/hostfile" -mca plm_rsh_agent "/etc/mpi/kubexec.sh" -mca rmaps_ppr_n_pernode "1" -mca hwloc_base_binding_policy "none" -mca rmaps_base_oversubscribe "1" -mca pmix "^s1,s2,cray,isolated"
+# nThread 1 nGpus 1 minBytes 8 maxBytes 2147483648 step: 2(factor) warmup iters: 5 iters: 100 validation: 1
+#
+# Using devices
+#   Rank  0 Pid     14 on nccl-test-debug-worker-0 device  0 [0x00] Tesla V100-SXM2-32GB
+#   Rank  1 Pid     14 on nccl-test-debug-worker-1 device  0 [0x00] Tesla V100-SXM2-32GB
+nccl-test-debug-worker-0:14:14 [0] NCCL INFO Bootstrap : Using [0]eth0:192.168.5.165<0>
+nccl-test-debug-worker-0:14:14 [0] NCCL INFO NET/OFI Setting RDMAV_FORK_SAFE environment variable to 1.
+nccl-test-debug-worker-0:14:14 [0] NCCL INFO NET/OFI Forcing AWS OFI ndev 4
+nccl-test-debug-worker-0:14:14 [0] NCCL INFO NET/OFI Selected Provider is efa
+nccl-test-debug-worker-0:14:14 [0] NCCL INFO NET/Plugin: Failed to find ncclCollNetPlugin_v3 symbol.
+nccl-test-debug-worker-0:14:14 [0] NCCL INFO Using network AWS Libfabric
+nccl-test-debug-worker-1:14:14 [0] NCCL INFO Bootstrap : Using [0]eth0:192.168.22.129<0>
+nccl-test-debug-worker-1:14:14 [0] NCCL INFO NET/OFI Setting RDMAV_FORK_SAFE environment variable to 1.
+NCCL version 2.6.4+cuda10.2
+nccl-test-debug-worker-1:14:14 [0] NCCL INFO NET/OFI Forcing AWS OFI ndev 4
+nccl-test-debug-worker-1:14:14 [0] NCCL INFO NET/OFI Selected Provider is efa
+nccl-test-debug-worker-1:14:14 [0] NCCL INFO NET/Plugin: Failed to find ncclCollNetPlugin_v3 symbol.
+nccl-test-debug-worker-1:14:14 [0] NCCL INFO Using network AWS Libfabric
+nccl-test-debug-worker-0:14:20 [0] NCCL INFO NET/OFI [0] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00/
+nccl-test-debug-worker-0:14:20 [0] NCCL INFO NET/OFI [0] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+nccl-test-debug-worker-0:14:20 [0] NCCL INFO NET/OFI [0] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+nccl-test-debug-worker-0:14:20 [0] NCCL INFO NET/OFI [0] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+nccl-test-debug-worker-1:14:19 [0] NCCL INFO NET/OFI [0] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00/
+nccl-test-debug-worker-1:14:19 [0] NCCL INFO NET/OFI [0] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+nccl-test-debug-worker-1:14:19 [0] NCCL INFO NET/OFI [0] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+nccl-test-debug-worker-1:14:19 [0] NCCL INFO NET/OFI [0] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+nccl-test-debug-worker-1:14:19 [0] NCCL INFO NET/OFI [0] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00/
+nccl-test-debug-worker-1:14:19 [0] NCCL INFO NET/OFI [0] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+nccl-test-debug-worker-1:14:19 [0] NCCL INFO NET/OFI [0] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+nccl-test-debug-worker-1:14:19 [0] NCCL INFO NET/OFI [0] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+nccl-test-debug-worker-0:14:20 [0] NCCL INFO NET/OFI [0] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00/
+nccl-test-debug-worker-0:14:20 [0] NCCL INFO NET/OFI [0] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+nccl-test-debug-worker-0:14:20 [0] NCCL INFO NET/OFI [0] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+nccl-test-debug-worker-0:14:20 [0] NCCL INFO NET/OFI [0] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+nccl-test-debug-worker-0:14:20 [0] NCCL INFO Channel 00/04 :    0   1
+nccl-test-debug-worker-0:14:20 [0] NCCL INFO Channel 01/04 :    0   1
+nccl-test-debug-worker-0:14:20 [0] NCCL INFO Channel 02/04 :    0   1
+nccl-test-debug-worker-0:14:20 [0] NCCL INFO Channel 03/04 :    0   1
+nccl-test-debug-worker-0:14:20 [0] NCCL INFO threadThresholds 8/8/64 | 16/8/64 | 8/8/64
+nccl-test-debug-worker-0:14:20 [0] NCCL INFO Trees [0] 1/-1/-1->0->-1|-1->0->1/-1/-1 [1] 1/-1/-1->0->-1|-1->0->1/-1/-1 [2] -1/-1/-1->0->1|1->0->-1/-1/-1 [3] -1/-1/-1->0->1|1->0->-1/-1/-1
+nccl-test-debug-worker-1:14:19 [0] NCCL INFO threadThresholds 8/8/64 | 16/8/64 | 8/8/64
+nccl-test-debug-worker-1:14:19 [0] NCCL INFO Trees [0] -1/-1/-1->1->0|0->1->-1/-1/-1 [1] -1/-1/-1->1->0|0->1->-1/-1/-1 [2] 0/-1/-1->1->-1|-1->1->0/-1/-1 [3] 0/-1/-1->1->-1|-1->1->0/-1/-1
+nccl-test-debug-worker-0:14:20 [0] NCCL INFO Ring 00 : 1[160] -> 0[160] [receive] via NET/AWS Libfabric/0
+nccl-test-debug-worker-1:14:19 [0] NCCL INFO Ring 00 : 0[160] -> 1[160] [receive] via NET/AWS Libfabric/0
+nccl-test-debug-worker-0:14:20 [0] NCCL INFO Ring 00 : 0[160] -> 1[160] [send] via NET/AWS Libfabric/0
+nccl-test-debug-worker-1:14:19 [0] NCCL INFO Ring 00 : 1[160] -> 0[160] [send] via NET/AWS Libfabric/0
+nccl-test-debug-worker-0:14:20 [0] NCCL INFO Ring 01 : 1[160] -> 0[160] [receive] via NET/AWS Libfabric/0
+nccl-test-debug-worker-0:14:20 [0] NCCL INFO Ring 01 : 0[160] -> 1[160] [send] via NET/AWS Libfabric/0
+nccl-test-debug-worker-1:14:19 [0] NCCL INFO Ring 01 : 0[160] -> 1[160] [receive] via NET/AWS Libfabric/0
+nccl-test-debug-worker-1:14:19 [0] NCCL INFO Ring 01 : 1[160] -> 0[160] [send] via NET/AWS Libfabric/0
+nccl-test-debug-worker-0:14:20 [0] NCCL INFO Ring 02 : 1[160] -> 0[160] [receive] via NET/AWS Libfabric/0
+nccl-test-debug-worker-1:14:19 [0] NCCL INFO Ring 02 : 0[160] -> 1[160] [receive] via NET/AWS Libfabric/0
+nccl-test-debug-worker-1:14:19 [0] NCCL INFO Ring 02 : 1[160] -> 0[160] [send] via NET/AWS Libfabric/0
+nccl-test-debug-worker-0:14:20 [0] NCCL INFO Ring 02 : 0[160] -> 1[160] [send] via NET/AWS Libfabric/0
+nccl-test-debug-worker-1:14:19 [0] NCCL INFO Ring 03 : 0[160] -> 1[160] [receive] via NET/AWS Libfabric/0
+nccl-test-debug-worker-1:14:19 [0] NCCL INFO Ring 03 : 1[160] -> 0[160] [send] via NET/AWS Libfabric/0
+nccl-test-debug-worker-0:14:20 [0] NCCL INFO Ring 03 : 1[160] -> 0[160] [receive] via NET/AWS Libfabric/0
+nccl-test-debug-worker-0:14:20 [0] NCCL INFO Ring 03 : 0[160] -> 1[160] [send] via NET/AWS Libfabric/0
+nccl-test-debug-worker-1:14:19 [0] NCCL INFO comm 0x7fb27c000dc0 rank 1 nranks 2 cudaDev 0 busId 160 - Init COMPLETE
+nccl-test-debug-worker-0:14:20 [0] NCCL INFO comm 0x7f7108000dc0 rank 0 nranks 2 cudaDev 0 busId 160 - Init COMPLETE
+#
+#                                                     out-of-place                       in-place
+#       size         count    type   redop     time   algbw   busbw  error     time   algbw   busbw  error
+#        (B)    (elements)                     (us)  (GB/s)  (GB/s)            (us)  (GB/s)  (GB/s)
+nccl-test-debug-worker-0:14:14 [0] NCCL INFO Launch mode Parallel
+           8             2   float     sum    53.45    0.00    0.00  0e+00    52.83    0.00    0.00  0e+00
+          16             4   float     sum    51.32    0.00    0.00  0e+00    52.92    0.00    0.00  0e+00
+          32             8   float     sum    52.32    0.00    0.00  0e+00    51.87    0.00    0.00  0e+00
+          64            16   float     sum    52.69    0.00    0.00  0e+00    51.81    0.00    0.00  0e+00
+         128            32   float     sum    52.19    0.00    0.00  0e+00    52.20    0.00    0.00  0e+00
+         256            64   float     sum    53.97    0.00    0.00  0e+00    53.23    0.00    0.00  0e+00
+         512           128   float     sum    54.60    0.01    0.01  0e+00    54.56    0.01    0.01  0e+00
+        1024           256   float     sum    60.01    0.02    0.02  0e+00    59.00    0.02    0.02  0e+00
+        2048           512   float     sum    60.56    0.03    0.03  0e+00    61.16    0.03    0.03  0e+00
+        4096          1024   float     sum    64.32    0.06    0.06  0e+00    65.09    0.06    0.06  0e+00
+        8192          2048   float     sum    71.07    0.12    0.12  0e+00    70.22    0.12    0.12  0e+00
+       16384          4096   float     sum    77.29    0.21    0.21  0e+00    77.38    0.21    0.21  0e+00
+       32768          8192   float     sum    96.55    0.34    0.34  0e+00    98.55    0.33    0.33  0e+00
+       65536         16384   float     sum    146.8    0.45    0.45  0e+00    145.7    0.45    0.45  0e+00
+      131072         32768   float     sum    189.9    0.69    0.69  0e+00    182.5    0.72    0.72  0e+00
+      262144         65536   float     sum    255.9    1.02    1.02  0e+00    255.5    1.03    1.03  0e+00
+      524288        131072   float     sum    354.9    1.48    1.48  0e+00    353.8    1.48    1.48  0e+00
+     1048576        262144   float     sum    625.6    1.68    1.68  0e+00    622.1    1.69    1.69  0e+00
+     2097152        524288   float     sum   1092.0    1.92    1.92  0e+00   1085.8    1.93    1.93  0e+00
+     4194304       1048576   float     sum   1961.0    2.14    2.14  0e+00   1948.0    2.15    2.15  0e+00
+     8388608       2097152   float     sum   3657.2    2.29    2.29  0e+00   3647.5    2.30    2.30  0e+00
+    16777216       4194304   float     sum   7044.7    2.38    2.38  0e+00   7080.4    2.37    2.37  0e+00
+    33554432       8388608   float     sum    13742    2.44    2.44  0e+00    13950    2.41    2.41  0e+00
+    67108864      16777216   float     sum    26935    2.49    2.49  0e+00    27179    2.47    2.47  0e+00
+   134217728      33554432   float     sum    53375    2.51    2.51  0e+00    53287    2.52    2.52  0e+00
+   268435456      67108864   float     sum   106254    2.53    2.53  0e+00   105937    2.53    2.53  0e+00
+   536870912     134217728   float     sum   211701    2.54    2.54  0e+00   211068    2.54    2.54  0e+00
+  1073741824     268435456   float     sum   421915    2.54    2.54  0e+00   421391    2.55    2.55  0e+00
+  2147483648     536870912   float     sum   842028    2.55    2.55  0e+00   842996    2.55    2.55  0e+00
+# Out of bounds values : 0 OK
+# Avg bus bandwidth    : 1.11948

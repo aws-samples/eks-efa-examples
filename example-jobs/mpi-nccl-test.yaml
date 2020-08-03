@@ -1,0 +1,62 @@
+apiVersion: kubeflow.org/v1alpha2
+kind: MPIJob
+metadata:
+  name: nccl-test-debug
+spec:
+  slotsPerWorker: 8
+  cleanPodPolicy: Running
+  mpiReplicaSpecs:
+    Launcher:
+      replicas: 1
+      template:
+         spec:
+           containers:
+           - image: 898739678081.dkr.ecr.us-west-2.amazonaws.com/efa-eks-benchmark:v0.2-efa-nccl-debug-root
+             name: nccl-test-debug
+             env:
+             - name: LD_LIBRARY_PATH
+               value: /opt/amazon/openmpi/lib:/nccl/build/lib:/opt/amazon/efa/lib:/aws-ofi-nccl/install/lib:/usr/local/nvidia/lib:$LD_LIBRARY_PATH
+             - name: PATH
+               value: $PATH:/opt/amazon/efa/bin
+             command: ["/bin/sh"]
+             args: ["-c", "/opt/amazon/openmpi/bin/mpirun \
+                      --allow-run-as-root \
+                      -n 2 -N 1 \
+                      -x NCCL_DEBUG=INFO \
+                      -x NCCL_ALGO=ring \
+                      -x FI_LOG_PROV=efa \
+                      -x FI_EFA_TX_MIN_CREDITS=64 \
+                      -x FI_EFA_ENABLE_SHM_TRANSFER=0 \
+                      --mca plm_rsh_no_tree_spawn 1 \
+                      --bind-to none \
+                      --mca pml ob1 \
+                      --mca mtl ofi \
+                      --mca mtl_ofi_provider_include efa \
+                      --mca oob_tcp_if_include eth0 \
+                      --mca btl_tcp_if_include eth0 \
+                      --oversubscribe \
+                      /tmp/nccl-tests/build/all_reduce_perf -b 8 -e 2G -f 2 -t 1 -g 1 -c 1 -n 1000"]
+
+
+    Worker:
+      replicas: 2
+      template:
+        spec:
+          containers:
+          - image: 898739678081.dkr.ecr.us-west-2.amazonaws.com/efa-eks-benchmark:v0.2-efa-nccl-debug-root
+            name: nccl-test-debug
+            securityContext:
+              privileged: true
+            volumeMounts:
+            - mountPath: /dev/infiniband/uverbs0
+              name: infiniband-efa
+            resources:
+              limits:
+                nvidia.com/gpu: 8
+                hugepages-2Mi: 256Mi
+              requests:
+                memory: 8000Mi
+          volumes:
+          - name: infiniband-efa
+            hostPath:
+              path: /dev/infiniband/uverbs0

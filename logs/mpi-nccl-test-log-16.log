@@ -1,0 +1,654 @@
++ POD_NAME=nccl-test-worker-0
++ shift
++ /opt/kube/kubectl exec nccl-test-worker-0 -- /bin/sh -c  orted -mca ess "env" -mca ess_base_jobid "3716939776" -mca ess_base_vpid 1 -mca ess_base_num_procs "3" -mca orte_node_regex "nccl-test-launcher-[4:9686]d,nccl-test-worker-[1:0-1]@0(3)" -mca orte_hnp_uri "3716939776.0;tcp://192.168.54.93:41075" --mca plm_rsh_no_tree_spawn "1" --mca pml "ob1" --mca btl_vader_single_copy_mechanism "none" --mca btl_tcp_if_exclude "lo,docker0" -mca plm "rsh" -mca orte_default_hostfile "/etc/mpi/hostfile" -mca plm_rsh_agent "/etc/mpi/kubexec.sh" -mca hwloc_base_binding_policy "none" -mca rmaps_base_oversubscribe "1" -mca pmix "^s1,s2,cray,isolated"
++ POD_NAME=nccl-test-worker-1
++ shift
++ /opt/kube/kubectl exec nccl-test-worker-1 -- /bin/sh -c  orted -mca ess "env" -mca ess_base_jobid "3716939776" -mca ess_base_vpid 2 -mca ess_base_num_procs "3" -mca orte_node_regex "nccl-test-launcher-[4:9686]d,nccl-test-worker-[1:0-1]@0(3)" -mca orte_hnp_uri "3716939776.0;tcp://192.168.54.93:41075" --mca plm_rsh_no_tree_spawn "1" --mca pml "ob1" --mca btl_vader_single_copy_mechanism "none" --mca btl_tcp_if_exclude "lo,docker0" -mca plm "rsh" -mca orte_default_hostfile "/etc/mpi/hostfile" -mca plm_rsh_agent "/etc/mpi/kubexec.sh" -mca hwloc_base_binding_policy "none" -mca rmaps_base_oversubscribe "1" -mca pmix "^s1,s2,cray,isolated"
+# nThread 1 nGpus 1 minBytes 8 maxBytes 1073741824 step: 2(factor) warmup iters: 5 iters: 500 validation: 1 
+#
+# Using devices
+#   Rank  0 Pid     14 on nccl-test-worker-0 device  0 [0x00] Tesla V100-SXM2-32GB
+#   Rank  1 Pid     15 on nccl-test-worker-0 device  1 [0x00] Tesla V100-SXM2-32GB
+#   Rank  2 Pid     16 on nccl-test-worker-0 device  2 [0x00] Tesla V100-SXM2-32GB
+#   Rank  3 Pid     17 on nccl-test-worker-0 device  3 [0x00] Tesla V100-SXM2-32GB
+#   Rank  4 Pid     18 on nccl-test-worker-0 device  4 [0x00] Tesla V100-SXM2-32GB
+#   Rank  5 Pid     21 on nccl-test-worker-0 device  5 [0x00] Tesla V100-SXM2-32GB
+#   Rank  6 Pid     25 on nccl-test-worker-0 device  6 [0x00] Tesla V100-SXM2-32GB
+#   Rank  7 Pid     26 on nccl-test-worker-0 device  7 [0x00] Tesla V100-SXM2-32GB
+#   Rank  8 Pid     14 on nccl-test-worker-1 device  0 [0x00] Tesla V100-SXM2-32GB
+#   Rank  9 Pid     15 on nccl-test-worker-1 device  1 [0x00] Tesla V100-SXM2-32GB
+#   Rank 10 Pid     16 on nccl-test-worker-1 device  2 [0x00] Tesla V100-SXM2-32GB
+#   Rank 11 Pid     17 on nccl-test-worker-1 device  3 [0x00] Tesla V100-SXM2-32GB
+#   Rank 12 Pid     18 on nccl-test-worker-1 device  4 [0x00] Tesla V100-SXM2-32GB
+#   Rank 13 Pid     19 on nccl-test-worker-1 device  5 [0x00] Tesla V100-SXM2-32GB
+#   Rank 14 Pid     20 on nccl-test-worker-1 device  6 [0x00] Tesla V100-SXM2-32GB
+#   Rank 15 Pid     21 on nccl-test-worker-1 device  7 [0x00] Tesla V100-SXM2-32GB
+nccl-test-worker-0:14:14 [0] NCCL INFO Bootstrap : Using [0]eth0:192.168.48.203<0>
+nccl-test-worker-0:14:14 [0] NCCL INFO NET/OFI Setting RDMAV_FORK_SAFE environment variable to 1.
+nccl-test-worker-0:14:14 [0] NCCL INFO NET/OFI Forcing AWS OFI ndev 4
+nccl-test-worker-0:14:14 [0] NCCL INFO NET/OFI Selected Provider is efa
+nccl-test-worker-0:14:14 [0] NCCL INFO NET/Plugin: Failed to find ncclCollNetPlugin_v3 symbol.
+nccl-test-worker-0:14:14 [0] NCCL INFO Using network AWS Libfabric
+NCCL version 2.6.4+cuda10.2
+nccl-test-worker-1:21:21 [7] NCCL INFO Bootstrap : Using [0]eth0:192.168.43.177<0>
+nccl-test-worker-1:21:21 [7] NCCL INFO NET/OFI Setting RDMAV_FORK_SAFE environment variable to 1.
+nccl-test-worker-1:18:18 [4] NCCL INFO Bootstrap : Using [0]eth0:192.168.43.177<0>
+nccl-test-worker-1:18:18 [4] NCCL INFO NET/OFI Setting RDMAV_FORK_SAFE environment variable to 1.
+nccl-test-worker-1:20:20 [6] NCCL INFO Bootstrap : Using [0]eth0:192.168.43.177<0>
+nccl-test-worker-1:20:20 [6] NCCL INFO NET/OFI Setting RDMAV_FORK_SAFE environment variable to 1.
+nccl-test-worker-1:19:19 [5] NCCL INFO Bootstrap : Using [0]eth0:192.168.43.177<0>
+nccl-test-worker-1:19:19 [5] NCCL INFO NET/OFI Setting RDMAV_FORK_SAFE environment variable to 1.
+nccl-test-worker-1:17:17 [3] NCCL INFO Bootstrap : Using [0]eth0:192.168.43.177<0>
+nccl-test-worker-1:17:17 [3] NCCL INFO NET/OFI Setting RDMAV_FORK_SAFE environment variable to 1.
+nccl-test-worker-1:14:14 [0] NCCL INFO Bootstrap : Using [0]eth0:192.168.43.177<0>
+nccl-test-worker-1:15:15 [1] NCCL INFO Bootstrap : Using [0]eth0:192.168.43.177<0>
+nccl-test-worker-1:14:14 [0] NCCL INFO NET/OFI Setting RDMAV_FORK_SAFE environment variable to 1.
+nccl-test-worker-1:16:16 [2] NCCL INFO Bootstrap : Using [0]eth0:192.168.43.177<0>
+nccl-test-worker-1:15:15 [1] NCCL INFO NET/OFI Setting RDMAV_FORK_SAFE environment variable to 1.
+nccl-test-worker-1:16:16 [2] NCCL INFO NET/OFI Setting RDMAV_FORK_SAFE environment variable to 1.
+nccl-test-worker-1:21:21 [7] NCCL INFO NET/OFI Forcing AWS OFI ndev 4
+nccl-test-worker-1:21:21 [7] NCCL INFO NET/OFI Selected Provider is efa
+nccl-test-worker-1:21:21 [7] NCCL INFO NET/Plugin: Failed to find ncclCollNetPlugin_v3 symbol.
+nccl-test-worker-1:21:21 [7] NCCL INFO Using network AWS Libfabric
+nccl-test-worker-1:18:18 [4] NCCL INFO NET/OFI Forcing AWS OFI ndev 4
+nccl-test-worker-1:18:18 [4] NCCL INFO NET/OFI Selected Provider is efa
+nccl-test-worker-1:18:18 [4] NCCL INFO NET/Plugin: Failed to find ncclCollNetPlugin_v3 symbol.
+nccl-test-worker-1:18:18 [4] NCCL INFO Using network AWS Libfabric
+nccl-test-worker-1:17:17 [3] NCCL INFO NET/OFI Forcing AWS OFI ndev 4
+nccl-test-worker-1:17:17 [3] NCCL INFO NET/OFI Selected Provider is efa
+nccl-test-worker-1:17:17 [3] NCCL INFO NET/Plugin: Failed to find ncclCollNetPlugin_v3 symbol.
+nccl-test-worker-1:17:17 [3] NCCL INFO Using network AWS Libfabric
+nccl-test-worker-1:19:19 [5] NCCL INFO NET/OFI Forcing AWS OFI ndev 4
+nccl-test-worker-1:19:19 [5] NCCL INFO NET/OFI Selected Provider is efa
+nccl-test-worker-1:19:19 [5] NCCL INFO NET/Plugin: Failed to find ncclCollNetPlugin_v3 symbol.
+nccl-test-worker-1:19:19 [5] NCCL INFO Using network AWS Libfabric
+nccl-test-worker-1:16:16 [2] NCCL INFO NET/OFI Forcing AWS OFI ndev 4
+nccl-test-worker-1:16:16 [2] NCCL INFO NET/OFI Selected Provider is efa
+nccl-test-worker-1:16:16 [2] NCCL INFO NET/Plugin: Failed to find ncclCollNetPlugin_v3 symbol.
+nccl-test-worker-1:16:16 [2] NCCL INFO Using network AWS Libfabric
+nccl-test-worker-1:20:20 [6] NCCL INFO NET/OFI Forcing AWS OFI ndev 4
+nccl-test-worker-1:20:20 [6] NCCL INFO NET/OFI Selected Provider is efa
+nccl-test-worker-1:20:20 [6] NCCL INFO NET/Plugin: Failed to find ncclCollNetPlugin_v3 symbol.
+nccl-test-worker-1:20:20 [6] NCCL INFO Using network AWS Libfabric
+nccl-test-worker-0:17:17 [3] NCCL INFO Bootstrap : Using [0]eth0:192.168.48.203<0>
+nccl-test-worker-0:17:17 [3] NCCL INFO NET/OFI Setting RDMAV_FORK_SAFE environment variable to 1.
+nccl-test-worker-0:25:25 [6] NCCL INFO Bootstrap : Using [0]eth0:192.168.48.203<0>
+nccl-test-worker-0:25:25 [6] NCCL INFO NET/OFI Setting RDMAV_FORK_SAFE environment variable to 1.
+nccl-test-worker-0:15:15 [1] NCCL INFO Bootstrap : Using [0]eth0:192.168.48.203<0>
+nccl-test-worker-0:15:15 [1] NCCL INFO NET/OFI Setting RDMAV_FORK_SAFE environment variable to 1.
+nccl-test-worker-1:15:15 [1] NCCL INFO NET/OFI Forcing AWS OFI ndev 4
+nccl-test-worker-1:15:15 [1] NCCL INFO NET/OFI Selected Provider is efa
+nccl-test-worker-1:15:15 [1] NCCL INFO NET/Plugin: Failed to find ncclCollNetPlugin_v3 symbol.
+nccl-test-worker-1:15:15 [1] NCCL INFO Using network AWS Libfabric
+nccl-test-worker-1:14:14 [0] NCCL INFO NET/OFI Forcing AWS OFI ndev 4
+nccl-test-worker-1:14:14 [0] NCCL INFO NET/OFI Selected Provider is efa
+nccl-test-worker-1:14:14 [0] NCCL INFO NET/Plugin: Failed to find ncclCollNetPlugin_v3 symbol.
+nccl-test-worker-1:14:14 [0] NCCL INFO Using network AWS Libfabric
+nccl-test-worker-0:16:16 [2] NCCL INFO Bootstrap : Using [0]eth0:192.168.48.203<0>
+nccl-test-worker-0:18:18 [4] NCCL INFO Bootstrap : Using [0]eth0:192.168.48.203<0>
+nccl-test-worker-0:16:16 [2] NCCL INFO NET/OFI Setting RDMAV_FORK_SAFE environment variable to 1.
+nccl-test-worker-0:18:18 [4] NCCL INFO NET/OFI Setting RDMAV_FORK_SAFE environment variable to 1.
+nccl-test-worker-0:26:26 [7] NCCL INFO Bootstrap : Using [0]eth0:192.168.48.203<0>
+nccl-test-worker-0:21:21 [5] NCCL INFO Bootstrap : Using [0]eth0:192.168.48.203<0>
+nccl-test-worker-0:26:26 [7] NCCL INFO NET/OFI Setting RDMAV_FORK_SAFE environment variable to 1.
+nccl-test-worker-0:21:21 [5] NCCL INFO NET/OFI Setting RDMAV_FORK_SAFE environment variable to 1.
+nccl-test-worker-0:17:17 [3] NCCL INFO NET/OFI Forcing AWS OFI ndev 4
+nccl-test-worker-0:17:17 [3] NCCL INFO NET/OFI Selected Provider is efa
+nccl-test-worker-0:17:17 [3] NCCL INFO NET/Plugin: Failed to find ncclCollNetPlugin_v3 symbol.
+nccl-test-worker-0:17:17 [3] NCCL INFO Using network AWS Libfabric
+nccl-test-worker-0:25:25 [6] NCCL INFO NET/OFI Forcing AWS OFI ndev 4
+nccl-test-worker-0:25:25 [6] NCCL INFO NET/OFI Selected Provider is efa
+nccl-test-worker-0:25:25 [6] NCCL INFO NET/Plugin: Failed to find ncclCollNetPlugin_v3 symbol.
+nccl-test-worker-0:25:25 [6] NCCL INFO Using network AWS Libfabric
+nccl-test-worker-0:15:15 [1] NCCL INFO NET/OFI Forcing AWS OFI ndev 4
+nccl-test-worker-0:15:15 [1] NCCL INFO NET/OFI Selected Provider is efa
+nccl-test-worker-0:15:15 [1] NCCL INFO NET/Plugin: Failed to find ncclCollNetPlugin_v3 symbol.
+nccl-test-worker-0:15:15 [1] NCCL INFO Using network AWS Libfabric
+nccl-test-worker-0:16:16 [2] NCCL INFO NET/OFI Forcing AWS OFI ndev 4
+nccl-test-worker-0:16:16 [2] NCCL INFO NET/OFI Selected Provider is efa
+nccl-test-worker-0:16:16 [2] NCCL INFO NET/Plugin: Failed to find ncclCollNetPlugin_v3 symbol.
+nccl-test-worker-0:16:16 [2] NCCL INFO Using network AWS Libfabric
+nccl-test-worker-0:18:18 [4] NCCL INFO NET/OFI Forcing AWS OFI ndev 4
+nccl-test-worker-0:18:18 [4] NCCL INFO NET/OFI Selected Provider is efa
+nccl-test-worker-0:18:18 [4] NCCL INFO NET/Plugin: Failed to find ncclCollNetPlugin_v3 symbol.
+nccl-test-worker-0:18:18 [4] NCCL INFO Using network AWS Libfabric
+nccl-test-worker-0:26:26 [7] NCCL INFO NET/OFI Forcing AWS OFI ndev 4
+nccl-test-worker-0:26:26 [7] NCCL INFO NET/OFI Selected Provider is efa
+nccl-test-worker-0:26:26 [7] NCCL INFO NET/Plugin: Failed to find ncclCollNetPlugin_v3 symbol.
+nccl-test-worker-0:26:26 [7] NCCL INFO Using network AWS Libfabric
+nccl-test-worker-0:21:21 [5] NCCL INFO NET/OFI Forcing AWS OFI ndev 4
+nccl-test-worker-0:21:21 [5] NCCL INFO NET/OFI Selected Provider is efa
+nccl-test-worker-0:21:21 [5] NCCL INFO NET/Plugin: Failed to find ncclCollNetPlugin_v3 symbol.
+nccl-test-worker-0:21:21 [5] NCCL INFO Using network AWS Libfabric
+nccl-test-worker-0:14:55 [0] NCCL INFO NET/OFI [0] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00/
+nccl-test-worker-0:14:55 [0] NCCL INFO NET/OFI [0] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:14:55 [0] NCCL INFO NET/OFI [0] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:14:55 [0] NCCL INFO NET/OFI [0] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:15:58 [1] NCCL INFO NET/OFI [1] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00/
+nccl-test-worker-0:15:58 [1] NCCL INFO NET/OFI [1] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:15:58 [1] NCCL INFO NET/OFI [1] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:15:58 [1] NCCL INFO NET/OFI [1] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:16:59 [2] NCCL INFO NET/OFI [2] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:16:59 [2] NCCL INFO NET/OFI [2] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00/
+nccl-test-worker-0:16:59 [2] NCCL INFO NET/OFI [2] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:17:56 [3] NCCL INFO NET/OFI [3] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:17:56 [3] NCCL INFO NET/OFI [3] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00/
+nccl-test-worker-0:17:56 [3] NCCL INFO NET/OFI [3] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:16:59 [2] NCCL INFO NET/OFI [2] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:17:56 [3] NCCL INFO NET/OFI [3] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:21:61 [5] NCCL INFO NET/OFI [5] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:21:61 [5] NCCL INFO NET/OFI [5] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:18:60 [4] NCCL INFO NET/OFI [4] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:18:60 [4] NCCL INFO NET/OFI [4] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:21:61 [5] NCCL INFO NET/OFI [5] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00/
+nccl-test-worker-0:18:60 [4] NCCL INFO NET/OFI [4] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00/
+nccl-test-worker-0:25:57 [6] NCCL INFO NET/OFI [6] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:25:57 [6] NCCL INFO NET/OFI [6] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:21:61 [5] NCCL INFO NET/OFI [5] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:26:62 [7] NCCL INFO NET/OFI [7] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:26:62 [7] NCCL INFO NET/OFI [7] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:18:60 [4] NCCL INFO NET/OFI [4] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:26:62 [7] NCCL INFO NET/OFI [7] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:26:62 [7] NCCL INFO NET/OFI [7] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00/
+nccl-test-worker-0:25:57 [6] NCCL INFO NET/OFI [6] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:25:57 [6] NCCL INFO NET/OFI [6] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00/
+nccl-test-worker-1:15:61 [1] NCCL INFO NET/OFI [1] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00/
+nccl-test-worker-1:17:56 [3] NCCL INFO NET/OFI [3] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:16:59 [2] NCCL INFO NET/OFI [2] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:18:55 [4] NCCL INFO NET/OFI [4] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:20:57 [6] NCCL INFO NET/OFI [6] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:14:60 [0] NCCL INFO NET/OFI [0] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00/
+nccl-test-worker-1:14:60 [0] NCCL INFO NET/OFI [0] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:17:56 [3] NCCL INFO NET/OFI [3] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00/
+nccl-test-worker-1:16:59 [2] NCCL INFO NET/OFI [2] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00/
+nccl-test-worker-1:18:55 [4] NCCL INFO NET/OFI [4] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:20:57 [6] NCCL INFO NET/OFI [6] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:15:61 [1] NCCL INFO NET/OFI [1] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:15:61 [1] NCCL INFO NET/OFI [1] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:19:58 [5] NCCL INFO NET/OFI [5] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:19:58 [5] NCCL INFO NET/OFI [5] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:21:54 [7] NCCL INFO NET/OFI [7] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:16:59 [2] NCCL INFO NET/OFI [2] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:17:56 [3] NCCL INFO NET/OFI [3] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:14:60 [0] NCCL INFO NET/OFI [0] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:21:54 [7] NCCL INFO NET/OFI [7] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:18:55 [4] NCCL INFO NET/OFI [4] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00/
+nccl-test-worker-1:20:57 [6] NCCL INFO NET/OFI [6] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:16:59 [2] NCCL INFO NET/OFI [2] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:14:60 [0] NCCL INFO NET/OFI [0] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:15:61 [1] NCCL INFO NET/OFI [1] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:17:56 [3] NCCL INFO NET/OFI [3] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:19:58 [5] NCCL INFO NET/OFI [5] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00/
+nccl-test-worker-1:20:57 [6] NCCL INFO NET/OFI [6] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00/
+nccl-test-worker-1:21:54 [7] NCCL INFO NET/OFI [7] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:21:54 [7] NCCL INFO NET/OFI [7] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00/
+nccl-test-worker-1:18:55 [4] NCCL INFO NET/OFI [4] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:19:58 [5] NCCL INFO NET/OFI [5] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:17:56 [3] NCCL INFO NET/OFI [3] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:17:56 [3] NCCL INFO NET/OFI [3] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00/
+nccl-test-worker-0:17:56 [3] NCCL INFO NET/OFI [3] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:17:56 [3] NCCL INFO NET/OFI [3] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:21:61 [5] NCCL INFO NET/OFI [5] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:21:61 [5] NCCL INFO NET/OFI [5] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:21:61 [5] NCCL INFO NET/OFI [5] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00/
+nccl-test-worker-0:21:61 [5] NCCL INFO NET/OFI [5] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:14:55 [0] NCCL INFO NET/OFI [0] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00/
+nccl-test-worker-0:14:55 [0] NCCL INFO NET/OFI [0] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:14:55 [0] NCCL INFO NET/OFI [0] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:14:55 [0] NCCL INFO NET/OFI [0] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:15:58 [1] NCCL INFO NET/OFI [1] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00/
+nccl-test-worker-0:15:58 [1] NCCL INFO NET/OFI [1] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:15:58 [1] NCCL INFO NET/OFI [1] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:15:58 [1] NCCL INFO NET/OFI [1] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:25:57 [6] NCCL INFO NET/OFI [6] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:25:57 [6] NCCL INFO NET/OFI [6] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:25:57 [6] NCCL INFO NET/OFI [6] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:25:57 [6] NCCL INFO NET/OFI [6] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00/
+nccl-test-worker-0:18:60 [4] NCCL INFO NET/OFI [4] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:18:60 [4] NCCL INFO NET/OFI [4] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:18:60 [4] NCCL INFO NET/OFI [4] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00/
+nccl-test-worker-0:18:60 [4] NCCL INFO NET/OFI [4] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:26:62 [7] NCCL INFO NET/OFI [7] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:26:62 [7] NCCL INFO NET/OFI [7] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:26:62 [7] NCCL INFO NET/OFI [7] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:26:62 [7] NCCL INFO NET/OFI [7] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00/
+nccl-test-worker-0:16:59 [2] NCCL INFO NET/OFI [2] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:16:59 [2] NCCL INFO NET/OFI [2] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00/
+nccl-test-worker-0:16:59 [2] NCCL INFO NET/OFI [2] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+nccl-test-worker-0:16:59 [2] NCCL INFO NET/OFI [2] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:21:54 [7] NCCL INFO NET/OFI [7] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:21:54 [7] NCCL INFO NET/OFI [7] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:21:54 [7] NCCL INFO NET/OFI [7] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:21:54 [7] NCCL INFO NET/OFI [7] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00/
+nccl-test-worker-1:20:57 [6] NCCL INFO NET/OFI [6] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:20:57 [6] NCCL INFO NET/OFI [6] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:20:57 [6] NCCL INFO NET/OFI [6] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:20:57 [6] NCCL INFO NET/OFI [6] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00/
+nccl-test-worker-1:19:58 [5] NCCL INFO NET/OFI [5] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:19:58 [5] NCCL INFO NET/OFI [5] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:19:58 [5] NCCL INFO NET/OFI [5] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00/
+nccl-test-worker-1:19:58 [5] NCCL INFO NET/OFI [5] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:17:56 [3] NCCL INFO NET/OFI [3] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:17:56 [3] NCCL INFO NET/OFI [3] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00/
+nccl-test-worker-1:17:56 [3] NCCL INFO NET/OFI [3] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:17:56 [3] NCCL INFO NET/OFI [3] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:18:55 [4] NCCL INFO NET/OFI [4] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:18:55 [4] NCCL INFO NET/OFI [4] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:18:55 [4] NCCL INFO NET/OFI [4] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00/
+nccl-test-worker-1:18:55 [4] NCCL INFO NET/OFI [4] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:14:60 [0] NCCL INFO NET/OFI [0] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00/
+nccl-test-worker-1:14:60 [0] NCCL INFO NET/OFI [0] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:14:60 [0] NCCL INFO NET/OFI [0] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:14:60 [0] NCCL INFO NET/OFI [0] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:15:61 [1] NCCL INFO NET/OFI [1] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00/
+nccl-test-worker-1:15:61 [1] NCCL INFO NET/OFI [1] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:15:61 [1] NCCL INFO NET/OFI [1] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:15:61 [1] NCCL INFO NET/OFI [1] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:16:59 [2] NCCL INFO NET/OFI [2] getCudaPath dev 0 busId 0000:00:16.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:16:59 [2] NCCL INFO NET/OFI [2] getCudaPath dev 1 busId 0000:00:17.0 path /sys/devices/pci0000:00/
+nccl-test-worker-1:16:59 [2] NCCL INFO NET/OFI [2] getCudaPath dev 2 busId 0000:00:18.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:16:59 [2] NCCL INFO NET/OFI [2] getCudaPath dev 3 busId 0000:00:19.0 path /sys/devices/pci0000:00
+nccl-test-worker-1:17:56 [3] NCCL INFO threadThresholds 8/8/64 | 128/8/64 | 8/8/64
+nccl-test-worker-1:17:56 [3] NCCL INFO Trees [0] 10/-1/-1->11->8|8->11->10/-1/-1 [1] 8/-1/-1->11->10|10->11->8/-1/-1 [2] 8/-1/-1->11->10|10->11->8/-1/-1 [3] 10/-1/-1->11->8|8->11->10/-1/-1 [4] 10/0/-1->11->8|8->11->10/0/-1 [5] 8/-1/-1->11->10|10->11->8/-1/-1 [6] 8/-1/-1->11->10|10->11->8/-1/-1 [7] 10/-1/-1->11->8|8->11->10/-1/-1
+nccl-test-worker-1:21:54 [7] NCCL INFO threadThresholds 8/8/64 | 128/8/64 | 8/8/64
+nccl-test-worker-1:21:54 [7] NCCL INFO Trees [0] 12/-1/-1->15->14|14->15->12/-1/-1 [1] 14/-1/-1->15->12|12->15->14/-1/-1 [2] 14/-1/-1->15->12|12->15->14/-1/-1 [3] 12/-1/-1->15->14|14->15->12/-1/-1 [4] 12/-1/-1->15->14|14->15->12/-1/-1 [5] 14/-1/-1->15->12|12->15->14/-1/-1 [6] 14/4/-1->15->12|12->15->14/4/-1 [7] 12/-1/-1->15->14|14->15->12/-1/-1
+nccl-test-worker-1:20:57 [6] NCCL INFO threadThresholds 8/8/64 | 128/8/64 | 8/8/64
+nccl-test-worker-1:20:57 [6] NCCL INFO Trees [0] 15/-1/-1->14->13|13->14->15/-1/-1 [1] 13/-1/-1->14->15|15->14->13/-1/-1 [2] 13/-1/-1->14->15|15->14->13/-1/-1 [3] 15/-1/-1->14->13|13->14->15/-1/-1 [4] 15/-1/-1->14->13|13->14->15/-1/-1 [5] 13/-1/-1->14->15|15->14->13/-1/-1 [6] 13/-1/-1->14->15|15->14->13/-1/-1 [7] 15/5/-1->14->13|13->14->15/5/-1
+nccl-test-worker-1:18:55 [4] NCCL INFO threadThresholds 8/8/64 | 128/8/64 | 8/8/64
+nccl-test-worker-1:18:55 [4] NCCL INFO Trees [0] -1/-1/-1->12->15|15->12->-1/-1/-1 [1] 15/-1/-1->12->8|8->12->15/-1/-1 [2] 15/-1/-1->12->7|7->12->15/-1/-1 [3] 8/-1/-1->12->15|15->12->8/-1/-1 [4] -1/-1/-1->12->15|15->12->-1/-1/-1 [5] 15/-1/-1->12->8|8->12->15/-1/-1 [6] 15/-1/-1->12->-1|-1->12->15/-1/-1 [7] 8/-1/-1->12->15|15->12->8/-1/-1
+nccl-test-worker-1:19:58 [5] NCCL INFO threadThresholds 8/8/64 | 128/8/64 | 8/8/64
+nccl-test-worker-1:19:58 [5] NCCL INFO Trees [0] 14/-1/-1->13->9|9->13->14/-1/-1 [1] -1/-1/-1->13->14|14->13->-1/-1/-1 [2] 9/-1/-1->13->14|14->13->9/-1/-1 [3] 14/-1/-1->13->6|6->13->14/-1/-1 [4] 14/-1/-1->13->9|9->13->14/-1/-1 [5] -1/-1/-1->13->14|14->13->-1/-1/-1 [6] 9/-1/-1->13->14|14->13->9/-1/-1 [7] 14/-1/-1->13->-1|-1->13->14/-1/-1
+nccl-test-worker-1:16:59 [2] NCCL INFO threadThresholds 8/8/64 | 128/8/64 | 8/8/64
+nccl-test-worker-1:16:59 [2] NCCL INFO Trees [0] 9/-1/-1->10->11|11->10->9/-1/-1 [1] 11/-1/-1->10->9|9->10->11/-1/-1 [2] 11/-1/-1->10->9|9->10->11/-1/-1 [3] 9/-1/-1->10->11|11->10->9/-1/-1 [4] 9/-1/-1->10->11|11->10->9/-1/-1 [5] 11/1/-1->10->9|9->10->11/1/-1 [6] 11/-1/-1->10->9|9->10->11/-1/-1 [7] 9/-1/-1->10->11|11->10->9/-1/-1
+nccl-test-worker-0:15:58 [1] NCCL INFO threadThresholds 8/8/64 | 128/8/64 | 8/8/64
+nccl-test-worker-0:15:58 [1] NCCL INFO Trees [0] 5/-1/-1->1->2|2->1->5/-1/-1 [1] 2/-1/-1->1->-1|-1->1->2/-1/-1 [2] 2/-1/-1->1->5|5->1->2/-1/-1 [3] -1/-1/-1->1->2|2->1->-1/-1/-1 [4] 5/-1/-1->1->2|2->1->5/-1/-1 [5] 2/-1/-1->1->10|10->1->2/-1/-1 [6] 2/-1/-1->1->5|5->1->2/-1/-1 [7] -1/-1/-1->1->2|2->1->-1/-1/-1
+nccl-test-worker-0:14:55 [0] NCCL INFO Channel 00/08 :    0   3   2   1   5   6   7   4   8  11  10   9  13  14  15  12
+nccl-test-worker-0:14:55 [0] NCCL INFO Channel 01/08 :    0   4   7   6   5   9  10  11   8  12  15  14  13   1   2   3
+nccl-test-worker-0:14:55 [0] NCCL INFO Channel 02/08 :    0   1   5   6  10  11  15  12   8   9  13  14   2   3   7   4
+nccl-test-worker-0:14:55 [0] NCCL INFO Channel 03/08 :    0   1   2   6   5   4   7  11   8   9  10  14  13  12  15   3
+nccl-test-worker-0:14:55 [0] NCCL INFO Channel 04/08 :    0   3   2   1   5   6   7   4   8  11  10   9  13  14  15  12
+nccl-test-worker-0:14:55 [0] NCCL INFO Channel 05/08 :    0   4   7   6   5   9  10  11   8  12  15  14  13   1   2   3
+nccl-test-worker-0:14:55 [0] NCCL INFO Channel 06/08 :    0   1   5   6  10  11  15  12   8   9  13  14   2   3   7   4
+nccl-test-worker-0:14:55 [0] NCCL INFO Channel 07/08 :    0   1   2   6   5   4   7  11   8   9  10  14  13  12  15   3
+nccl-test-worker-0:16:59 [2] NCCL INFO threadThresholds 8/8/64 | 128/8/64 | 8/8/64
+nccl-test-worker-0:16:59 [2] NCCL INFO Trees [0] 1/-1/-1->2->3|3->2->1/-1/-1 [1] 3/9/-1->2->1|1->2->3/9/-1 [2] 3/-1/-1->2->1|1->2->3/-1/-1 [3] 1/-1/-1->2->3|3->2->1/-1/-1 [4] 1/-1/-1->2->3|3->2->1/-1/-1 [5] 3/-1/-1->2->1|1->2->3/-1/-1 [6] 3/-1/-1->2->1|1->2->3/-1/-1 [7] 1/-1/-1->2->3|3->2->1/-1/-1
+nccl-test-worker-0:14:55 [0] NCCL INFO threadThresholds 8/8/64 | 128/8/64 | 8/8/64
+nccl-test-worker-0:14:55 [0] NCCL INFO Trees [0] 3/-1/-1->0->-1|-1->0->3/-1/-1 [1] 4/-1/-1->0->3|3->0->4/-1/-1 [2] -1/-1/-1->0->3|3->0->-1/-1/-1 [3] 3/-1/-1->0->4|4->0->3/-1/-1 [4] 3/-1/-1->0->11|11->0->3/-1/-1 [5] 4/-1/-1->0->3|3->0->4/-1/-1 [6] -1/-1/-1->0->3|3->0->-1/-1/-1 [7] 3/-1/-1->0->4|4->0->3/-1/-1
+nccl-test-worker-0:18:60 [4] NCCL INFO threadThresholds 8/8/64 | 128/8/64 | 8/8/64
+nccl-test-worker-0:18:60 [4] NCCL INFO Trees [0] -1/-1/-1->4->7|7->4->-1/-1/-1 [1] 7/-1/-1->4->0|0->4->7/-1/-1 [2] 7/-1/-1->4->-1|-1->4->7/-1/-1 [3] 0/-1/-1->4->7|7->4->0/-1/-1 [4] -1/-1/-1->4->7|7->4->-1/-1/-1 [5] 7/-1/-1->4->0|0->4->7/-1/-1 [6] 7/-1/-1->4->15|15->4->7/-1/-1 [7] 0/-1/-1->4->7|7->4->0/-1/-1
+nccl-test-worker-0:17:56 [3] NCCL INFO threadThresholds 8/8/64 | 128/8/64 | 8/8/64
+nccl-test-worker-0:17:56 [3] NCCL INFO Trees [0] 2/8/-1->3->0|0->3->2/8/-1 [1] 0/-1/-1->3->2|2->3->0/-1/-1 [2] 0/-1/-1->3->2|2->3->0/-1/-1 [3] 2/-1/-1->3->0|0->3->2/-1/-1 [4] 2/-1/-1->3->0|0->3->2/-1/-1 [5] 0/-1/-1->3->2|2->3->0/-1/-1 [6] 0/-1/-1->3->2|2->3->0/-1/-1 [7] 2/-1/-1->3->0|0->3->2/-1/-1
+nccl-test-worker-0:21:61 [5] NCCL INFO threadThresholds 8/8/64 | 128/8/64 | 8/8/64
+nccl-test-worker-0:21:61 [5] NCCL INFO Trees [0] 6/-1/-1->5->1|1->5->6/-1/-1 [1] -1/-1/-1->5->6|6->5->-1/-1/-1 [2] 1/-1/-1->5->6|6->5->1/-1/-1 [3] 6/-1/-1->5->-1|-1->5->6/-1/-1 [4] 6/-1/-1->5->1|1->5->6/-1/-1 [5] -1/-1/-1->5->6|6->5->-1/-1/-1 [6] 1/-1/-1->5->6|6->5->1/-1/-1 [7] 6/-1/-1->5->14|14->5->6/-1/-1
+nccl-test-worker-0:25:57 [6] NCCL INFO threadThresholds 8/8/64 | 128/8/64 | 8/8/64
+nccl-test-worker-0:25:57 [6] NCCL INFO Trees [0] 7/-1/-1->6->5|5->6->7/-1/-1 [1] 5/-1/-1->6->7|7->6->5/-1/-1 [2] 5/-1/-1->6->7|7->6->5/-1/-1 [3] 7/13/-1->6->5|5->6->7/13/-1 [4] 7/-1/-1->6->5|5->6->7/-1/-1 [5] 5/-1/-1->6->7|7->6->5/-1/-1 [6] 5/-1/-1->6->7|7->6->5/-1/-1 [7] 7/-1/-1->6->5|5->6->7/-1/-1
+nccl-test-worker-0:26:62 [7] NCCL INFO threadThresholds 8/8/64 | 128/8/64 | 8/8/64
+nccl-test-worker-0:26:62 [7] NCCL INFO Trees [0] 4/-1/-1->7->6|6->7->4/-1/-1 [1] 6/-1/-1->7->4|4->7->6/-1/-1 [2] 6/12/-1->7->4|4->7->6/12/-1 [3] 4/-1/-1->7->6|6->7->4/-1/-1 [4] 4/-1/-1->7->6|6->7->4/-1/-1 [5] 6/-1/-1->7->4|4->7->6/-1/-1 [6] 6/-1/-1->7->4|4->7->6/-1/-1 [7] 4/-1/-1->7->6|6->7->4/-1/-1
+nccl-test-worker-1:15:61 [1] NCCL INFO threadThresholds 8/8/64 | 128/8/64 | 8/8/64
+nccl-test-worker-1:15:61 [1] NCCL INFO Trees [0] 13/-1/-1->9->10|10->9->13/-1/-1 [1] 10/-1/-1->9->2|2->9->10/-1/-1 [2] 10/-1/-1->9->13|13->9->10/-1/-1 [3] -1/-1/-1->9->10|10->9->-1/-1/-1 [4] 13/-1/-1->9->10|10->9->13/-1/-1 [5] 10/-1/-1->9->-1|-1->9->10/-1/-1 [6] 10/-1/-1->9->13|13->9->10/-1/-1 [7] -1/-1/-1->9->10|10->9->-1/-1/-1
+nccl-test-worker-1:14:60 [0] NCCL INFO threadThresholds 8/8/64 | 128/8/64 | 8/8/64
+nccl-test-worker-1:14:60 [0] NCCL INFO Trees [0] 11/-1/-1->8->3|3->8->11/-1/-1 [1] 12/-1/-1->8->11|11->8->12/-1/-1 [2] -1/-1/-1->8->11|11->8->-1/-1/-1 [3] 11/-1/-1->8->12|12->8->11/-1/-1 [4] 11/-1/-1->8->-1|-1->8->11/-1/-1 [5] 12/-1/-1->8->11|11->8->12/-1/-1 [6] -1/-1/-1->8->11|11->8->-1/-1/-1 [7] 11/-1/-1->8->12|12->8->11/-1/-1
+nccl-test-worker-1:19:58 [5] NCCL INFO Ring 00 : 13[1b0] -> 14[1c0] via P2P/IPC
+nccl-test-worker-1:16:59 [2] NCCL INFO Ring 00 : 10[180] -> 9[170] via P2P/IPC
+nccl-test-worker-1:17:56 [3] NCCL INFO Ring 00 : 11[190] -> 10[180] via P2P/IPC
+nccl-test-worker-0:15:58 [1] NCCL INFO Ring 00 : 1[170] -> 5[1b0] via P2P/IPC
+nccl-test-worker-0:16:59 [2] NCCL INFO Ring 00 : 2[180] -> 1[170] via P2P/IPC
+nccl-test-worker-1:20:57 [6] NCCL INFO Ring 00 : 14[1c0] -> 15[1d0] via P2P/IPC
+nccl-test-worker-0:17:56 [3] NCCL INFO Ring 00 : 3[190] -> 2[180] via P2P/IPC
+nccl-test-worker-1:21:54 [7] NCCL INFO Ring 00 : 15[1d0] -> 12[1a0] via P2P/IPC
+nccl-test-worker-0:21:61 [5] NCCL INFO Ring 00 : 5[1b0] -> 6[1c0] via P2P/IPC
+nccl-test-worker-0:25:57 [6] NCCL INFO Ring 00 : 6[1c0] -> 7[1d0] via P2P/IPC
+nccl-test-worker-0:26:62 [7] NCCL INFO Ring 00 : 7[1d0] -> 4[1a0] via P2P/IPC
+nccl-test-worker-1:15:61 [1] NCCL INFO Ring 00 : 9[170] -> 13[1b0] via P2P/IPC
+nccl-test-worker-0:14:55 [0] NCCL INFO Ring 00 : 12[1a0] -> 0[160] [receive] via NET/AWS Libfabric/0
+nccl-test-worker-1:14:60 [0] NCCL INFO Ring 00 : 4[1a0] -> 8[160] [receive] via NET/AWS Libfabric/0
+nccl-test-worker-1:18:55 [4] NCCL INFO Ring 00 : 12[1a0] -> 0[160] [send] via NET/AWS Libfabric/0
+nccl-test-worker-0:18:60 [4] NCCL INFO Ring 00 : 4[1a0] -> 8[160] [send] via NET/AWS Libfabric/0
+nccl-test-worker-0:15:58 [1] NCCL INFO Ring 00 : 1[170] -> 2[180] via P2P/IPC
+nccl-test-worker-1:16:59 [2] NCCL INFO Ring 00 : 10[180] -> 11[190] via P2P/IPC
+nccl-test-worker-0:16:59 [2] NCCL INFO Ring 00 : 2[180] -> 3[190] via P2P/IPC
+nccl-test-worker-1:19:58 [5] NCCL INFO Ring 00 : 13[1b0] -> 9[170] via P2P/IPC
+nccl-test-worker-1:20:57 [6] NCCL INFO Ring 00 : 14[1c0] -> 13[1b0] via P2P/IPC
+nccl-test-worker-0:21:61 [5] NCCL INFO Ring 00 : 5[1b0] -> 1[170] via P2P/IPC
+nccl-test-worker-1:21:54 [7] NCCL INFO Ring 00 : 15[1d0] -> 14[1c0] via P2P/IPC
+nccl-test-worker-0:25:57 [6] NCCL INFO Ring 00 : 6[1c0] -> 5[1b0] via P2P/IPC
+nccl-test-worker-0:26:62 [7] NCCL INFO Ring 00 : 7[1d0] -> 6[1c0] via P2P/IPC
+nccl-test-worker-1:15:61 [1] NCCL INFO Ring 00 : 9[170] -> 10[180] via P2P/IPC
+nccl-test-worker-0:25:57 [6] NCCL INFO Ring 01 : 6[1c0] -> 5[1b0] via P2P/IPC
+nccl-test-worker-1:20:57 [6] NCCL INFO Ring 01 : 14[1c0] -> 13[1b0] via P2P/IPC
+nccl-test-worker-0:15:58 [1] NCCL INFO Ring 01 : 13[1b0] -> 1[170] [receive] via NET/AWS Libfabric/1
+nccl-test-worker-0:21:61 [5] NCCL INFO Ring 01 : 5[1b0] -> 9[170] [send] via NET/AWS Libfabric/1
+nccl-test-worker-1:19:58 [5] NCCL INFO Ring 01 : 13[1b0] -> 1[170] [send] via NET/AWS Libfabric/1
+nccl-test-worker-1:15:61 [1] NCCL INFO Ring 01 : 5[1b0] -> 9[170] [receive] via NET/AWS Libfabric/1
+nccl-test-worker-0:14:55 [0] NCCL INFO Ring 00 : 0[160] -> 3[190] via P2P/IPC
+nccl-test-worker-1:14:60 [0] NCCL INFO Ring 00 : 8[160] -> 11[190] via P2P/IPC
+nccl-test-worker-1:17:56 [3] NCCL INFO Ring 00 : 11[190] -> 8[160] via P2P/IPC
+nccl-test-worker-0:16:59 [2] NCCL INFO Ring 01 : 2[180] -> 3[190] via P2P/IPC
+nccl-test-worker-1:16:59 [2] NCCL INFO Ring 01 : 10[180] -> 11[190] via P2P/IPC
+nccl-test-worker-0:17:56 [3] NCCL INFO Ring 00 : 8[160] -> 3[190] [receive] via NET/AWS Libfabric/0
+nccl-test-worker-0:15:58 [1] NCCL INFO Ring 01 : 1[170] -> 2[180] via P2P/IPC
+nccl-test-worker-1:15:61 [1] NCCL INFO Ring 01 : 9[170] -> 10[180] via P2P/IPC
+nccl-test-worker-0:17:56 [3] NCCL INFO Ring 00 : 3[190] -> 0[160] via P2P/IPC
+nccl-test-worker-1:18:55 [4] NCCL INFO Ring 00 : 12[1a0] -> 15[1d0] via P2P/IPC
+nccl-test-worker-0:18:60 [4] NCCL INFO Ring 00 : 4[1a0] -> 7[1d0] via P2P/IPC
+nccl-test-worker-1:18:55 [4] NCCL INFO Ring 01 : 12[1a0] -> 15[1d0] via P2P/IPC
+nccl-test-worker-1:21:54 [7] NCCL INFO Ring 01 : 15[1d0] -> 14[1c0] via P2P/IPC
+nccl-test-worker-0:18:60 [4] NCCL INFO Ring 01 : 4[1a0] -> 7[1d0] via P2P/IPC
+nccl-test-worker-0:26:62 [7] NCCL INFO Ring 01 : 7[1d0] -> 6[1c0] via P2P/IPC
+nccl-test-worker-1:20:57 [6] NCCL INFO Ring 01 : 14[1c0] -> 15[1d0] via P2P/IPC
+nccl-test-worker-1:21:54 [7] NCCL INFO Ring 01 : 15[1d0] -> 12[1a0] via P2P/IPC
+nccl-test-worker-0:25:57 [6] NCCL INFO Ring 01 : 6[1c0] -> 7[1d0] via P2P/IPC
+nccl-test-worker-0:26:62 [7] NCCL INFO Ring 01 : 7[1d0] -> 4[1a0] via P2P/IPC
+nccl-test-worker-0:14:55 [0] NCCL INFO Ring 01 : 0[160] -> 4[1a0] via P2P/IPC
+nccl-test-worker-1:17:56 [3] NCCL INFO Ring 01 : 11[190] -> 8[160] via P2P/IPC
+nccl-test-worker-1:16:59 [2] NCCL INFO Ring 01 : 10[180] -> 9[170] via P2P/IPC
+nccl-test-worker-0:18:60 [4] NCCL INFO Ring 01 : 4[1a0] -> 0[160] via P2P/IPC
+nccl-test-worker-1:14:60 [0] NCCL INFO Ring 00 : 8[160] -> 3[190] [send] via NET/AWS Libfabric/0
+nccl-test-worker-1:19:58 [5] NCCL INFO Ring 01 : 13[1b0] -> 14[1c0] via P2P/IPC
+nccl-test-worker-0:26:62 [7] NCCL INFO Ring 02 : 7[1d0] -> 4[1a0] via P2P/IPC
+nccl-test-worker-0:21:61 [5] NCCL INFO Ring 01 : 5[1b0] -> 6[1c0] via P2P/IPC
+nccl-test-worker-1:19:58 [5] NCCL INFO Ring 02 : 13[1b0] -> 14[1c0] via P2P/IPC
+nccl-test-worker-0:21:61 [5] NCCL INFO Ring 02 : 5[1b0] -> 6[1c0] via P2P/IPC
+nccl-test-worker-1:20:57 [6] NCCL INFO Ring 02 : 14[1c0] -> 2[180] [send] via NET/AWS Libfabric/2
+nccl-test-worker-1:14:60 [0] NCCL INFO Ring 00 : 3[190] -> 8[160] [receive] via NET/AWS Libfabric/0
+nccl-test-worker-0:25:57 [6] NCCL INFO Ring 02 : 6[1c0] -> 10[180] [send] via NET/AWS Libfabric/2
+nccl-test-worker-1:15:61 [1] NCCL INFO Ring 01 : 9[170] -> 2[180] [send] via NET/AWS Libfabric/1
+nccl-test-worker-0:17:56 [3] NCCL INFO Ring 00 : 3[190] -> 8[160] [send] via NET/AWS Libfabric/0
+nccl-test-worker-1:14:60 [0] NCCL INFO Ring 01 : 8[160] -> 12[1a0] via P2P/IPC
+nccl-test-worker-0:17:56 [3] NCCL INFO Ring 01 : 3[190] -> 0[160] via P2P/IPC
+nccl-test-worker-1:17:56 [3] NCCL INFO Ring 01 : 11[190] -> 10[180] via P2P/IPC
+nccl-test-worker-0:14:55 [0] NCCL INFO Ring 01 : 0[160] -> 3[190] via P2P/IPC
+nccl-test-worker-0:17:56 [3] NCCL INFO Ring 01 : 3[190] -> 2[180] via P2P/IPC
+nccl-test-worker-1:18:55 [4] NCCL INFO Ring 01 : 12[1a0] -> 8[160] via P2P/IPC
+nccl-test-worker-1:14:60 [0] NCCL INFO Ring 01 : 8[160] -> 11[190] via P2P/IPC
+nccl-test-worker-0:18:60 [4] NCCL INFO Ring 02 : 4[1a0] -> 0[160] via P2P/IPC
+nccl-test-worker-0:16:59 [2] NCCL INFO Ring 01 : 9[170] -> 2[180] [receive] via NET/AWS Libfabric/1
+nccl-test-worker-0:14:55 [0] NCCL INFO Ring 02 : 0[160] -> 1[170] via P2P/IPC
+nccl-test-worker-0:17:56 [3] NCCL INFO Ring 02 : 3[190] -> 7[1d0] via P2P/IPC
+nccl-test-worker-1:21:54 [7] NCCL INFO Ring 02 : 15[1d0] -> 12[1a0] via P2P/IPC
+nccl-test-worker-1:17:56 [3] NCCL INFO Ring 02 : 11[190] -> 15[1d0] via P2P/IPC
+nccl-test-worker-1:18:55 [4] NCCL INFO Ring 02 : 12[1a0] -> 8[160] via P2P/IPC
+nccl-test-worker-0:18:60 [4] NCCL INFO Ring 02 : 4[1a0] -> 7[1d0] via P2P/IPC
+nccl-test-worker-1:16:59 [2] NCCL INFO Ring 02 : 6[1c0] -> 10[180] [receive] via NET/AWS Libfabric/2
+nccl-test-worker-1:14:60 [0] NCCL INFO Ring 02 : 8[160] -> 9[170] via P2P/IPC
+nccl-test-worker-0:26:62 [7] NCCL INFO Ring 02 : 12[1a0] -> 7[1d0] [receive] via NET/AWS Libfabric/2
+nccl-test-worker-1:18:55 [4] NCCL INFO Ring 02 : 12[1a0] -> 7[1d0] [send] via NET/AWS Libfabric/2
+nccl-test-worker-0:16:59 [2] NCCL INFO Ring 01 : 2[180] -> 1[170] via P2P/IPC
+nccl-test-worker-0:15:58 [1] NCCL INFO Ring 02 : 1[170] -> 5[1b0] via P2P/IPC
+nccl-test-worker-1:16:59 [2] NCCL INFO Ring 02 : 10[180] -> 11[190] via P2P/IPC
+nccl-test-worker-1:17:56 [3] NCCL INFO Ring 02 : 11[190] -> 10[180] via P2P/IPC
+nccl-test-worker-0:14:55 [0] NCCL INFO Ring 02 : 0[160] -> 3[190] via P2P/IPC
+nccl-test-worker-0:21:61 [5] NCCL INFO Ring 02 : 5[1b0] -> 1[170] via P2P/IPC
+nccl-test-worker-1:15:61 [1] NCCL INFO Ring 01 : 2[180] -> 9[170] [receive] via NET/AWS Libfabric/1
+nccl-test-worker-0:16:59 [2] NCCL INFO Ring 01 : 2[180] -> 9[170] [send] via NET/AWS Libfabric/1
+nccl-test-worker-1:15:61 [1] NCCL INFO Ring 02 : 9[170] -> 13[1b0] via P2P/IPC
+nccl-test-worker-1:14:60 [0] NCCL INFO Ring 02 : 8[160] -> 11[190] via P2P/IPC
+nccl-test-worker-0:16:59 [2] NCCL INFO Ring 02 : 14[1c0] -> 2[180] [receive] via NET/AWS Libfabric/2
+nccl-test-worker-1:19:58 [5] NCCL INFO Ring 02 : 13[1b0] -> 9[170] via P2P/IPC
+nccl-test-worker-0:25:57 [6] NCCL INFO Ring 02 : 6[1c0] -> 7[1d0] via P2P/IPC
+nccl-test-worker-0:25:57 [6] NCCL INFO Ring 02 : 6[1c0] -> 5[1b0] via P2P/IPC
+nccl-test-worker-1:18:55 [4] NCCL INFO Ring 02 : 7[1d0] -> 12[1a0] [receive] via NET/AWS Libfabric/2
+nccl-test-worker-1:18:55 [4] NCCL INFO Ring 02 : 12[1a0] -> 15[1d0] via P2P/IPC
+nccl-test-worker-1:16:59 [2] NCCL INFO Ring 02 : 10[180] -> 9[170] via P2P/IPC
+nccl-test-worker-0:16:59 [2] NCCL INFO Ring 02 : 2[180] -> 3[190] via P2P/IPC
+nccl-test-worker-1:17:56 [3] NCCL INFO Ring 02 : 11[190] -> 8[160] via P2P/IPC
+nccl-test-worker-0:17:56 [3] NCCL INFO Ring 02 : 3[190] -> 2[180] via P2P/IPC
+nccl-test-worker-1:15:61 [1] NCCL INFO Ring 02 : 9[170] -> 10[180] via P2P/IPC
+nccl-test-worker-0:26:62 [7] NCCL INFO Ring 02 : 7[1d0] -> 6[1c0] via P2P/IPC
+nccl-test-worker-1:14:60 [0] NCCL INFO Ring 03 : 8[160] -> 9[170] via P2P/IPC
+nccl-test-worker-0:18:60 [4] NCCL INFO Ring 03 : 4[1a0] -> 7[1d0] via P2P/IPC
+nccl-test-worker-0:25:57 [6] NCCL INFO Ring 03 : 6[1c0] -> 5[1b0] via P2P/IPC
+nccl-test-worker-1:16:59 [2] NCCL INFO Ring 03 : 10[180] -> 14[1c0] via P2P/IPC
+nccl-test-worker-1:15:61 [1] NCCL INFO Ring 03 : 9[170] -> 10[180] via P2P/IPC
+nccl-test-worker-1:17:56 [3] NCCL INFO Ring 03 : 7[1d0] -> 11[190] [receive] via NET/AWS Libfabric/3
+nccl-test-worker-0:26:62 [7] NCCL INFO Ring 02 : 7[1d0] -> 12[1a0] [send] via NET/AWS Libfabric/2
+nccl-test-worker-0:26:62 [7] NCCL INFO Ring 03 : 7[1d0] -> 11[190] [send] via NET/AWS Libfabric/3
+nccl-test-worker-1:17:56 [3] NCCL INFO Ring 03 : 11[190] -> 8[160] via P2P/IPC
+nccl-test-worker-1:14:60 [0] NCCL INFO Ring 03 : 8[160] -> 12[1a0] via P2P/IPC
+nccl-test-worker-1:20:57 [6] NCCL INFO Ring 02 : 14[1c0] -> 15[1d0] via P2P/IPC
+nccl-test-worker-1:20:57 [6] NCCL INFO Ring 02 : 14[1c0] -> 13[1b0] via P2P/IPC
+nccl-test-worker-1:21:54 [7] NCCL INFO Ring 02 : 15[1d0] -> 14[1c0] via P2P/IPC
+nccl-test-worker-1:19:58 [5] NCCL INFO Ring 03 : 13[1b0] -> 12[1a0] via P2P/IPC
+nccl-test-worker-1:20:57 [6] NCCL INFO Ring 03 : 14[1c0] -> 13[1b0] via P2P/IPC
+nccl-test-worker-1:18:55 [4] NCCL INFO Ring 03 : 12[1a0] -> 15[1d0] via P2P/IPC
+nccl-test-worker-0:16:59 [2] NCCL INFO Ring 02 : 2[180] -> 1[170] via P2P/IPC
+nccl-test-worker-1:16:59 [2] NCCL INFO Ring 03 : 10[180] -> 11[190] via P2P/IPC
+nccl-test-worker-0:17:56 [3] NCCL INFO Ring 02 : 3[190] -> 0[160] via P2P/IPC
+nccl-test-worker-1:21:54 [7] NCCL INFO Ring 03 : 15[1d0] -> 3[190] [send] via NET/AWS Libfabric/3
+nccl-test-worker-0:15:58 [1] NCCL INFO Ring 02 : 1[170] -> 2[180] via P2P/IPC
+nccl-test-worker-1:18:55 [4] NCCL INFO Ring 03 : 12[1a0] -> 8[160] via P2P/IPC
+nccl-test-worker-1:14:60 [0] NCCL INFO Ring 03 : 8[160] -> 11[190] via P2P/IPC
+nccl-test-worker-1:19:58 [5] NCCL INFO Ring 03 : 13[1b0] -> 6[1c0] [send] via NET/AWS Libfabric/3
+nccl-test-worker-0:14:55 [0] NCCL INFO Ring 03 : 0[160] -> 1[170] via P2P/IPC
+nccl-test-worker-0:21:61 [5] NCCL INFO Ring 03 : 5[1b0] -> 4[1a0] via P2P/IPC
+nccl-test-worker-0:16:59 [2] NCCL INFO Ring 03 : 2[180] -> 6[1c0] via P2P/IPC
+nccl-test-worker-0:17:56 [3] NCCL INFO Ring 03 : 15[1d0] -> 3[190] [receive] via NET/AWS Libfabric/3
+nccl-test-worker-0:15:58 [1] NCCL INFO Ring 03 : 1[170] -> 2[180] via P2P/IPC
+nccl-test-worker-0:21:61 [5] NCCL INFO Ring 03 : 5[1b0] -> 6[1c0] via P2P/IPC
+nccl-test-worker-0:16:59 [2] NCCL INFO Ring 03 : 2[180] -> 3[190] via P2P/IPC
+nccl-test-worker-0:25:57 [6] NCCL INFO Ring 03 : 13[1b0] -> 6[1c0] [receive] via NET/AWS Libfabric/3
+nccl-test-worker-0:26:62 [7] NCCL INFO Ring 03 : 7[1d0] -> 6[1c0] via P2P/IPC
+nccl-test-worker-0:26:62 [7] NCCL INFO Ring 03 : 7[1d0] -> 4[1a0] via P2P/IPC
+nccl-test-worker-0:17:56 [3] NCCL INFO Ring 03 : 3[190] -> 0[160] via P2P/IPC
+nccl-test-worker-1:17:56 [3] NCCL INFO Ring 03 : 11[190] -> 10[180] via P2P/IPC
+nccl-test-worker-0:14:55 [0] NCCL INFO Ring 03 : 0[160] -> 4[1a0] via P2P/IPC
+nccl-test-worker-1:16:59 [2] NCCL INFO Ring 03 : 10[180] -> 9[170] via P2P/IPC
+nccl-test-worker-0:14:55 [0] NCCL INFO Ring 03 : 0[160] -> 3[190] via P2P/IPC
+nccl-test-worker-0:18:60 [4] NCCL INFO Ring 03 : 4[1a0] -> 0[160] via P2P/IPC
+nccl-test-worker-1:17:56 [3] NCCL INFO Ring 04 : 11[190] -> 10[180] via P2P/IPC
+nccl-test-worker-1:15:61 [1] NCCL INFO Ring 04 : 9[170] -> 13[1b0] via P2P/IPC
+nccl-test-worker-1:16:59 [2] NCCL INFO Ring 04 : 10[180] -> 9[170] via P2P/IPC
+nccl-test-worker-1:14:60 [0] NCCL INFO Ring 04 : 4[1a0] -> 8[160] [receive] via NET/AWS Libfabric/0
+nccl-test-worker-1:16:59 [2] NCCL INFO Ring 04 : 10[180] -> 11[190] via P2P/IPC
+nccl-test-worker-1:14:60 [0] NCCL INFO Ring 04 : 8[160] -> 11[190] via P2P/IPC
+nccl-test-worker-0:18:60 [4] NCCL INFO Ring 04 : 4[1a0] -> 8[160] [send] via NET/AWS Libfabric/0
+nccl-test-worker-1:17:56 [3] NCCL INFO Ring 04 : 0[160] -> 11[190] [receive] via NET/AWS Libfabric/0
+nccl-test-worker-1:21:54 [7] NCCL INFO Ring 03 : 15[1d0] -> 14[1c0] via P2P/IPC
+nccl-test-worker-1:21:54 [7] NCCL INFO Ring 03 : 15[1d0] -> 12[1a0] via P2P/IPC
+nccl-test-worker-1:20:57 [6] NCCL INFO Ring 03 : 14[1c0] -> 15[1d0] via P2P/IPC
+nccl-test-worker-1:21:54 [7] NCCL INFO Ring 04 : 15[1d0] -> 12[1a0] via P2P/IPC
+nccl-test-worker-1:17:56 [3] NCCL INFO Ring 04 : 11[190] -> 8[160] via P2P/IPC
+nccl-test-worker-1:14:60 [0] NCCL INFO Ring 05 : 8[160] -> 12[1a0] via P2P/IPC
+nccl-test-worker-1:19:58 [5] NCCL INFO Ring 03 : 6[1c0] -> 13[1b0] [receive] via NET/AWS Libfabric/3
+nccl-test-worker-1:18:55 [4] NCCL INFO Ring 04 : 12[1a0] -> 0[160] [send] via NET/AWS Libfabric/0
+nccl-test-worker-1:19:58 [5] NCCL INFO Ring 03 : 13[1b0] -> 14[1c0] via P2P/IPC
+nccl-test-worker-0:17:56 [3] NCCL INFO Ring 03 : 3[190] -> 2[180] via P2P/IPC
+nccl-test-worker-0:16:59 [2] NCCL INFO Ring 03 : 2[180] -> 1[170] via P2P/IPC
+nccl-test-worker-1:20:57 [6] NCCL INFO Ring 04 : 14[1c0] -> 15[1d0] via P2P/IPC
+nccl-test-worker-1:21:54 [7] NCCL INFO Ring 04 : 15[1d0] -> 14[1c0] via P2P/IPC
+nccl-test-worker-0:15:58 [1] NCCL INFO Ring 04 : 1[170] -> 5[1b0] via P2P/IPC
+nccl-test-worker-0:17:56 [3] NCCL INFO Ring 04 : 3[190] -> 2[180] via P2P/IPC
+nccl-test-worker-0:16:59 [2] NCCL INFO Ring 04 : 2[180] -> 1[170] via P2P/IPC
+nccl-test-worker-0:25:57 [6] NCCL INFO Ring 03 : 6[1c0] -> 7[1d0] via P2P/IPC
+nccl-test-worker-0:14:55 [0] NCCL INFO Ring 04 : 12[1a0] -> 0[160] [receive] via NET/AWS Libfabric/0
+nccl-test-worker-0:21:61 [5] NCCL INFO Ring 04 : 5[1b0] -> 6[1c0] via P2P/IPC
+nccl-test-worker-1:18:55 [4] NCCL INFO Ring 04 : 12[1a0] -> 15[1d0] via P2P/IPC
+nccl-test-worker-0:14:55 [0] NCCL INFO Ring 04 : 0[160] -> 3[190] via P2P/IPC
+nccl-test-worker-0:26:62 [7] NCCL INFO Ring 04 : 7[1d0] -> 4[1a0] via P2P/IPC
+nccl-test-worker-0:16:59 [2] NCCL INFO Ring 04 : 2[180] -> 3[190] via P2P/IPC
+nccl-test-worker-1:18:55 [4] NCCL INFO Ring 05 : 12[1a0] -> 15[1d0] via P2P/IPC
+nccl-test-worker-0:25:57 [6] NCCL INFO Ring 03 : 6[1c0] -> 13[1b0] [send] via NET/AWS Libfabric/3
+nccl-test-worker-0:15:58 [1] NCCL INFO Ring 04 : 1[170] -> 2[180] via P2P/IPC
+nccl-test-worker-0:18:60 [4] NCCL INFO Ring 04 : 4[1a0] -> 7[1d0] via P2P/IPC
+nccl-test-worker-0:17:56 [3] NCCL INFO Ring 04 : 3[190] -> 0[160] via P2P/IPC
+nccl-test-worker-1:19:58 [5] NCCL INFO Ring 04 : 13[1b0] -> 14[1c0] via P2P/IPC
+nccl-test-worker-0:16:59 [2] NCCL INFO Ring 05 : 2[180] -> 3[190] via P2P/IPC
+nccl-test-worker-0:25:57 [6] NCCL INFO Ring 04 : 6[1c0] -> 7[1d0] via P2P/IPC
+nccl-test-worker-1:15:61 [1] NCCL INFO Ring 04 : 9[170] -> 10[180] via P2P/IPC
+nccl-test-worker-0:14:55 [0] NCCL INFO Ring 04 : 0[160] -> 11[190] [send] via NET/AWS Libfabric/0
+nccl-test-worker-1:20:57 [6] NCCL INFO Ring 04 : 14[1c0] -> 13[1b0] via P2P/IPC
+nccl-test-worker-0:17:56 [3] NCCL INFO Ring 05 : 3[190] -> 0[160] via P2P/IPC
+nccl-test-worker-1:19:58 [5] NCCL INFO Ring 04 : 13[1b0] -> 9[170] via P2P/IPC
+nccl-test-worker-0:21:61 [5] NCCL INFO Ring 04 : 5[1b0] -> 1[170] via P2P/IPC
+nccl-test-worker-0:26:62 [7] NCCL INFO Ring 04 : 7[1d0] -> 6[1c0] via P2P/IPC
+nccl-test-worker-1:16:59 [2] NCCL INFO Ring 05 : 10[180] -> 11[190] via P2P/IPC
+nccl-test-worker-0:25:57 [6] NCCL INFO Ring 04 : 6[1c0] -> 5[1b0] via P2P/IPC
+nccl-test-worker-1:21:54 [7] NCCL INFO Ring 05 : 15[1d0] -> 14[1c0] via P2P/IPC
+nccl-test-worker-1:20:57 [6] NCCL INFO Ring 05 : 14[1c0] -> 13[1b0] via P2P/IPC
+nccl-test-worker-0:18:60 [4] NCCL INFO Ring 05 : 4[1a0] -> 7[1d0] via P2P/IPC
+nccl-test-worker-1:15:61 [1] NCCL INFO Ring 05 : 5[1b0] -> 9[170] [receive] via NET/AWS Libfabric/1
+nccl-test-worker-1:18:55 [4] NCCL INFO Ring 05 : 12[1a0] -> 8[160] via P2P/IPC
+nccl-test-worker-0:26:62 [7] NCCL INFO Ring 05 : 7[1d0] -> 6[1c0] via P2P/IPC
+nccl-test-worker-0:25:57 [6] NCCL INFO Ring 05 : 6[1c0] -> 5[1b0] via P2P/IPC
+nccl-test-worker-1:21:54 [7] NCCL INFO Ring 05 : 15[1d0] -> 12[1a0] via P2P/IPC
+nccl-test-worker-0:14:55 [0] NCCL INFO Ring 04 : 11[190] -> 0[160] [receive] via NET/AWS Libfabric/0
+nccl-test-worker-1:15:61 [1] NCCL INFO Ring 05 : 9[170] -> 10[180] via P2P/IPC
+nccl-test-worker-0:15:58 [1] NCCL INFO Ring 05 : 13[1b0] -> 1[170] [receive] via NET/AWS Libfabric/1
+nccl-test-worker-1:19:58 [5] NCCL INFO Ring 05 : 13[1b0] -> 1[170] [send] via NET/AWS Libfabric/1
+nccl-test-worker-1:20:57 [6] NCCL INFO Ring 05 : 14[1c0] -> 15[1d0] via P2P/IPC
+nccl-test-worker-0:15:58 [1] NCCL INFO Ring 05 : 1[170] -> 2[180] via P2P/IPC
+nccl-test-worker-1:19:58 [5] NCCL INFO Ring 05 : 13[1b0] -> 14[1c0] via P2P/IPC
+nccl-test-worker-0:26:62 [7] NCCL INFO Ring 05 : 7[1d0] -> 4[1a0] via P2P/IPC
+nccl-test-worker-0:21:61 [5] NCCL INFO Ring 05 : 5[1b0] -> 9[170] [send] via NET/AWS Libfabric/1
+nccl-test-worker-1:21:54 [7] NCCL INFO Ring 06 : 15[1d0] -> 12[1a0] via P2P/IPC
+nccl-test-worker-0:25:57 [6] NCCL INFO Ring 05 : 6[1c0] -> 7[1d0] via P2P/IPC
+nccl-test-worker-1:17:56 [3] NCCL INFO Ring 04 : 11[190] -> 0[160] [send] via NET/AWS Libfabric/0
+nccl-test-worker-1:19:58 [5] NCCL INFO Ring 06 : 13[1b0] -> 14[1c0] via P2P/IPC
+nccl-test-worker-0:16:59 [2] NCCL INFO Ring 05 : 2[180] -> 1[170] via P2P/IPC
+nccl-test-worker-0:21:61 [5] NCCL INFO Ring 05 : 5[1b0] -> 6[1c0] via P2P/IPC
+nccl-test-worker-0:21:61 [5] NCCL INFO Ring 06 : 5[1b0] -> 6[1c0] via P2P/IPC
+nccl-test-worker-0:15:58 [1] NCCL INFO Ring 05 : 1[170] -> 10[180] [send] via NET/AWS Libfabric/1
+nccl-test-worker-0:14:55 [0] NCCL INFO Ring 05 : 0[160] -> 4[1a0] via P2P/IPC
+nccl-test-worker-1:17:56 [3] NCCL INFO Ring 05 : 11[190] -> 8[160] via P2P/IPC
+nccl-test-worker-1:20:57 [6] NCCL INFO Ring 06 : 14[1c0] -> 2[180] [send] via NET/AWS Libfabric/2
+nccl-test-worker-0:25:57 [6] NCCL INFO Ring 06 : 6[1c0] -> 10[180] [send] via NET/AWS Libfabric/2
+nccl-test-worker-0:17:56 [3] NCCL INFO Ring 05 : 3[190] -> 2[180] via P2P/IPC
+nccl-test-worker-1:14:60 [0] NCCL INFO Ring 05 : 8[160] -> 11[190] via P2P/IPC
+nccl-test-worker-1:17:56 [3] NCCL INFO Ring 05 : 11[190] -> 10[180] via P2P/IPC
+nccl-test-worker-0:18:60 [4] NCCL INFO Ring 05 : 4[1a0] -> 0[160] via P2P/IPC
+nccl-test-worker-0:14:55 [0] NCCL INFO Ring 05 : 0[160] -> 3[190] via P2P/IPC
+nccl-test-worker-1:18:55 [4] NCCL INFO Ring 06 : 12[1a0] -> 8[160] via P2P/IPC
+nccl-test-worker-1:16:59 [2] NCCL INFO Ring 05 : 1[170] -> 10[180] [receive] via NET/AWS Libfabric/1
+nccl-test-worker-1:14:60 [0] NCCL INFO Ring 06 : 8[160] -> 9[170] via P2P/IPC
+nccl-test-worker-0:26:62 [7] NCCL INFO Ring 06 : 7[1d0] -> 4[1a0] via P2P/IPC
+nccl-test-worker-1:17:56 [3] NCCL INFO Ring 06 : 11[190] -> 15[1d0] via P2P/IPC
+nccl-test-worker-0:17:56 [3] NCCL INFO Ring 06 : 3[190] -> 7[1d0] via P2P/IPC
+nccl-test-worker-0:18:60 [4] NCCL INFO Ring 06 : 4[1a0] -> 0[160] via P2P/IPC
+nccl-test-worker-1:18:55 [4] NCCL INFO Ring 06 : 12[1a0] -> 15[1d0] via P2P/IPC
+nccl-test-worker-0:16:59 [2] NCCL INFO Ring 06 : 14[1c0] -> 2[180] [receive] via NET/AWS Libfabric/2
+nccl-test-worker-0:14:55 [0] NCCL INFO Ring 06 : 0[160] -> 1[170] via P2P/IPC
+nccl-test-worker-1:20:57 [6] NCCL INFO Ring 06 : 14[1c0] -> 15[1d0] via P2P/IPC
+nccl-test-worker-0:16:59 [2] NCCL INFO Ring 06 : 2[180] -> 3[190] via P2P/IPC
+nccl-test-worker-1:20:57 [6] NCCL INFO Ring 06 : 14[1c0] -> 13[1b0] via P2P/IPC
+nccl-test-worker-0:16:59 [2] NCCL INFO Ring 06 : 2[180] -> 1[170] via P2P/IPC
+nccl-test-worker-0:17:56 [3] NCCL INFO Ring 06 : 3[190] -> 2[180] via P2P/IPC
+nccl-test-worker-1:21:54 [7] NCCL INFO Ring 06 : 4[1a0] -> 15[1d0] [receive] via NET/AWS Libfabric/2
+nccl-test-worker-0:18:60 [4] NCCL INFO Ring 06 : 4[1a0] -> 15[1d0] [send] via NET/AWS Libfabric/2
+nccl-test-worker-1:16:59 [2] NCCL INFO Ring 05 : 10[180] -> 9[170] via P2P/IPC
+nccl-test-worker-1:15:61 [1] NCCL INFO Ring 06 : 9[170] -> 13[1b0] via P2P/IPC
+nccl-test-worker-1:14:60 [0] NCCL INFO Ring 06 : 8[160] -> 11[190] via P2P/IPC
+nccl-test-worker-1:19:58 [5] NCCL INFO Ring 06 : 13[1b0] -> 9[170] via P2P/IPC
+nccl-test-worker-0:15:58 [1] NCCL INFO Ring 05 : 10[180] -> 1[170] [receive] via NET/AWS Libfabric/1
+nccl-test-worker-1:16:59 [2] NCCL INFO Ring 05 : 10[180] -> 1[170] [send] via NET/AWS Libfabric/1
+nccl-test-worker-0:15:58 [1] NCCL INFO Ring 06 : 1[170] -> 5[1b0] via P2P/IPC
+nccl-test-worker-0:14:55 [0] NCCL INFO Ring 06 : 0[160] -> 3[190] via P2P/IPC
+nccl-test-worker-1:16:59 [2] NCCL INFO Ring 06 : 6[1c0] -> 10[180] [receive] via NET/AWS Libfabric/2
+nccl-test-worker-0:21:61 [5] NCCL INFO Ring 06 : 5[1b0] -> 1[170] via P2P/IPC
+nccl-test-worker-1:16:59 [2] NCCL INFO Ring 06 : 10[180] -> 11[190] via P2P/IPC
+nccl-test-worker-0:17:56 [3] NCCL INFO Ring 06 : 3[190] -> 0[160] via P2P/IPC
+nccl-test-worker-1:16:59 [2] NCCL INFO Ring 06 : 10[180] -> 9[170] via P2P/IPC
+nccl-test-worker-1:17:56 [3] NCCL INFO Ring 06 : 11[190] -> 10[180] via P2P/IPC
+nccl-test-worker-0:25:57 [6] NCCL INFO Ring 06 : 6[1c0] -> 7[1d0] via P2P/IPC
+nccl-test-worker-0:15:58 [1] NCCL INFO Ring 06 : 1[170] -> 2[180] via P2P/IPC
+nccl-test-worker-1:15:61 [1] NCCL INFO Ring 06 : 9[170] -> 10[180] via P2P/IPC
+nccl-test-worker-1:17:56 [3] NCCL INFO Ring 06 : 11[190] -> 8[160] via P2P/IPC
+nccl-test-worker-0:14:55 [0] NCCL INFO Ring 07 : 0[160] -> 1[170] via P2P/IPC
+nccl-test-worker-0:25:57 [6] NCCL INFO Ring 06 : 6[1c0] -> 5[1b0] via P2P/IPC
+nccl-test-worker-0:17:56 [3] NCCL INFO Ring 07 : 15[1d0] -> 3[190] [receive] via NET/AWS Libfabric/3
+nccl-test-worker-0:26:62 [7] NCCL INFO Ring 06 : 7[1d0] -> 6[1c0] via P2P/IPC
+nccl-test-worker-0:16:59 [2] NCCL INFO Ring 07 : 2[180] -> 6[1c0] via P2P/IPC
+nccl-test-worker-1:19:58 [5] NCCL INFO Ring 07 : 13[1b0] -> 12[1a0] via P2P/IPC
+nccl-test-worker-1:16:59 [2] NCCL INFO Ring 07 : 10[180] -> 14[1c0] via P2P/IPC
+nccl-test-worker-1:14:60 [0] NCCL INFO Ring 07 : 8[160] -> 9[170] via P2P/IPC
+nccl-test-worker-1:15:61 [1] NCCL INFO Ring 07 : 9[170] -> 10[180] via P2P/IPC
+nccl-test-worker-0:15:58 [1] NCCL INFO Ring 07 : 1[170] -> 2[180] via P2P/IPC
+nccl-test-worker-0:17:56 [3] NCCL INFO Ring 07 : 3[190] -> 0[160] via P2P/IPC
+nccl-test-worker-1:17:56 [3] NCCL INFO Ring 07 : 7[1d0] -> 11[190] [receive] via NET/AWS Libfabric/3
+nccl-test-worker-1:17:56 [3] NCCL INFO Ring 07 : 11[190] -> 8[160] via P2P/IPC
+nccl-test-worker-0:21:61 [5] NCCL INFO Ring 07 : 5[1b0] -> 4[1a0] via P2P/IPC
+nccl-test-worker-1:14:60 [0] NCCL INFO Ring 07 : 8[160] -> 12[1a0] via P2P/IPC
+nccl-test-worker-0:14:55 [0] NCCL INFO Ring 07 : 0[160] -> 4[1a0] via P2P/IPC
+nccl-test-worker-0:25:57 [6] NCCL INFO Ring 07 : 6[1c0] -> 5[1b0] via P2P/IPC
+nccl-test-worker-0:18:60 [4] NCCL INFO Ring 06 : 15[1d0] -> 4[1a0] [receive] via NET/AWS Libfabric/2
+nccl-test-worker-0:16:59 [2] NCCL INFO Ring 07 : 2[180] -> 3[190] via P2P/IPC
+nccl-test-worker-0:18:60 [4] NCCL INFO Ring 06 : 4[1a0] -> 7[1d0] via P2P/IPC
+nccl-test-worker-1:21:54 [7] NCCL INFO Ring 06 : 15[1d0] -> 14[1c0] via P2P/IPC
+nccl-test-worker-1:18:55 [4] NCCL INFO Ring 07 : 12[1a0] -> 15[1d0] via P2P/IPC
+nccl-test-worker-1:20:57 [6] NCCL INFO Ring 07 : 14[1c0] -> 13[1b0] via P2P/IPC
+nccl-test-worker-0:26:62 [7] NCCL INFO Ring 07 : 7[1d0] -> 11[190] [send] via NET/AWS Libfabric/3
+nccl-test-worker-1:16:59 [2] NCCL INFO Ring 07 : 10[180] -> 11[190] via P2P/IPC
+nccl-test-worker-1:21:54 [7] NCCL INFO Ring 06 : 15[1d0] -> 4[1a0] [send] via NET/AWS Libfabric/2
+nccl-test-worker-1:19:58 [5] NCCL INFO Ring 07 : 13[1b0] -> 14[1c0] via P2P/IPC
+nccl-test-worker-1:17:56 [3] NCCL INFO Ring 07 : 11[190] -> 10[180] via P2P/IPC
+nccl-test-worker-1:16:59 [2] NCCL INFO Ring 07 : 10[180] -> 9[170] via P2P/IPC
+nccl-test-worker-1:15:61 [1] NCCL INFO comm 0x147e68000dc0 rank 9 nranks 16 cudaDev 1 busId 170 - Init COMPLETE
+nccl-test-worker-0:18:60 [4] NCCL INFO Ring 07 : 4[1a0] -> 7[1d0] via P2P/IPC
+nccl-test-worker-1:16:59 [2] NCCL INFO comm 0x154c40000dc0 rank 10 nranks 16 cudaDev 2 busId 180 - Init COMPLETE
+nccl-test-worker-1:20:57 [6] NCCL INFO Ring 07 : 5[1b0] -> 14[1c0] [receive] via NET/AWS Libfabric/3
+nccl-test-worker-0:26:62 [7] NCCL INFO Ring 07 : 7[1d0] -> 6[1c0] via P2P/IPC
+nccl-test-worker-0:26:62 [7] NCCL INFO Ring 07 : 7[1d0] -> 4[1a0] via P2P/IPC
+nccl-test-worker-0:21:61 [5] NCCL INFO Ring 07 : 5[1b0] -> 14[1c0] [send] via NET/AWS Libfabric/3
+nccl-test-worker-0:25:57 [6] NCCL INFO Ring 07 : 6[1c0] -> 7[1d0] via P2P/IPC
+nccl-test-worker-1:18:55 [4] NCCL INFO Ring 07 : 12[1a0] -> 8[160] via P2P/IPC
+nccl-test-worker-0:18:60 [4] NCCL INFO Ring 07 : 4[1a0] -> 0[160] via P2P/IPC
+nccl-test-worker-1:21:54 [7] NCCL INFO Ring 07 : 15[1d0] -> 3[190] [send] via NET/AWS Libfabric/3
+nccl-test-worker-1:14:60 [0] NCCL INFO Ring 07 : 8[160] -> 11[190] via P2P/IPC
+nccl-test-worker-0:14:55 [0] NCCL INFO Ring 07 : 0[160] -> 3[190] via P2P/IPC
+nccl-test-worker-1:17:56 [3] NCCL INFO comm 0x14e6cc000dc0 rank 11 nranks 16 cudaDev 3 busId 190 - Init COMPLETE
+nccl-test-worker-0:26:62 [7] NCCL INFO comm 0x1486a8000dc0 rank 7 nranks 16 cudaDev 7 busId 1d0 - Init COMPLETE
+nccl-test-worker-1:21:54 [7] NCCL INFO Ring 07 : 15[1d0] -> 14[1c0] via P2P/IPC
+nccl-test-worker-1:14:60 [0] NCCL INFO comm 0x14c530000dc0 rank 8 nranks 16 cudaDev 0 busId 160 - Init COMPLETE
+nccl-test-worker-0:18:60 [4] NCCL INFO comm 0x146fd0000dc0 rank 4 nranks 16 cudaDev 4 busId 1a0 - Init COMPLETE
+nccl-test-worker-1:21:54 [7] NCCL INFO Ring 07 : 15[1d0] -> 12[1a0] via P2P/IPC
+nccl-test-worker-0:17:56 [3] NCCL INFO Ring 07 : 3[190] -> 2[180] via P2P/IPC
+nccl-test-worker-0:16:59 [2] NCCL INFO Ring 07 : 2[180] -> 1[170] via P2P/IPC
+nccl-test-worker-1:18:55 [4] NCCL INFO comm 0x15010c000dc0 rank 12 nranks 16 cudaDev 4 busId 1a0 - Init COMPLETE
+nccl-test-worker-0:14:55 [0] NCCL INFO comm 0x148c3c000dc0 rank 0 nranks 16 cudaDev 0 busId 160 - Init COMPLETE
+nccl-test-worker-0:15:58 [1] NCCL INFO comm 0x152da0000dc0 rank 1 nranks 16 cudaDev 1 busId 170 - Init COMPLETE
+nccl-test-worker-0:17:56 [3] NCCL INFO comm 0x14873c000dc0 rank 3 nranks 16 cudaDev 3 busId 190 - Init COMPLETE
+nccl-test-worker-0:16:59 [2] NCCL INFO comm 0x152390000dc0 rank 2 nranks 16 cudaDev 2 busId 180 - Init COMPLETE
+#
+#                                                     out-of-place                       in-place          
+#       size         count    type   redop     time   algbw   busbw  error     time   algbw   busbw  error
+#        (B)    (elements)                     (us)  (GB/s)  (GB/s)            (us)  (GB/s)  (GB/s)       
+nccl-test-worker-0:14:14 [0] NCCL INFO Launch mode Parallel
+nccl-test-worker-0:21:61 [5] NCCL INFO Ring 07 : 14[1c0] -> 5[1b0] [receive] via NET/AWS Libfabric/3
+nccl-test-worker-0:21:61 [5] NCCL INFO Ring 07 : 5[1b0] -> 6[1c0] via P2P/IPC
+nccl-test-worker-0:25:57 [6] NCCL INFO comm 0x151558000dc0 rank 6 nranks 16 cudaDev 6 busId 1c0 - Init COMPLETE
+nccl-test-worker-1:20:57 [6] NCCL INFO Ring 07 : 14[1c0] -> 15[1d0] via P2P/IPC
+nccl-test-worker-1:19:58 [5] NCCL INFO comm 0x1490c0000dc0 rank 13 nranks 16 cudaDev 5 busId 1b0 - Init COMPLETE
+nccl-test-worker-1:21:54 [7] NCCL INFO comm 0x1546c0000dc0 rank 15 nranks 16 cudaDev 7 busId 1d0 - Init COMPLETE
+nccl-test-worker-1:20:57 [6] NCCL INFO Ring 07 : 14[1c0] -> 5[1b0] [send] via NET/AWS Libfabric/3
+nccl-test-worker-1:20:57 [6] NCCL INFO comm 0x152108000dc0 rank 14 nranks 16 cudaDev 6 busId 1c0 - Init COMPLETE
+nccl-test-worker-0:21:61 [5] NCCL INFO comm 0x14d258000dc0 rank 5 nranks 16 cudaDev 5 busId 1b0 - Init COMPLETE
+           8             2   float     sum    152.5    0.00    0.00  2e-07    151.9    0.00    0.00  1e-07
+          16             4   float     sum    152.1    0.00    0.00  1e-07    154.6    0.00    0.00  1e-07
+          32             8   float     sum    154.8    0.00    0.00  1e-07    154.4    0.00    0.00  1e-07
+          64            16   float     sum    153.9    0.00    0.00  1e-07    154.0    0.00    0.00  1e-07
+         128            32   float     sum    154.1    0.00    0.00  1e-07    154.0    0.00    0.00  1e-07
+         256            64   float     sum    154.3    0.00    0.00  1e-07    154.5    0.00    0.00  1e-07
+         512           128   float     sum    152.4    0.00    0.01  1e-07    151.7    0.00    0.01  1e-07
+        1024           256   float     sum    151.5    0.01    0.01  2e-07    152.4    0.01    0.01  2e-07
+        2048           512   float     sum    152.4    0.01    0.03  5e-07    152.5    0.01    0.03  5e-07
+        4096          1024   float     sum    153.8    0.03    0.05  5e-07    153.7    0.03    0.05  5e-07
+        8192          2048   float     sum    157.2    0.05    0.10  5e-07    157.3    0.05    0.10  5e-07
+       16384          4096   float     sum    161.5    0.10    0.19  5e-07    160.9    0.10    0.19  5e-07
+       32768          8192   float     sum    169.8    0.19    0.36  5e-07    171.5    0.19    0.36  5e-07
+       65536         16384   float     sum    190.4    0.34    0.65  5e-07    190.5    0.34    0.65  5e-07
+      131072         32768   float     sum    222.8    0.59    1.10  5e-07    221.1    0.59    1.11  5e-07
+      262144         65536   float     sum    270.0    0.97    1.82  5e-07    269.4    0.97    1.82  5e-07
+      524288        131072   float     sum    481.2    1.09    2.04  5e-07    481.8    1.09    2.04  5e-07
+     1048576        262144   float     sum    827.0    1.27    2.38  5e-07    829.2    1.26    2.37  5e-07
+     2097152        524288   float     sum   1069.8    1.96    3.68  5e-07   1059.9    1.98    3.71  5e-07
+     4194304       1048576   float     sum   1458.1    2.88    5.39  5e-07   1453.2    2.89    5.41  5e-07
+     8388608       2097152   float     sum   2444.2    3.43    6.43  5e-07   2441.0    3.44    6.44  5e-07
+    16777216       4194304   float     sum   5034.1    3.33    6.25  5e-07   5029.9    3.34    6.25  5e-07
+    33554432       8388608   float     sum    10686    3.14    5.89  5e-07    10702    3.14    5.88  5e-07
+    67108864      16777216   float     sum    22108    3.04    5.69  5e-07    22129    3.03    5.69  5e-07
+   134217728      33554432   float     sum    44827    2.99    5.61  5e-07    44797    3.00    5.62  5e-07
+   268435456      67108864   float     sum    93936    2.86    5.36  5e-07    93839    2.86    5.36  5e-07
+   536870912     134217728   float     sum   185383    2.90    5.43  5e-07   185230    2.90    5.43  5e-07
+  1073741824     268435456   float     sum   367759    2.92    5.47  5e-07   368047    2.92    5.47  5e-07
+# Out of bounds values : 0 OK
+# Avg bus bandwidth    : 2.28496 
+#
