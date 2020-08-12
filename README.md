@@ -218,8 +218,16 @@ For running `NCCL-test` to verify EFA is working in container or pod level,  the
 On node instance with single EFA device, we would mount EFA device as a [`hostPath`](https://kubernetes.io/docs/concepts/storage/volumes/#hostpath) volume to Kubernetes, the driver: 
 `aws-efa-installer`  (as Step 4 installation above) is required to be verified installed successfully in node instance, or the EFA device won’t be mounted correctly in Kubernetes. 
 
+## Step 6: Install Kubeflow
+To run this example we will need to install the Kubeflow MPI Operator:
 
-## Step 6: Run Multi-node NCCL Performance Test** ** on EKS cluster for verifying EFA
+```
+git clone https://github.com/kubeflow/mpi-operator
+cd mpi-operator
+kubectl create -f deploy/v1alpha2/mpi-operator.yaml
+```
+
+## Step 7: Run Multi-node NCCL Performance Test** ** on EKS cluster for verifying EFA
 
 To check NCCL Performance with EFA, run the standard NCCL Performance test that is available on the official [NCCL-Tests Repo](https://github.com/NVIDIA/nccl-tests.git). The Dockerfile comes with this test already built for both CUDA 10.2. You can similarly run Kubernetes job with EFA.
 
