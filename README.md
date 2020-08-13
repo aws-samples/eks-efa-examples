@@ -13,12 +13,12 @@ This document is assuming user has basic knowledge on [Kubernetes](https://kuber
 
 ## Abstract
 
-This document would introduce user to create a EKS cluster with `P3dn.24xlarge` nodegroup with EFA adoption, to run a NCCL-Tests for Multi-node NCCL Performance via EFA
+This document will introduce the user to create an EKS cluster with `P3dn.24xlarge` backed nodegroup with EFA, to run an example NCCL-Test for Multi-node NCCL Performance via EFA. This workflow will also provide a template for distributed deep learning training on EKS using EFA.
 
 
 ## Step 1: Create EKS cluster
 
-Create an empty EKS cluster via `eksctl`,  because current `eksctl` haven’t support to create EFA supported nodegroup,  in the later steps, the nodegroup would be created then join the EKS cluster.
+Create an empty EKS cluster via `eksctl`, at the moment, `eksctl` doesnt have support to create EFA supported nodegroup,  in the later steps, the nodegroup would be created then join the EKS cluster.
 
 
 ```
@@ -27,8 +27,6 @@ eksctl create cluster --name=${cluster_name} \
  --ssh-access --ssh-public-key ~/.ssh/id_rsa.pub \
  --without-nodegroup
 ```
-
-
 
 ## Step 2: Prepare an EFA-enable security group
 
