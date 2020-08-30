@@ -225,12 +225,13 @@ cd mpi-operator
 kubectl create -f deploy/v1alpha2/mpi-operator.yaml
 ```
 
-## Step 7: Run Multi-node NCCL Performance Test** ** on EKS cluster for verifying EFA
+
+## Step 7: Run Multi-node NCCL Performance Test on EKS cluster for verifying EFA
 
 To check NCCL Performance with EFA, run the standard NCCL Performance test that is available on the official [NCCL-Tests Repo](https://github.com/NVIDIA/nccl-tests.git). The Dockerfile comes with this test already built for both CUDA 10.2. You can similarly run Kubernetes job with EFA.
 
 **HugePages**
-The most important modification required in Kubernetes job for adopting EFA is configuring and managing[Huge Pages](https://quip-amazon.com/LDcBAcYMNQ6P/Getting-started-with-EFA-on-EKS#XcF9CAMJanS) as a schedulable resource in the cluster. 
+The most important modification required in Kubernetes job for adopting EFA is configuring and managing[Huge Pages](https://kubernetes.io/docs/tasks/manage-hugepages/scheduling-hugepages/) as a schedulable resource in the cluster. 
 
 The example to run 2 node NCCL Performance Test  is `example-jobs/mpi-nccl-test.yaml`.  In the example NCCL-test job, each worker requested 8 gpus which would allow cluster to allocate two nodes in two p3dn instances,  and also 256Mi hugepages-2Mi and 8000Mi.
 
