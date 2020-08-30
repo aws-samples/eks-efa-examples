@@ -13,12 +13,12 @@ This document is assuming user has basic knowledge on [Kubernetes](https://kuber
 
 ## Abstract
 
-This document would introduce user to create a EKS cluster with `P3dn.24xlarge` nodegroup with EFA adoption, to run a NCCL-Tests for Multi-node NCCL Performance via EFA
+This document will introduce the user to create an EKS cluster with `P3dn.24xlarge` backed nodegroup with EFA, to run an example NCCL-Test for Multi-node NCCL Performance via EFA. This workflow will also provide a template for distributed deep learning training on EKS using EFA.
 
 
 ## Step 1: Create EKS cluster
 
-Create an empty EKS cluster via `eksctl`,  because current `eksctl` haven’t support to create EFA supported nodegroup,  in the later steps, the nodegroup would be created then join the EKS cluster.
+Create an empty EKS cluster via `eksctl`, at the moment, `eksctl` doesnt have support to create EFA supported nodegroup,  in the later steps, the nodegroup would be created then join the EKS cluster.
 
 
 ```
@@ -27,8 +27,6 @@ eksctl create cluster --name=${cluster_name} \
  --ssh-access --ssh-public-key ~/.ssh/id_rsa.pub \
  --without-nodegroup
 ```
-
-
 
 ## Step 2: Prepare an EFA-enable security group
 
@@ -218,8 +216,17 @@ For running `NCCL-test` to verify EFA is working in container or pod level,  the
 On node instance with single EFA device, we would mount EFA device as a [`hostPath`](https://kubernetes.io/docs/concepts/storage/volumes/#hostpath) volume to Kubernetes, the driver: 
 `aws-efa-installer`  (as Step 4 installation above) is required to be verified installed successfully in node instance, or the EFA device won’t be mounted correctly in Kubernetes. 
 
+## Step 6: Install Kubeflow
+To run this example we will need to install the Kubeflow MPI Operator:
 
-## Step 6: Run Multi-node NCCL Performance Test on EKS cluster for verifying EFA
+```
+git clone https://github.com/kubeflow/mpi-operator
+cd mpi-operator
+kubectl create -f deploy/v1alpha2/mpi-operator.yaml
+```
+
+
+## Step 7: Run Multi-node NCCL Performance Test on EKS cluster for verifying EFA
 
 To check NCCL Performance with EFA, run the standard NCCL Performance test that is available on the official [NCCL-Tests Repo](https://github.com/NVIDIA/nccl-tests.git). The Dockerfile comes with this test already built for both CUDA 10.2. You can similarly run Kubernetes job with EFA.
 
