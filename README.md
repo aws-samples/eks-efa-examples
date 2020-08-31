@@ -18,8 +18,7 @@ This document will introduce the user to create an EKS cluster with `P3dn.24xlar
 
 ## Step 1: Create EKS cluster
 
-Create an empty EKS cluster via `eksctl`, at the moment, `eksctl` doesnt have support to create EFA supported nodegroup,  in the later steps, the nodegroup would be created then join the EKS cluster.
-
+Create an empty EKS cluster via `eksctl`, at the moment, `eksctl` doesnt have support to create EFA supported nodegroup. In the later steps, the nodegroup would be created then join the EKS cluster.
 
 ```
 eksctl create cluster --name=${cluster_name} \
@@ -27,6 +26,7 @@ eksctl create cluster --name=${cluster_name} \
  --ssh-access --ssh-public-key ~/.ssh/id_rsa.pub \
  --without-nodegroup
 ```
+
 
 ## Step 2: Prepare an EFA-enable security group
 
@@ -42,20 +42,18 @@ On the **Inbound** and **Outbound** tabs, do the following:
 * Paste the security group ID that you copied into the field (EFA-enable security group you created).
 * Choose **Save**.
 
+
 ## Step 3: Launch EKS nodes into cluster
 
+Follow steps in [Launching self-managed Amazon Linux nodes](https://docs.aws.amazon.com/eks/latest/userguide/launch-workers.html) to create EFA enable node group.
 
-Follow steps in `self-managed nodes` https://docs.aws.amazon.com/eks/latest/userguide/launch-workers.html to launch EKS nodes into cluster.
+Currently, you need to use `AWS Managed Console` to create node group, we will support in eksctl for fast and easy bootstrap in the future.
 
-Node in step:  **Specify Template,** select **Upload Template, **then use nodegroup template in `assets/efa-nodegroup.yaml`
-
-In `ClusterControlPlaneSecurityGroup`, use the control plan security group (the name contains “control plan”) which is automatically created by EKS when user created via eksctl.
-
-In `NodeImageIdSSMParam`, ensure it is using Amazon EKS-optimized accelerated AMI:  `/aws/service/eks/optimized-ami/1.16/amazon-linux-2-gpu/recommended/image_id.`
-
-In `NodeAutoScalingGroupDesiredCapacity`, it recommended `2.`
-
-In `Subnetid`, it is recommended to put in a public subnet in us-west-2c  in the VPC where EKS cluster located in, because `us-west-2c` has ample p3dn instances.
+- **Specify Template**, select **Upload Template** then use nodegroup template in [assets/efa-nodegroup.yaml](assets/efa-nodegroup.yaml)
+- In `ClusterControlPlaneSecurityGroup`, use the control plan security group (the name contains `control plan`) which is automatically created by EKS when user created via eksctl.
+- In `NodeImageIdSSMParam`, ensure it is using Amazon EKS-optimized accelerated AMI: `/aws/service/eks/optimized-ami/1.16/amazon-linux-2-gpu/recommended/image_id`.
+- In `NodeAutoScalingGroupDesiredCapacity`, it is recommended to have `2` nodes.
+- In `Subnetid`, it is recommended to put in a public subnet.
 
 Waiting for stack creation finished.
 
@@ -94,7 +92,6 @@ Apply the configuration. This command may take a few minutes to finish.
 kubectl apply -f aws-auth-cm.yaml
 ```
 
-
 Watch the status of your nodes and wait for them to reach the `Ready` status.
 
 ```
@@ -111,10 +108,10 @@ ip-192-168-2-54.us-west-2.compute.internal Ready <none> 4d21h v1.16.8-eks-e16311
 
 `p3dn` is a GPU instance type and the Amazon EKS-optimized accelerated AMI, you must apply the [NVIDIA device plugin for Kubernetes](https://github.com/NVIDIA/k8s-device-plugin) as a DaemonSet on your cluster with the following command. 
 
-GPU device plugin is recommended for NCCL-test would run later.
+Nvidia GPU device plugin is recommended for NCCL-test which runs later.
 
 ```
-kubectl apply -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/1.0.0-beta/nvidia-device-plugin.yml
+kubectl apply -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/v0.6.0/nvidia-device-plugin.yml
 ```
 
 
@@ -127,7 +124,6 @@ Go to EC2 Dashboard - AWS Console, add the EFA-enable security group in Step2 to
 
 * For **Type**, it is **All traffic**
 * For **Source**, it is **Custom, with** the security group ID that you copied into the field from control plan security group created with EKS cluster and `EFA-enabled group` created in Step 2.
-
 
 
 ## Step 4: Verify EFA is enabled in nodes
@@ -164,9 +160,7 @@ provider: efa;ofi_rxd
     protocol: FI_PROTO_RXD
 ```
 
-## 
-
-If the command get outputs unexpected, try to reinstall EFA drivers in node (instance), this installation is already included in bootstramp in the nodegroup template used above:
+If the command get outputs unexpected, try to reinstall EFA drivers in EC2 node, this installation is already included in bootstramp in the nodegroup template used above:
 
 ```
 #! /bin/bash
@@ -175,8 +169,6 @@ If the command get outputs unexpected, try to reinstall EFA drivers in node (ins
 EFA_VERSION=1.9.3 # or latest
 
 # Download and install EFA driver
-cd
-
 curl -O  https://s3-us-west-2.amazonaws.com/aws-efa-installer/aws-efa-installer-${EFA_VERSION}.tar.gz
 
 tar -xf aws-efa-installer-${EFA_VERSION}.tar.gz
@@ -190,11 +182,9 @@ sudo sed -i 's/kernel.yama.ptrace_scope = 1/kernel.yama.ptrace_scope = 0/g' \
 ```
 
 
-
 ## Step 5: Build Dockerfile
 
-
-Please use the Dockerfile:   `/dockerfile/Dockerfile-NCCL-test-for-EKS-EFA-v1.0` to build the image, which contains essentials for adopting EFA in pod, for Multi-node NCCL Performance Test
+Please use the Dockerfile: `/dockerfile/Dockerfile-NCCL-test-for-EKS-EFA-v1.0` to build the image, which contains essentials for adopting EFA in pod, for Multi-node NCCL Performance Test
 
 **Note for users who need to build self-image for further work:**
 
@@ -214,9 +204,10 @@ For running `NCCL-test` to verify EFA is working in container or pod level,  the
 
 **In Node (instance)**
 On node instance with single EFA device, we would mount EFA device as a [`hostPath`](https://kubernetes.io/docs/concepts/storage/volumes/#hostpath) volume to Kubernetes, the driver: 
-`aws-efa-installer`  (as Step 4 installation above) is required to be verified installed successfully in node instance, or the EFA device won’t be mounted correctly in Kubernetes. 
+`aws-efa-installer`  (as Step 4 installation above) is required to be verified installed successfully in node instance, or the EFA device won’t be mounted correctly in Kubernetes.
 
-## Step 6: Install Kubeflow
+
+## Step 6: Install Kubeflow MPI-Operator
 To run this example we will need to install the Kubeflow MPI Operator:
 
 ```
@@ -231,24 +222,21 @@ kubectl create -f deploy/v1alpha2/mpi-operator.yaml
 To check NCCL Performance with EFA, run the standard NCCL Performance test that is available on the official [NCCL-Tests Repo](https://github.com/NVIDIA/nccl-tests.git). The Dockerfile comes with this test already built for both CUDA 10.2. You can similarly run Kubernetes job with EFA.
 
 **HugePages**
-The most important modification required in Kubernetes job for adopting EFA is configuring and managing[Huge Pages](https://kubernetes.io/docs/tasks/manage-hugepages/scheduling-hugepages/) as a schedulable resource in the cluster. 
+The most important modification required in Kubernetes job for adopting EFA is configuring and managing [Huge Pages](https://kubernetes.io/docs/tasks/manage-hugepages/scheduling-hugepages/) as a schedulable resource in the cluster. Currently, nodes with EFA support pre-allocates 5128 2M Huge Pages.
 
 The example to run 2 node NCCL Performance Test  is `example-jobs/mpi-nccl-test.yaml`.  In the example NCCL-test job, each worker requested 8 gpus which would allow cluster to allocate two nodes in two p3dn instances,  and also 256Mi hugepages-2Mi and 8000Mi.
 
 Note: 
 
-- Under`example-jobs`, there are multiple examples using EFA with EKS jobs, 
-
+- Under`example-jobs`, there are multiple examples using EFA with EKS jobs
 - Under `logs` , there are several logs from NCCL-test jobs and Tensorflow-benchmark jobs with different parameters
 
 Create NCCL-tests job via command:
-
 
 ```
 $ kubectl create -f mpi-nccl-debug.yaml
 mpijob.kubeflow.org/nccl-test-debug created
 ```
-
 
 Check status of pods via command:
 
@@ -268,15 +256,16 @@ The whole log you would read should be similar as below, the communication throu
 ```
 ip-192-168-2-54:14:20 [0] NCCL INFO Ring 01 : 0[160] -> 1[160] [send] via NET/AWS Libfabric/0
 ip-192-168-16-52:14:19 [0] NCCL INFO Ring 01 : 0[160] -> 1[160] [receive] via NET/AWS Libfabric/0
-
 ```
-
 
 The whole log returned by command:
 
 ```
 $ kubectl logs -f nccl-test-debug-launcher-cnxb8
 ```
+
+<details>
+<summary>Click to check details logs</summary>
 
 ```
 + POD_NAME=nccl-test-debug-worker-0
@@ -382,6 +371,7 @@ ip-192-168-2-54:14:14 [0] NCCL INFO Launch mode Parallel
 # Out of bounds values : 0 OK
 # Avg bus bandwidth    : 1.16154
 ```
+</details>
 
 ## Security
 
